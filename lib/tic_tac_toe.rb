@@ -1,8 +1,8 @@
 require_relative "./cli"
 
 class TicTacToe
-  def printWelcome
+  def print_welcome
     welcome_message = "Welcome to a game of Tic-Tac-Toe!"
-    CLI.putString welcome_message
+    CLI.put_string welcome_message
   end
 end

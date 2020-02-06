@@ -1,5 +1,5 @@
 class Board
-  def getBoard
+  def get_board
     return [
       [nil, nil, nil],
       [nil, nil, nil],

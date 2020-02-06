@@ -1,5 +1,5 @@
 class CLI
-  def self.putString(text)
+  def self.put_string(text)
     puts text
   end
 
