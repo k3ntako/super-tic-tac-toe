@@ -10,6 +10,11 @@ class TicTacToe
     @board = Board.new
   end
 
+  def start
+    print_welcome
+    print_board
+  end
+
   def print_welcome
     welcome_message = 'Welcome to a game of Tic-Tac-Toe!'
     @cli.put_string welcome_message

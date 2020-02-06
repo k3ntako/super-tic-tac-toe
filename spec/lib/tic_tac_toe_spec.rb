@@ -37,11 +37,22 @@ RSpec.describe 'TicTacToe' do
       expect(cli).to receive(:put_string).with(expected_output).once
 
       tic_tac_toe = TicTacToe.new(cli)
-      # @board.to_s will return the text above (expected_output) instead of the board from @board
+      # @board.to_s returns the expected_output instead of the board from @board
       board_double = double('board_double', to_s: expected_output)
       tic_tac_toe.instance_variable_set(:@board, board_double)
 
       tic_tac_toe.print_board
+    end
+  end
+
+  context 'when start is called' do
+    it 'should call print_welcome and print_board' do
+      tic_tac_toe = TicTacToe.new(cli)
+
+      expect(tic_tac_toe).to receive(:print_welcome)
+      expect(tic_tac_toe).to receive(:print_board)
+
+      tic_tac_toe.start
     end
   end
 end
