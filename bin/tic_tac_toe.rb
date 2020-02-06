@@ -1,6 +1,6 @@
-# frozen_string_literal: true
+#!/usr/bin/env ruby
 
-# !/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/tic_tac_toe'
 tic_tac_toe = TicTacToe.new
