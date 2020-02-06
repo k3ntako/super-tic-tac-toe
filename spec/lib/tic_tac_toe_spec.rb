@@ -1,4 +1,7 @@
-require_relative "../../lib/tic_tac_toe"
+# frozen_string_literal: true
+
+require_relative '../../lib/cli'
+require_relative '../../lib/tic_tac_toe'
 
 RSpec.describe "TicTacToe" do
   context "when the user starts the game" do

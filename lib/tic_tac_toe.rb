@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# TicTacToe is the highest level class and handles the gameplay
 require_relative "./cli"
 
 class TicTacToe
