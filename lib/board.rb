@@ -25,11 +25,11 @@ class Board
 
     row.each_with_index do |_, square_idx|
       row_str += '   '
-      row_str += square_idx < 2 ? '|' : '\n'
+      row_str += square_idx < 2 ? '|' : "\n"
     end
 
     # add row divider
-    row_str += '-----------\n' if row_idx < 2
+    row_str += "-----------\n" if row_idx < 2
 
     row_str
   end
