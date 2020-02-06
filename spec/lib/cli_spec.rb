@@ -23,9 +23,8 @@ RSpec.describe 'CLI' do
         '   |   |   \n'
 
       board = Board.new
-      empty_board = board.board
 
-      board_str = cli.generate_board_str empty_board
+      board_str = board.generate_board_str
       expect(board_str).to eq expected_output
     end
   end
