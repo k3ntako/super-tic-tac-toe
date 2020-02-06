@@ -10,7 +10,7 @@ class Board
     ]
   end
 
-  def generate_board_str
+  def to_s
     board_str = ''
 
     @board.each_with_index do |row, row_idx|

@@ -14,4 +14,9 @@ class TicTacToe
     welcome_message = 'Welcome to a game of Tic-Tac-Toe!'
     @cli.put_string welcome_message
   end
+
+  def print_board
+    board_str = @board.to_s
+    @cli.put_string board_str
+  end
 end

@@ -18,7 +18,7 @@ RSpec.describe 'Board' do
     end
   end
 
-  context 'when Board.generate_board_str is called with an empty board' do
+  context 'when Board.to_s is called with an empty board' do
     it 'should print an empty board to the console' do
       expected_output =
         '   |   |   \n' \
@@ -29,7 +29,7 @@ RSpec.describe 'Board' do
 
       board = Board.new
 
-      board_str = board.generate_board_str
+      board_str = board.to_s
       expect(board_str).to eq expected_output
     end
   end
