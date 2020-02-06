@@ -2,8 +2,8 @@
 
 # Maintains the board state and makes updates based on moves
 class Board
-  def board
-    [
+  def initialize
+    @board = [
       [nil, nil, nil],
       [nil, nil, nil],
       [nil, nil, nil]
@@ -13,7 +13,7 @@ class Board
   def generate_board_str
     board_str = ''
 
-    board.each_with_index do |row, row_idx|
+    @board.each_with_index do |row, row_idx|
       board_str += generate_board_row(row, row_idx)
     end
 
