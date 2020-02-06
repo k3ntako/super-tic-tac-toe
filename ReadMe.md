@@ -1,4 +1,4 @@
-# Super Tic-Tac-Toe
+# Super Tic-Tac-Toe [![Build Status](https://travis-ci.com/k3ntako/super-tic-tac-toe.svg?branch=master)](https://travis-ci.com/k3ntako/super-tic-tac-toe)
 
 This is a CLI tic-tac-toe game built in Ruby with test-driven development.
 
