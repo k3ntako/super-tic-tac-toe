@@ -3,14 +3,14 @@ class CLI
     puts text
   end
 
-  def put_board(board)
+  def generate_board_str(board)
     board_str = ""
 
     board.each_with_index do |row, row_idx|
       board_str += generate_board_row(row, row_idx)
     end
 
-    puts board_str
+    board_str
   end
 
   def generate_board_row(row, row_idx)

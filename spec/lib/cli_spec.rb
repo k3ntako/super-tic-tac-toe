@@ -13,11 +13,6 @@ RSpec.describe "CLI" do
 
   context "when CLI.put_board is called with an empty board" do
     it "should print an empty board to the console" do
-      cli = CLI.new
-
-      board = Board.new
-      empty_board = board.get_board
-
       expected_output =
         "   |   |   \n" +
         "-----------\n" +
@@ -25,7 +20,13 @@ RSpec.describe "CLI" do
         "-----------\n" +
         "   |   |   \n"
 
-      expect { cli.put_board empty_board }.to output(expected_output).to_stdout
+      cli = CLI.new
+
+      board = Board.new
+      empty_board = board.get_board
+
+      board_str = cli.generate_board_str empty_board
+      expect(board_str).to eq expected_output
     end
   end
 end
