@@ -39,7 +39,7 @@ This project uses [RuboCop](https://github.com/rubocop-hq/rubocop) to assure tha
 
 To run the linter:
 ```
-  $ rubocop
+  $ bundle exec rubocop
 ```
 
 ## Built With
