@@ -26,18 +26,27 @@ This is a CLI tic-tac-toe game built in Ruby with test-driven development.
 
 1. Install dependencies:
 ```
-  bundle install
+  $ bundle install
 ```
 
 2. Run tests
 ```
-  bundle exec rspec
+  $ bundle exec rspec
+```
+
+## Linter
+This project uses [RuboCop](https://github.com/rubocop-hq/rubocop) to assure that the project conforms to the [Ruby Style Guide](https://rubystyle.guide/).
+
+To run the linter:
+```
+  $ rubocop
 ```
 
 ## Built With
 
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/) v2.7.0
 - [RSpec](https://rspec.info/) - For test-driven development
+- [RuboCop](https://github.com/rubocop-hq/rubocop) - A linter based on the [Ruby Style Guide](https://rubystyle.guide/)
 
 ## Contributing
 Built with awesome feedback from
