@@ -13,12 +13,12 @@ RSpec.describe 'CLI' do
     end
   end
 
-  context 'when prompt_input is called' do
+  context 'when prompt_user_input is called' do
     it 'should return string passed in without new line ("\n")' do
       input_text = 'input text'
       allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)
 
-      received_input_text = cli.prompt_input
+      received_input_text = cli.prompt_user_input
       expect(received_input_text).to eql(input_text)
     end
   end
