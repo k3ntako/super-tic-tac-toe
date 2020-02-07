@@ -32,15 +32,16 @@ RSpec.describe 'TicTacToe' do
 
   context 'when print_board is called' do
     it 'should print the board to console' do
-      expected_output = 'This is the expected string'
+      expected_output =
+        "   |   |   \n" \
+        "-----------\n" \
+        "   |   |   \n" \
+        "-----------\n" \
+        "   |   |   \n"
 
       expect(cli).to receive(:put_string).with(expected_output).once
 
       tic_tac_toe = TicTacToe.new(cli)
-      # @board.to_s returns the expected_output instead of the board from @board
-      board_double = double('board_double', to_s: expected_output)
-      tic_tac_toe.instance_variable_set(:@board, board_double)
-
       tic_tac_toe.print_board
     end
   end

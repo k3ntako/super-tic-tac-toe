@@ -21,7 +21,7 @@ class TicTacToe
   end
 
   def print_board
-    board_str = @board.to_s
+    board_str = @cli.format_board_for_display @board.board
     @cli.put_string board_str
   end
 end

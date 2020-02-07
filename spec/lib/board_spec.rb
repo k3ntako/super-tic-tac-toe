@@ -17,20 +17,4 @@ RSpec.describe 'Board' do
       ]
     end
   end
-
-  context 'when Board.to_s is called with an empty board' do
-    it 'should print an empty board to the console' do
-      expected_output =
-        "   |   |   \n" \
-        "-----------\n" \
-        "   |   |   \n" \
-        "-----------\n" \
-        "   |   |   \n"
-
-      board = Board.new
-
-      board_str = board.to_s
-      expect(board_str).to eq expected_output
-    end
-  end
 end
