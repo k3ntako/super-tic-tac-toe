@@ -6,6 +6,10 @@ class CLI
     puts text
   end
 
+  def prompt_input
+    gets.chomp
+  end
+
   def display_board(board)
     formatted_board = format_board_for_display board
     display_message formatted_board

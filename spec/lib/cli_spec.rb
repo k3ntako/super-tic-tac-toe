@@ -12,4 +12,14 @@ RSpec.describe 'CLI' do
       expect { cli.display_message text }.to output(text + "\n").to_stdout
     end
   end
+
+  context 'when prompt_input is called' do
+    it 'should return string passed in without new line ("\n")' do
+      input_text = 'input text'
+      allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)
+
+      received_input_text = cli.prompt_input
+      expect(received_input_text).to eql(input_text)
+    end
+  end
 end
