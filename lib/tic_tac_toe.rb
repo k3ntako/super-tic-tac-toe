@@ -5,23 +5,22 @@ require_relative './board'
 
 # TicTacToe is the highest level class and handles the gameplay
 class TicTacToe
-  def initialize(cli)
-    @cli = cli
+  def initialize(user_interface)
+    @user_interface = user_interface
     @board = Board.new
   end
 
   def start
-    print_welcome
-    print_board
+    display_welcome
+    display_board
   end
 
-  def print_welcome
+  def display_welcome
     welcome_message = 'Welcome to a game of Tic-Tac-Toe!'
-    @cli.put_string welcome_message
+    @user_interface.display_message welcome_message
   end
 
-  def print_board
-    board_str = @cli.format_board_for_display @board.board
-    @cli.put_string board_str
+  def display_board
+    @user_interface.display_board @board.board
   end
 end
