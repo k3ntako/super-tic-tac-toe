@@ -28,19 +28,7 @@ RSpec.describe 'UserInterface' do
   context 'when UserInterface.display_board' do
     it 'should call CLI#display_message with formatted board' do
       board = Board.new
-
-      expected_output =
-        "   |   |   \n" \
-        "-----------\n" \
-        "   |   |   \n" \
-        "-----------\n" \
-        "   |   |   \n"
-
-      expect(cli).to receive(:format_board_for_display)
-        .with(board.board).once
-        .and_return(expected_output)
-
-      expect(cli).to receive(:display_message).with(expected_output).once
+      expect(cli).to receive(:display_board).with(board.board).once
 
       user_interface.display_board board.board
     end

@@ -11,7 +11,6 @@ class UserInterface
   end
 
   def display_board(board)
-    formatted_board = @platform.format_board_for_display board
-    @platform.display_message formatted_board
+    @platform.display_board board
   end
 end
