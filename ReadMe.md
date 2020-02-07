@@ -1,4 +1,4 @@
-# Super Tic-Tac-Toe
+# Super Tic-Tac-Toe [![Build Status](https://travis-ci.com/k3ntako/super-tic-tac-toe.svg?branch=master)](https://travis-ci.com/k3ntako/super-tic-tac-toe)
 
 This is a CLI tic-tac-toe game built in Ruby with test-driven development.
 
@@ -39,7 +39,7 @@ This project uses [RuboCop](https://github.com/rubocop-hq/rubocop) to assure tha
 
 To run the linter:
 ```
-  $ rubocop
+  $ bundle exec rubocop
 ```
 
 ## Built With
