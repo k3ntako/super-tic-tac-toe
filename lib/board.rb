@@ -11,4 +11,11 @@ class Board
       [nil, nil, nil]
     ]
   end
+
+  def make_move(piece, position)
+    row = (position / 3).ceil # 3 is the width or row length
+    col = position % 3 # 3 is the width or row length
+
+    @board[row][col] = piece
+  end
 end
