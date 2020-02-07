@@ -16,17 +16,17 @@ RSpec.describe 'UserInterface' do
   end
 
   context 'when string is passed into UserInterface#display_message' do
-    it 'should call put_string with the string argument passed in' do
+    it 'should call display_message with the string argument passed in' do
       text = 'This should is a text'
 
-      expect(cli).to receive(:put_string).with(text).once
+      expect(cli).to receive(:display_message).with(text).once
 
       user_interface.display_message text
     end
   end
 
   context 'when UserInterface.display_board' do
-    it 'should format board and call CLI#put_string with formatted board' do
+    it 'should call CLI#display_message with formatted board' do
       board = Board.new
 
       expected_output =
@@ -40,7 +40,7 @@ RSpec.describe 'UserInterface' do
         .with(board.board).once
         .and_return(expected_output)
 
-      expect(cli).to receive(:put_string).with(expected_output).once
+      expect(cli).to receive(:display_message).with(expected_output).once
 
       user_interface.display_board board.board
     end

@@ -2,7 +2,7 @@
 
 # Resonsible for any input/output via the command line
 class CLI
-  def put_string(text)
+  def display_message(text)
     puts text
   end
 

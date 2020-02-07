@@ -7,11 +7,11 @@ class UserInterface
   end
 
   def display_message(message)
-    @platform.put_string message
+    @platform.display_message message
   end
 
   def display_board(board)
     formatted_board = @platform.format_board_for_display board
-    @platform.put_string formatted_board
+    @platform.display_message formatted_board
   end
 end
