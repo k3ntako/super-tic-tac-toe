@@ -23,4 +23,8 @@ class TicTacToe
   def display_board
     @user_interface.display_board @board.board
   end
+
+  def prompt_move
+    @user_interface.prompt_user_input
+  end
 end
