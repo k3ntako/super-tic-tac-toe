@@ -7,13 +7,50 @@ RSpec.describe 'Board' do
 
   context 'when Board#board is called' do
     it 'should return an array of arrays with three nils in each' do
-      # Allows access to private instance variable
-      board_array = board.instance_variable_get(:@board)
-
-      expect(board_array).to eq [
+      expect(board.board).to eq [
         [nil, nil, nil],
         [nil, nil, nil],
         [nil, nil, nil]
+      ]
+    end
+  end
+
+  context 'when make_move is called with a move' do
+    it 'should make a change to the @board' do
+      position = 0
+      board.make_move('X', position)
+
+      expect(board.board).to eq [
+        ['X', nil, nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
+      ]
+
+      position = 3
+      board.make_move('X', position)
+
+      expect(board.board).to eq [
+        ['X', nil, nil],
+        ['X', nil, nil],
+        [nil, nil, nil]
+      ]
+
+      position = 4
+      board.make_move('X', position)
+
+      expect(board.board).to eq [
+        ['X', nil, nil],
+        ['X', 'X', nil],
+        [nil, nil, nil]
+      ]
+
+      position = 8
+      board.make_move('X', position)
+
+      expect(board.board).to eq [
+        ['X', nil, nil],
+        ['X', 'X', nil],
+        [nil, nil, 'X']
       ]
     end
   end

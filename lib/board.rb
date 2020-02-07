@@ -28,4 +28,11 @@ class Board
 
     available_positions
   end
+
+  def make_move(piece, position)
+    row = (position / 3).ceil # 3 is col count
+    col = position % 3 # 3 is row count
+
+    @board[row][col] = piece
+  end
 end
