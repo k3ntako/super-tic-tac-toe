@@ -28,14 +28,12 @@ class CLI
   end
 
   def generate_board_row(row, row_idx)
-    position_num_row_base = row_idx * 3
     row_str = ''
 
-    row.each_with_index do |_, square_idx|
-      # Add one because it's not zero-based numbering for readability
-      position_num = position_num_row_base + square_idx + 1
+    row.each_with_index do |square, square_idx|
+      square_text = get_square_text(square, row_idx, square_idx)
 
-      row_str += " #{position_num} "
+      row_str += " #{square_text} "
       row_str += square_idx < 2 ? '|' : "\n"
     end
 
@@ -43,5 +41,16 @@ class CLI
     row_str += "-----------\n" if row_idx < 2
 
     row_str
+  end
+
+  def get_square_text(square, row_idx, square_idx)
+    if square.nil?
+      row_base = row_idx * 3
+
+      # Add one because it's not zero-based numbering for readability
+      return row_base + square_idx + 1
+    end
+
+    square
   end
 end
