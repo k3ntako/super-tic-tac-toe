@@ -32,7 +32,7 @@ class TicTacToe
   end
 
   def display_move_instruction
-    instruction = 'Enter a number to make a move in the corresponding square'
+    instruction = "\nEnter a number to make a move in the corresponding square:"
     @user_interface.display_message instruction
   end
 
