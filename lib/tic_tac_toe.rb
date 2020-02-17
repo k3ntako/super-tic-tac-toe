@@ -13,6 +13,9 @@ class TicTacToe
   def start
     display_welcome
     display_board
+
+    position = prompt_move
+    @board.make_move("X", position)
   end
 
   def display_welcome
