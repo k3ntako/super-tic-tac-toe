@@ -59,12 +59,23 @@ RSpec.describe 'TicTacToe' do
       board = spy('board')
       tic_tac_toe.instance_variable_set(:@board, board)
 
+      expect(tic_tac_toe).to receive(:display_move_instruction)
       expect(tic_tac_toe).to receive(:display_board)
       expect(tic_tac_toe).to receive(:prompt_move).and_return(position_str)
 
       tic_tac_toe.one_tick
 
       expect(board).to have_received(:make_move).with("X", position_str)
+    end
+  end
+
+  context 'when display_move_instruction is called' do
+    it 'should display instructions on how to make a move' do
+      expected_message = 'Enter a number to make a move in the corresponding square'
+
+      expect(ui).to receive(:display_message).with(expected_message).once
+
+      tic_tac_toe.display_move_instruction
     end
   end
 

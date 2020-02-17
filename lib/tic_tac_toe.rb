@@ -16,6 +16,7 @@ class TicTacToe
   end
 
   def one_tick
+    display_move_instruction
     display_board
 
     position = prompt_move
@@ -29,6 +30,11 @@ class TicTacToe
 
   def display_board
     @user_interface.display_board @board.board
+  end
+
+  def display_move_instruction
+    instruction = 'Enter a number to make a move in the corresponding square'
+    @user_interface.display_message instruction
   end
 
   def prompt_move
