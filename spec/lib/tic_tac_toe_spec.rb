@@ -23,15 +23,6 @@ RSpec.describe 'TicTacToe' do
     end
   end
 
-  context 'when display_welcome is called' do
-    it 'should print a welcome message' do
-      expected_message = 'Welcome to a game of Tic-Tac-Toe!'
-      expect(ui).to receive(:display_message).with(expected_message).once
-
-      tic_tac_toe.display_welcome
-    end
-  end
-
   context 'when display_board is called' do
     it 'should print the board to console' do
       board_instance = tic_tac_toe.instance_variable_get(:@board)
@@ -58,17 +49,6 @@ RSpec.describe 'TicTacToe' do
       expect(board).to receive(:make_move).with('X', position_str)
 
       tic_tac_toe.start
-    end
-  end
-
-  context 'when display_move_instruction is called' do
-    it 'should display instructions on how to make a move' do
-      expected_message =
-        'Enter a number to make a move in the corresponding square'
-
-      expect(ui).to receive(:display_message).with(expected_message).once
-
-      tic_tac_toe.display_move_instruction
     end
   end
 
