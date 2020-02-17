@@ -13,8 +13,8 @@ class Board
   end
 
   def make_move(piece, position)
-    row = (position / 3).ceil # 3 is the width or row length
-    col = position % 3 # 3 is the width or row length
+    row = (position.to_i / 3).ceil # 3 is the width or row length
+    col = position.to_i % 3 # 3 is the width or row length
 
     @board[row][col] = piece
   end

@@ -17,7 +17,7 @@ RSpec.describe 'Board' do
 
   context 'when make_move is called with a move' do
     it 'should make a change to the @board' do
-      position = 0
+      position = "0"
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -26,7 +26,7 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = 3
+      position = "3"
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -35,7 +35,7 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = 4
+      position = "4"
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -44,13 +44,24 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = 8
+      position = "8"
       board.make_move('X', position)
 
       expect(board.board).to eq [
         ['X', nil, nil],
         ['X', 'X', nil],
         [nil, nil, 'X']
+      ]
+    end
+
+    it 'should accept integer as position argument' do
+      position = 1
+      board.make_move('X', position)
+
+      expect(board.board).to eq [
+        [nil, 'X', nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
       ]
     end
   end
