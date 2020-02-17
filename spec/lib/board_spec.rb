@@ -15,9 +15,29 @@ RSpec.describe 'Board' do
     end
   end
 
+  context 'when position_to_row_and_col' do
+    it 'should return an array with row and col given 1 for position' do
+      row_col = board.position_to_row_and_col 1
+      row = row_col[0]
+      col = row_col[1]
+
+      expect(row).to equal(0)
+      expect(col).to equal(0)
+    end
+
+    it 'should return an array with row and col given 8 for position' do
+      row_col = board.position_to_row_and_col 8
+      row = row_col[0]
+      col = row_col[1]
+
+      expect(row).to equal(2)
+      expect(col).to equal(1)
+    end
+  end
+
   context 'when make_move is called with a move' do
     it 'should make a change to the @board' do
-      position = '0'
+      position = '1'
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -26,7 +46,7 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = '3'
+      position = '4'
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -35,7 +55,7 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = '4'
+      position = '5'
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -44,7 +64,7 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = '8'
+      position = '9'
       board.make_move('X', position)
 
       expect(board.board).to eq [
@@ -55,7 +75,7 @@ RSpec.describe 'Board' do
     end
 
     it 'should accept integer as position argument' do
-      position = 1
+      position = 2
       board.make_move('X', position)
 
       expect(board.board).to eq [
