@@ -12,15 +12,14 @@ class TicTacToe
 
   def start
     display_welcome
-    one_tick
-  end
-
-  def one_tick
-    display_move_instruction
     display_board
+
+    display_move_instruction
 
     position = prompt_move
     @board.make_move('X', position)
+
+    display_board
   end
 
   def display_welcome
