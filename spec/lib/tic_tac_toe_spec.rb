@@ -35,7 +35,7 @@ RSpec.describe 'TicTacToe' do
   end
 
   context 'when start is called' do
-    it 'should call display_welcome and one_tick' do
+    it 'should display welcome, instructions,the board, and prompt a move' do
       expect(tic_tac_toe).to receive(:display_welcome)
 
       position_str = '2'
