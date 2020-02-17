@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Resonsible for any input/output via the command line
+# Responsible for any input/output via the command line
 class CLI
   def display_message(text)
     puts text
@@ -28,10 +28,14 @@ class CLI
   end
 
   def generate_board_row(row, row_idx)
+    position_num_row_base = row_idx * 3
     row_str = ''
 
     row.each_with_index do |_, square_idx|
-      row_str += '   '
+      # Add one because it's not zero-based numbering for readability
+      position_num = position_num_row_base + square_idx + 1
+
+      row_str += " #{position_num} "
       row_str += square_idx < 2 ? '|' : "\n"
     end
 

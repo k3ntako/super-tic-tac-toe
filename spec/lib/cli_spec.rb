@@ -22,4 +22,21 @@ RSpec.describe 'CLI' do
       expect(received_input_text).to eql(input_text)
     end
   end
+
+    context 'when display_board is called with an empty board' do
+    it 'should print an empty board to the console' do
+      expected_output =
+        " 1 | 2 | 3 \n" \
+        "-----------\n" \
+        " 4 | 5 | 6 \n" \
+        "-----------\n" \
+        " 7 | 8 | 9 \n"
+
+      board = Board.new
+
+      expect(cli).to receive(:display_message).with(expected_output)
+
+      cli.display_board board.board
+    end
+  end
 end
