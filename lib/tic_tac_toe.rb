@@ -12,6 +12,10 @@ class TicTacToe
 
   def start
     display_welcome
+    one_tick
+  end
+
+  def one_tick
     display_board
 
     position = prompt_move

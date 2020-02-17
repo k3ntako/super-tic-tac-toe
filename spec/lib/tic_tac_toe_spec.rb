@@ -44,17 +44,25 @@ RSpec.describe 'TicTacToe' do
   end
 
   context 'when start is called' do
-    it 'should call display_welcome and display_board' do
+    it 'should call display_welcome and one_tick' do
+      expect(tic_tac_toe).to receive(:display_welcome)
+      expect(tic_tac_toe).to receive(:one_tick)
+
+      tic_tac_toe.start
+    end
+  end
+
+  context 'when one_tick is called' do
+    it 'should call display_board, prompt_move, and make_move' do
       position_str = "2"
 
       board = spy('board')
       tic_tac_toe.instance_variable_set(:@board, board)
 
-      expect(tic_tac_toe).to receive(:display_welcome)
       expect(tic_tac_toe).to receive(:display_board)
       expect(tic_tac_toe).to receive(:prompt_move).and_return(position_str)
 
-      tic_tac_toe.start
+      tic_tac_toe.one_tick
 
       expect(board).to have_received(:make_move).with("X", position_str)
     end
