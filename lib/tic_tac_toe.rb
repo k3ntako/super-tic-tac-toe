@@ -39,17 +39,4 @@ class TicTacToe
   def prompt_move
     @user_interface.prompt_user_input
   end
-
-  def move_valid?(position)
-    return false if position < 1 || position > 9
-
-    row = (position.to_i / 3).ceil
-    col = position.to_i - 1 % 3
-
-    is_empty = @board.board[row][col].nil?
-
-    return false unless is_empty
-
-    true
-  end
 end

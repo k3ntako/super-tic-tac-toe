@@ -62,40 +62,4 @@ RSpec.describe 'TicTacToe' do
       expect(user_move).to eql input_text
     end
   end
-
-  context 'when move_valid? is called' do
-    it 'should return true if a move is valid' do
-      is_valid = tic_tac_toe.move_valid? 1
-
-      expect(is_valid).to be true
-    end
-
-    it 'should return false if position is less than 1' do
-      is_valid = tic_tac_toe.move_valid? 0
-
-      expect(is_valid).to be false
-    end
-
-    it 'should return false if position is greater than 9' do
-      is_valid = tic_tac_toe.move_valid? 10
-
-      expect(is_valid).to be false
-    end
-
-    it 'should return false if position already has a piece' do
-      board = Board.new
-      board_played_at_one = [
-        ['X', nil, nil],
-        [nil, nil, nil],
-        [nil, nil, nil]
-      ]
-
-      board.instance_variable_set(:@board, board_played_at_one)
-      tic_tac_toe.instance_variable_set(:@board, board)
-
-      is_valid = tic_tac_toe.move_valid? 1
-
-      expect(is_valid).to be false
-    end
-  end
 end
