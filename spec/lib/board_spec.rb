@@ -46,31 +46,13 @@ RSpec.describe 'Board' do
         [nil, nil, nil]
       ]
 
-      position = '4'
+      position = '8'
       board.make_move('X', position)
 
       expect(board.board).to eq [
         ['X', nil, nil],
-        ['X', nil, nil],
-        [nil, nil, nil]
-      ]
-
-      position = '5'
-      board.make_move('X', position)
-
-      expect(board.board).to eq [
-        ['X', nil, nil],
-        ['X', 'X', nil],
-        [nil, nil, nil]
-      ]
-
-      position = '9'
-      board.make_move('X', position)
-
-      expect(board.board).to eq [
-        ['X', nil, nil],
-        ['X', 'X', nil],
-        [nil, nil, 'X']
+        [nil, nil, nil],
+        [nil, 'X', nil]
       ]
     end
 
