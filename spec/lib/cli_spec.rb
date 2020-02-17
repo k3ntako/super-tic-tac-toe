@@ -23,7 +23,7 @@ RSpec.describe 'CLI' do
     end
   end
 
-    context 'when display_board is called with an empty board' do
+  context 'when display_board is called with an empty board' do
     it 'should print an empty board to the console' do
       expected_output =
         " 1 | 2 | 3 \n" \
