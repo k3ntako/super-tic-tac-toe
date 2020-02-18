@@ -12,9 +12,20 @@ class Board
     ]
   end
 
-  def occupied?(position)
+  def available?(position)
+    positions = available_positions
+
+    positions.include? position
+  end
+
+  def available_positions
     flat_board = board.flatten
 
-    flat_board[position - 1].nil?
+    positions = []
+    flat_board.each_with_index do |mark, idx|
+      positions.push(idx + 1) if mark.nil?
+    end
+
+    positions
   end
 end

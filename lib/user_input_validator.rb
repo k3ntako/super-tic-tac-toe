@@ -20,16 +20,7 @@ class UserInputValidator
     true
   end
 
-  # assumes square or rectangle
-  def move_within_board?(position)
-    row_count = 3
-    col_count = 3
-    max_board_position = row_count * col_count
-
-    position >= 1 && position <= max_board_position
-  end
-
   def move_on_empty_square?(board, position)
-    board.occupied? position
+    board.available? position
   end
 end

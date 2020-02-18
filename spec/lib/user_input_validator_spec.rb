@@ -32,21 +32,19 @@ RSpec.describe UserInputValidator do
     end
   end
 
-  context 'when move_within_board? is called' do
+  context 'when move_on_empty_square? is called with a valid string' do
     it 'should return false if value is less than 1' do
-      is_valid = user_input_validator.move_within_board? 0
+      is_valid = user_input_validator.move_on_empty_square?(board, 0)
 
       expect(is_valid).to be false
     end
 
     it 'should return false if value is greater than 9' do
-      is_valid = user_input_validator.move_within_board? 10
+      is_valid = user_input_validator.move_on_empty_square?(board, 10)
 
       expect(is_valid).to be false
     end
-  end
 
-  context 'when move_on_empty_square? is called with a valid string' do
     it 'should return true if specified square is empty' do
       is_valid = user_input_validator.move_on_empty_square?(board, 1)
 
