@@ -2,12 +2,14 @@
 
 require_relative './cli'
 require_relative './board'
+require_relative './player'
 
 # TicTacToe is the highest level class and handles the gameplay
 class TicTacToe
   def initialize(user_interface)
     @user_interface = user_interface
     @board = Board.new
+    @player_one = Player.new(@user_interface, 'X')
   end
 
   def start
@@ -16,7 +18,7 @@ class TicTacToe
 
     display_move_instruction
 
-    position = get_move
+    position = @player_one.get_move
     @board.make_move('X', position)
 
     display_board
@@ -34,9 +36,5 @@ class TicTacToe
   def display_move_instruction
     instruction = "\nEnter a number to make a move in the corresponding square:"
     @user_interface.display_message instruction
-  end
-
-  def get_move
-    @user_interface.get_user_input
   end
 end
