@@ -24,6 +24,8 @@ class TicTacToe
     display_board
   end
 
+  private
+
   def display_welcome
     welcome_message = 'Welcome to a game of Tic-Tac-Toe!'
     @user_interface.display_message welcome_message
