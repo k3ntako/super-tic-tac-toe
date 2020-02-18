@@ -19,18 +19,6 @@ RSpec.describe UserInputValidator do
       expect(is_valid).to be true
     end
 
-    it 'should return false if value is less than 1' do
-      is_valid = user_input_validator.move_valid_integer? 0
-
-      expect(is_valid).to be false
-    end
-
-    it 'should return false if value is greater than 0' do
-      is_valid = user_input_validator.move_valid_integer? 10
-
-      expect(is_valid).to be false
-    end
-
     it 'should return false if value is a string with non-integers' do
       is_valid = user_input_validator.move_valid_integer? '1one'
 
@@ -39,6 +27,20 @@ RSpec.describe UserInputValidator do
 
     it 'should return false if value is a float' do
       is_valid = user_input_validator.move_valid_integer? 1.0
+
+      expect(is_valid).to be false
+    end
+  end
+
+  context 'when move_within_board? is called' do
+    it 'should return false if value is less than 1' do
+      is_valid = user_input_validator.move_within_board? 0
+
+      expect(is_valid).to be false
+    end
+
+    it 'should return false if value is greater than 9' do
+      is_valid = user_input_validator.move_within_board? 10
 
       expect(is_valid).to be false
     end

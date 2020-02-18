@@ -12,14 +12,21 @@ class UserInputValidator
     # Valid strings: '1', '  1 ', ' 2 \n', ' 2 \r\n'
     # Invalid strings: '', 'aa', 'a1', '1a', '1 2', '1.1'
     begin
-      input_string = Integer input_string
+      Integer input_string
     rescue ArgumentError
       return false # Failed to parse String into Integer
     end
 
-    return false if input_string < 1 || input_string > 9
-
     true
+  end
+
+  # assumes square or rectangle
+  def move_within_board?(position)
+    row_count = 3
+    col_count = 3
+    max_board_position = row_count * col_count
+
+    position >= 1 && position <= max_board_position
   end
 
   def move_on_empty_square?(board, position)
