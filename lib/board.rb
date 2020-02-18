@@ -12,26 +12,9 @@ class Board
     ]
   end
 
-  def position_to_row(position)
-    # convert to zero-based numbering
-    position -= 1
-
-    # assumes 3 x 3 board
-    (position / 3).ceil # 3 is number of cols
-  end
-
-  def position_to_col(position)
-    # convert to zero-based numbering
-    position -= 1
-
-    # assumes 3 x 3 board
-    position % 3 # 3 is number of rows
-  end
-
   def occupied?(position)
-    row = position_to_row position
-    col = position_to_col position
+    flat_board = board.flatten
 
-    @board[row][col].nil?
+    flat_board[position - 1].nil?
   end
 end
