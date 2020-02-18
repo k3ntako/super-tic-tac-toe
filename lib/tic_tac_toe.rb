@@ -28,7 +28,7 @@ class TicTacToe
   end
 
   def display_board
-    @user_interface.display_board @board.board
+    @user_interface.display_board @board.state
   end
 
   def display_move_instruction

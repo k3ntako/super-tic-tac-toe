@@ -25,8 +25,8 @@ RSpec.describe 'TicTacToe' do
 
   context 'when display_board is called' do
     it 'should print the board to console' do
-      board_instance = tic_tac_toe.instance_variable_get(:@board)
-      board_state = board_instance.board
+      board = tic_tac_toe.instance_variable_get(:@board)
+      board_state = board.state
 
       expect(ui).to receive(:display_board).with(board_state).once
 

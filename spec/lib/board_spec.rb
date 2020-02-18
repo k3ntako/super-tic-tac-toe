@@ -7,7 +7,7 @@ RSpec.describe 'Board' do
 
   context 'when Board#board is called' do
     it 'should return an array of arrays with three nils in each' do
-      expect(board.board).to eq [
+      expect(board.state).to eq [
         [nil, nil, nil],
         [nil, nil, nil],
         [nil, nil, nil]
@@ -38,7 +38,7 @@ RSpec.describe 'Board' do
       position = '1'
       board.make_move('X', position)
 
-      expect(board.board).to eq [
+      expect(board.state).to eq [
         ['X', nil, nil],
         [nil, nil, nil],
         [nil, nil, nil]
@@ -47,7 +47,7 @@ RSpec.describe 'Board' do
       position = '8'
       board.make_move('X', position)
 
-      expect(board.board).to eq [
+      expect(board.state).to eq [
         ['X', nil, nil],
         [nil, nil, nil],
         [nil, 'X', nil]
@@ -58,7 +58,7 @@ RSpec.describe 'Board' do
       position = 2
       board.make_move('X', position)
 
-      expect(board.board).to eq [
+      expect(board.state).to eq [
         [nil, 'X', nil],
         [nil, nil, nil],
         [nil, nil, nil]
