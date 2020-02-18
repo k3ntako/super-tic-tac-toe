@@ -36,14 +36,13 @@ class Board
     @board[row][col] = piece
   end
 
-  def position_to_row_and_col(position)
-    # convert to zero-based numbering
-    position = position.to_i - 1
+  def position_to_row(position)
+    zero_based_position = position.to_i - 1
+    (zero_based_position / 3).ceil # 3 is number of cols
+  end
 
-    # assumes 3 x 3 board
-    row = (position / 3).ceil # 3 is number of cols
-    col = position % 3 # 3 is number of rows
-
-    [row, col]
+  def position_to_col(position)
+    zero_based_position = position.to_i - 1
+    zero_based_position % 3 # 3 is number of rows
   end
 end
