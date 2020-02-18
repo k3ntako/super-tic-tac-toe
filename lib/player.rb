@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 require_relative './board'
 
-# Player
 class Player
   def initialize(user_interface, mark)
     @user_interface = user_interface

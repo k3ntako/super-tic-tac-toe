@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# Responsible for any input/output via the command line
 class CLI
   def display_message(text)
     puts text

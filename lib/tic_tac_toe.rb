@@ -1,10 +1,7 @@
-# frozen_string_literal: true
-
 require_relative './cli'
 require_relative './board'
 require_relative './player'
 
-# TicTacToe is the highest level class and handles the gameplay
 class TicTacToe
   def initialize(user_interface)
     @user_interface = user_interface

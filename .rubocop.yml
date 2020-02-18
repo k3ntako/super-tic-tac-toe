@@ -1,6 +1,35 @@
+Naming/AccessorMethodName:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - bin/*
+    - db/*
+    - db/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*.rb'
+    - 'lib/tasks/*.rake'
+    - 'spec/*'
+    - 'spec/**/*'
+    - 'config/*'
 
-Naming/AccessorMethodName:
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 40
+
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - 'lib/tasks/*.rake'
+    - 'spec/*'
+    - 'spec/**/*'
+    - 'config/*'
+
+Style/Documentation:
   Enabled: false

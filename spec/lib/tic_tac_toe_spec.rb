@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../../lib/user_interface'
 require_relative '../../lib/cli'
 require_relative '../../lib/board'
