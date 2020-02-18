@@ -37,6 +37,6 @@ class TicTacToe
   end
 
   def prompt_move
-    @user_interface.prompt_user_input
+    @user_interface.get_user_input
   end
 end

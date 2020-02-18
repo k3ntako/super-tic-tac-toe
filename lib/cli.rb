@@ -6,7 +6,7 @@ class CLI
     puts text
   end
 
-  def prompt_user_input
+  def get_user_input
     gets.chomp
   end
 

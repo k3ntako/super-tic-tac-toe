@@ -14,7 +14,7 @@ class UserInterface
     @platform.display_board board
   end
 
-  def prompt_user_input
-    @platform.prompt_user_input
+  def get_user_input
+    @platform.get_user_input
   end
 end

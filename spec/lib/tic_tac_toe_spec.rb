@@ -53,7 +53,7 @@ RSpec.describe 'TicTacToe' do
   end
 
   context 'when prompt_move is called' do
-    it 'should call UserInterface#prompt_user_input and receive the input' do
+    it 'should call UserInterface#get_user_input and receive the input' do
       input_text = 'input text'
       allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)
 

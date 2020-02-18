@@ -34,11 +34,11 @@ RSpec.describe 'UserInterface' do
     end
   end
 
-  context 'when UserInterface.prompt_user_input' do
-    it 'should call CLI#prompt_user_input with formatted board' do
-      expect(cli).to receive(:prompt_user_input)
+  context 'when UserInterface.get_user_input' do
+    it 'should call CLI#get_user_input with formatted board' do
+      expect(cli).to receive(:get_user_input)
 
-      user_interface.prompt_user_input
+      user_interface.get_user_input
     end
   end
 end
