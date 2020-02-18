@@ -45,19 +45,19 @@ RSpec.describe 'TicTacToe' do
 
       expect(tic_tac_toe).to receive(:display_move_instruction)
       expect(tic_tac_toe).to receive(:display_board).twice
-      expect(tic_tac_toe).to receive(:prompt_move).and_return(position_str)
+      expect(tic_tac_toe).to receive(:get_move).and_return(position_str)
       expect(board).to receive(:make_move).with('X', position_str)
 
       tic_tac_toe.start
     end
   end
 
-  context 'when prompt_move is called' do
+  context 'when get_move is called' do
     it 'should call UserInterface#get_user_input and receive the input' do
       input_text = 'input text'
       allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)
 
-      user_move = tic_tac_toe.prompt_move
+      user_move = tic_tac_toe.get_move
 
       expect(user_move).to eql input_text
     end

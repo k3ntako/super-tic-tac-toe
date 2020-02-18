@@ -16,7 +16,7 @@ class TicTacToe
 
     display_move_instruction
 
-    position = prompt_move
+    position = get_move
     @board.make_move('X', position)
 
     display_board
@@ -36,7 +36,7 @@ class TicTacToe
     @user_interface.display_message instruction
   end
 
-  def prompt_move
+  def get_move
     @user_interface.get_user_input
   end
 end
