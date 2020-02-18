@@ -12,4 +12,8 @@ class Player
   def get_move
     @user_interface.get_user_input
   end
+
+  def make_move(board, position)
+    board.update(@mark, position)
+  end
 end

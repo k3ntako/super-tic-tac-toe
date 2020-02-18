@@ -19,7 +19,7 @@ class TicTacToe
     display_move_instruction
 
     position = @player_one.get_move
-    @board.make_move('X', position)
+    @player_one.make_move(@board, position)
 
     display_board
   end

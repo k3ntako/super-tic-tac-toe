@@ -47,7 +47,7 @@ RSpec.describe 'TicTacToe' do
       expect(tic_tac_toe).to receive(:display_move_instruction)
       expect(tic_tac_toe).to receive(:display_board).twice
       expect(player_one).to receive(:get_move).and_return(position_str)
-      expect(board).to receive(:make_move).with('X', position_str)
+      expect(player_one).to receive(:make_move).with(board, position_str)
 
       tic_tac_toe.start
     end

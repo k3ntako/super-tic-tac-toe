@@ -31,12 +31,14 @@ class Board
     available_positions
   end
 
-  def make_move(piece, position)
-    row = (position / 3).ceil # 3 is col count
-    col = position % 3 # 3 is row count
+  def update(piece, position)
+    row = position_to_row position
+    col = position_to_col position
 
     @board[row][col] = piece
   end
+
+  private
 
   def position_to_row(position)
     zero_based_position = position.to_i - 1

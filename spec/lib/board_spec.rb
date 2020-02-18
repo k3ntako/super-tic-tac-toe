@@ -5,7 +5,7 @@ require_relative '../../lib/board'
 RSpec.describe 'Board' do
   let(:board) { Board.new }
 
-  context 'when Board#board is called' do
+  context 'when Board#state is called' do
     it 'should return an array of arrays with three nils in each' do
       expect(board.state).to eq [
         [nil, nil, nil],
@@ -15,28 +15,10 @@ RSpec.describe 'Board' do
     end
   end
 
-  context 'when position_to_row_and_col' do
-    it 'should return an array with row and col given 1 for position' do
-      row = board.position_to_row 1
-      col = board.position_to_col 1
-
-      expect(row).to equal(0)
-      expect(col).to equal(0)
-    end
-
-    it 'should return an array with row and col given 8 for position' do
-      row = board.position_to_row 8
-      col = board.position_to_col 8
-
-      expect(row).to equal(2)
-      expect(col).to equal(1)
-    end
-  end
-
-  context 'when make_move is called with a move' do
+  context 'when update is called with a move' do
     it 'should make a change to the @board' do
       position = '1'
-      board.make_move('X', position)
+      board.update('X', position)
 
       expect(board.state).to eq [
         ['X', nil, nil],
@@ -45,7 +27,7 @@ RSpec.describe 'Board' do
       ]
 
       position = '8'
-      board.make_move('X', position)
+      board.update('X', position)
 
       expect(board.state).to eq [
         ['X', nil, nil],
@@ -56,7 +38,7 @@ RSpec.describe 'Board' do
 
     it 'should accept integer as position argument' do
       position = 2
-      board.make_move('X', position)
+      board.update('X', position)
 
       expect(board.state).to eq [
         [nil, 'X', nil],
