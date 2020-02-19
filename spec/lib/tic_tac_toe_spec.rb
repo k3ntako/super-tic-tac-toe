@@ -25,10 +25,14 @@ RSpec.describe 'TicTacToe' do
     it 'should display welcome, instructions,the board, and prompt a move' do
       pos_str = '2'
 
-      board = spy('board')
-      tic_tac_toe.instance_variable_set(:@board, board)
+      player = Player.new(ui, 'X')
+      tic_tac_toe.instance_variable_set(:@player_one, player)
       player_one = tic_tac_toe.instance_variable_get(:@player_one)
 
+      board = spy('board')
+      tic_tac_toe.instance_variable_set(:@board, board)
+
+      expect(tic_tac_toe).to receive(:initialize_players).once.ordered
       expect(tic_tac_toe).to receive(:display_welcome).once.ordered
       expect(tic_tac_toe).to receive(:display_board).once.ordered
       expect(tic_tac_toe).to receive(:display_move_instruction).ordered
