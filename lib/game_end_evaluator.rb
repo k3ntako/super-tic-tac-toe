@@ -22,13 +22,13 @@ class GameEndEvaluator
     nil
   end
 
-  def find_winner_in_array(row)
-    marks_present_in_row = row.uniq
+  def find_winner_in_array(array)
+    marks_present_in_array = array.uniq
 
-    only_one_mark = marks_present_in_row.length == 1
-    the_one_mark_is_not_nil = only_one_mark && !marks_present_in_row[0].nil?
+    only_one_mark = marks_present_in_array.length == 1
+    the_one_mark_is_not_nil = only_one_mark && !marks_present_in_array[0].nil?
 
-    return marks_present_in_row[0] if the_one_mark_is_not_nil
+    return marks_present_in_array[0] if the_one_mark_is_not_nil
 
     nil
   end
