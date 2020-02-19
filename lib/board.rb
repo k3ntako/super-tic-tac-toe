@@ -43,4 +43,25 @@ class Board
     zero_based_position = position.to_i - 1
     zero_based_position % 3 # 3 is number of rows
   end
+
+  def diagonals
+    [
+      left_to_right_diagonal,
+      right_to_left_diagonal
+    ]
+  end
+
+  private
+
+  def left_to_right_diagonal
+    (0..@board.length - 1).map do |idx|
+      @board[idx][idx]
+    end
+  end
+
+  def right_to_left_diagonal
+    (0..@board.length - 1).map do |idx|
+      @board[idx][@board.length - 1 - idx]
+    end
+  end
 end

@@ -5,9 +5,6 @@ AllCops:
     - db/**/*
     - vendor/bundle/**/*
 
-Naming/AccessorMethodName:
-  Enabled: false
-
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -33,4 +30,9 @@ Metrics/AbcSize:
     - 'config/*'
 
 Style/Documentation:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/WordArray:
   Enabled: false

@@ -59,4 +59,21 @@ RSpec.describe 'Board' do
       expect(board.find_available_positions).to eq [3, 4, 6, 7]
     end
   end
+
+  context 'when diagonals is called' do
+    it 'should return an array of arrays with both diagonals' do
+      board_with_marks = [
+        ['X', 'X', nil],
+        [nil, 'X', nil],
+        [nil, 'X', 'X']
+      ]
+
+      board.instance_variable_set(:@board, board_with_marks)
+
+      expect(board.diagonals).to eq [
+        ['X', 'X', 'X'],
+        [nil, 'X', nil]
+      ]
+    end
+  end
 end
