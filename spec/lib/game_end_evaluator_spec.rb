@@ -9,9 +9,9 @@ RSpec.describe GameEndEvaluator do
 
   context 'when find_winner is called with board' do
     it 'should return nil if there is no winner' do
-      player = game_end_evaluator.find_winner board
+      winner = game_end_evaluator.find_winner board
 
-      expect(player).to be nil
+      expect(winner).to be nil
     end
 
     it 'should return horizontal winner' do
@@ -23,9 +23,9 @@ RSpec.describe GameEndEvaluator do
           ['O', 'X', nil]
         ]
       )
-      player = game_end_evaluator.find_winner board
+      winner = game_end_evaluator.find_winner board
 
-      expect(player).to be 'X'
+      expect(winner).to be 'X'
     end
 
     it 'should return vertical winner' do
@@ -37,9 +37,9 @@ RSpec.describe GameEndEvaluator do
           ['O', 'X', 'X']
         ]
       )
-      player = game_end_evaluator.find_winner board
+      winner = game_end_evaluator.find_winner board
 
-      expect(player).to be 'O'
+      expect(winner).to be 'O'
     end
 
     it 'should return diagonal winner from left to right' do
@@ -51,9 +51,9 @@ RSpec.describe GameEndEvaluator do
           ['O', 'O', 'X']
         ]
       )
-      player = game_end_evaluator.find_winner board
+      winner = game_end_evaluator.find_winner board
 
-      expect(player).to be 'X'
+      expect(winner).to be 'X'
     end
 
     it 'should return diagonal winner from right to left' do
@@ -65,9 +65,9 @@ RSpec.describe GameEndEvaluator do
           ['O', 'O', 'X']
         ]
       )
-      player = game_end_evaluator.find_winner board
+      winner = game_end_evaluator.find_winner board
 
-      expect(player).to be 'O'
+      expect(winner).to be 'O'
     end
   end
 end
