@@ -1,17 +1,45 @@
-# frozen_string_literal: true
-
 require_relative '../../lib/board'
 
 RSpec.describe 'Board' do
   let(:board) { Board.new }
 
-  context 'when Board#board is called' do
+  context 'when Board#state is called' do
     it 'should return an array of arrays with three nils in each' do
-      # Allows access to private instance variable
-      board_array = board.instance_variable_get(:@board)
-
-      expect(board_array).to eq [
+      expect(board.state).to eq [
         [nil, nil, nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
+      ]
+    end
+  end
+
+  context 'when update is called with a move' do
+    it 'should make a change to the @board' do
+      position = '1'
+      board.update('X', position)
+
+      expect(board.state).to eq [
+        ['X', nil, nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
+      ]
+
+      position = '8'
+      board.update('X', position)
+
+      expect(board.state).to eq [
+        ['X', nil, nil],
+        [nil, nil, nil],
+        [nil, 'X', nil]
+      ]
+    end
+
+    it 'should accept integer as position argument' do
+      position = 2
+      board.update('X', position)
+
+      expect(board.state).to eq [
+        [nil, 'X', nil],
         [nil, nil, nil],
         [nil, nil, nil]
       ]

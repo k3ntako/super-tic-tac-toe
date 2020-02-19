@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../../lib/user_interface'
 require_relative '../../lib/cli'
 require_relative '../../lib/board'
@@ -10,7 +8,13 @@ RSpec.describe 'TicTacToe' do
     cli = CLI.new
     UserInterface.new cli
   end
-  let(:tic_tac_toe) { TicTacToe.new(ui) }
+
+  let(:tic_tac_toe) do
+    board = Board.new
+    player = Player.new(ui, 'X')
+
+    TicTacToe.new(ui, board, player)
+  end
 
   context 'when TicTacToe is initialized' do
     it 'should have instances of CLI and Board as instance variables' do
@@ -23,30 +27,21 @@ RSpec.describe 'TicTacToe' do
     end
   end
 
-  context 'when display_welcome is called' do
-    it 'should print a welcome message' do
-      expected_message = 'Welcome to a game of Tic-Tac-Toe!'
-      expect(ui).to receive(:display_message).with(expected_message).once
-
-      tic_tac_toe.display_welcome
-    end
-  end
-
-  context 'when display_board is called' do
-    it 'should print the board to console' do
-      board_instance = tic_tac_toe.instance_variable_get(:@board)
-      board_state = board_instance.board
-
-      expect(ui).to receive(:display_board).with(board_state).once
-
-      tic_tac_toe.display_board
-    end
-  end
-
   context 'when start is called' do
-    it 'should call display_welcome and display_board' do
-      expect(tic_tac_toe).to receive(:display_welcome)
-      expect(tic_tac_toe).to receive(:display_board)
+    it 'should display welcome, instructions,the board, and prompt a move' do
+      pos_str = '2'
+
+      player_one = tic_tac_toe.instance_variable_get(:@player_one)
+
+      board = spy('board')
+      tic_tac_toe.instance_variable_set(:@board, board)
+
+      expect(tic_tac_toe).to receive(:display_welcome).once.ordered
+      expect(tic_tac_toe).to receive(:display_board).once.ordered
+      expect(tic_tac_toe).to receive(:display_move_instruction).ordered
+      expect(player_one).to receive(:get_move).and_return(pos_str).ordered
+      expect(player_one).to receive(:make_move).with(board, pos_str).ordered
+      expect(tic_tac_toe).to receive(:display_board).once.ordered
 
       tic_tac_toe.start
     end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../../lib/user_interface'
 require_relative '../../lib/cli'
 require_relative '../../lib/board'
@@ -28,9 +26,9 @@ RSpec.describe 'UserInterface' do
   context 'when UserInterface.display_board' do
     it 'should call CLI#display_message with formatted board' do
       board = Board.new
-      expect(cli).to receive(:display_board).with(board.board).once
+      expect(cli).to receive(:display_board).with(board.state).once
 
-      user_interface.display_board board.board
+      user_interface.display_board board.state
     end
   end
 end
