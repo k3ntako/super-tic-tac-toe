@@ -18,7 +18,7 @@ RSpec.describe 'Board' do
     end
   end
 
-  context 'when available_positions is called' do
+  context 'when find_available_positions is called' do
     it 'should return an array of positions that are nil' do
       board_with_marks = [
         ['X', 'X', nil],
@@ -28,7 +28,7 @@ RSpec.describe 'Board' do
 
       board.instance_variable_set(:@board, board_with_marks)
 
-      expect(board.available_positions).to eq [3, 4, 6, 7]
+      expect(board.find_available_positions).to eq [3, 4, 6, 7]
     end
   end
 end

@@ -12,20 +12,20 @@ class Board
     ]
   end
 
-  def available?(position)
-    positions = available_positions
+  def position_available?(position)
+    available_positions = find_available_positions
 
-    positions.include? position
+    available_positions.include? position
   end
 
-  def available_positions
+  def find_available_positions
     flat_board = board.flatten
 
-    positions = []
+    available_positions = []
     flat_board.each_with_index do |mark, idx|
-      positions.push(idx + 1) if mark.nil?
+      available_positions.push(idx + 1) if mark.nil?
     end
 
-    positions
+    available_positions
   end
 end

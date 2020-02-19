@@ -21,6 +21,6 @@ class UserInputValidator
   end
 
   def move_on_empty_square?(board, position)
-    board.available? position
+    board.position_available? position
   end
 end
