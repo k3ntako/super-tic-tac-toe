@@ -18,7 +18,7 @@ class Board
   end
 
   def find_available_positions
-    flat_board = board.flatten
+    flat_board = @board.flatten
 
     available_positions = []
     flat_board.each_with_index do |mark, idx|
