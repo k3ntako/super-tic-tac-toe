@@ -3,15 +3,13 @@ require_relative './board'
 require_relative './player'
 
 class TicTacToe
-  def initialize(user_interface)
+  def initialize(user_interface, board, player)
     @user_interface = user_interface
-    @board = Board.new
-    @player_one = nil
+    @board = board
+    @player_one = player
   end
 
   def start
-    initialize_players
-
     display_welcome
     display_board
 
@@ -24,10 +22,6 @@ class TicTacToe
   end
 
   private
-
-  def initialize_players
-    @player_one = Player.new(@user_interface, 'X')
-  end
 
   def display_welcome
     welcome_message = 'Welcome to a game of Tic-Tac-Toe!'

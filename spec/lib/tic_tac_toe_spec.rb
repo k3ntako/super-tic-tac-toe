@@ -8,7 +8,13 @@ RSpec.describe 'TicTacToe' do
     cli = CLI.new
     UserInterface.new cli
   end
-  let(:tic_tac_toe) { TicTacToe.new(ui) }
+
+  let(:tic_tac_toe) do
+    board = Board.new
+    player = Player.new(ui, 'X')
+
+    TicTacToe.new(ui, board, player)
+  end
 
   context 'when TicTacToe is initialized' do
     it 'should have instances of CLI and Board as instance variables' do
@@ -25,14 +31,11 @@ RSpec.describe 'TicTacToe' do
     it 'should display welcome, instructions,the board, and prompt a move' do
       pos_str = '2'
 
-      player = Player.new(ui, 'X')
-      tic_tac_toe.instance_variable_set(:@player_one, player)
       player_one = tic_tac_toe.instance_variable_get(:@player_one)
 
       board = spy('board')
       tic_tac_toe.instance_variable_set(:@board, board)
 
-      expect(tic_tac_toe).to receive(:initialize_players).once.ordered
       expect(tic_tac_toe).to receive(:display_welcome).once.ordered
       expect(tic_tac_toe).to receive(:display_board).once.ordered
       expect(tic_tac_toe).to receive(:display_move_instruction).ordered
