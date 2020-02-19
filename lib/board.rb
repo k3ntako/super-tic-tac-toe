@@ -20,12 +20,9 @@ class Board
   def find_available_positions
     flat_board = @board.flatten
 
-    available_positions = []
-    flat_board.each_with_index do |mark, idx|
+    flat_board.each_with_index.each_with_object([]) do |(mark, idx), available_positions|
       available_positions.push(idx + 1) if mark.nil?
     end
-
-    available_positions
   end
 
   def update(mark, position)
