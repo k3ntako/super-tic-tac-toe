@@ -1,11 +1,12 @@
-Naming/AccessorMethodName:
-  Enabled: false
-
 AllCops:
   Exclude:
     - bin/*
     - db/*
     - db/**/*
+    - vendor/bundle/**/*
+
+Naming/AccessorMethodName:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
