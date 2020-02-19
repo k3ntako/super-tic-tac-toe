@@ -3,13 +3,12 @@
 # GameEndEvaluator
 class GameEndEvaluator
   def find_winner(board)
-    row_winner = find_winner_in_matrix board.board
-    return row_winner unless row_winner.nil?
+    [board.rows, board.columns, board.diagonals].each do |board_state|
+      winner = find_winner_in_matrix board_state
+      return winner unless winner.nil?
+    end
 
-    col_winner = find_winner_in_matrix board.board.transpose
-    return col_winner unless col_winner.nil?
-
-    find_winner_in_matrix board.diagonals
+    nil
   end
 
   private

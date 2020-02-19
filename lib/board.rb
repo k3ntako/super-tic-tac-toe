@@ -44,6 +44,14 @@ class Board
     zero_based_position % 3 # 3 is number of rows
   end
 
+  def rows
+    @board
+  end
+
+  def columns
+    @board.transpose
+  end
+
   def diagonals
     [
       left_to_right_diagonal,
