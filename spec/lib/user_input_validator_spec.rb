@@ -49,7 +49,7 @@ RSpec.describe UserInputValidator do
       expect(is_valid).to be true
     end
 
-    it 'should return false if position already has a piece' do
+    it 'should return false if position already has a mark' do
       board_played_at_one = [
         ['X', nil, nil],
         [nil, nil, nil],

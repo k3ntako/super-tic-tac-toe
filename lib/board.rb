@@ -28,11 +28,11 @@ class Board
     available_positions
   end
 
-  def update(piece, position)
+  def update(mark, position)
     row = position_to_row position
     col = position_to_col position
 
-    @board[row][col] = piece
+    @board[row][col] = mark
   end
 
   private
