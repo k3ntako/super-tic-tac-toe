@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# UserInputValidator
 class UserInputValidator
   def move_valid_integer?(position_input)
     is_integer_or_string = (position_input.is_a? Integer) || (position_input.is_a? String)

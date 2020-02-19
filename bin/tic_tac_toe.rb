@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-# frozen_string_literal: true
-
 require_relative '../lib/cli'
 require_relative '../lib/tic_tac_toe'
 
