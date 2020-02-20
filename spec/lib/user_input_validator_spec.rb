@@ -4,63 +4,79 @@ RSpec.describe UserInputValidator do
   let(:user_input_validator) { UserInputValidator.new }
   let(:board) { Board.new }
 
-  context 'when move_valid_integer? is called with a string' do
-    it 'should return true given a valid position' do
-      is_valid = user_input_validator.move_valid_integer? 1
+  describe 'move_valid_integer? ' do
+    context 'when called with an integer' do
+      it 'should return true' do
+        is_valid = user_input_validator.move_valid_integer? 1
 
-      expect(is_valid).to be true
+        expect(is_valid).to be true
+      end
     end
 
-    it 'should return true given a valid position as a string' do
-      is_valid = user_input_validator.move_valid_integer? '2'
+    context 'when called with an integer as a string' do
+      it 'should return true' do
+        is_valid = user_input_validator.move_valid_integer? '2'
 
-      expect(is_valid).to be true
+        expect(is_valid).to be true
+      end
     end
 
-    it 'should return false if value is a string with non-integers' do
-      is_valid = user_input_validator.move_valid_integer? '1one'
+    context 'when called with an non-integer string' do
+      it 'should return false' do
+        is_valid = user_input_validator.move_valid_integer? '1one'
 
-      expect(is_valid).to be false
+        expect(is_valid).to be false
+      end
     end
 
-    it 'should return false if value is a float' do
-      is_valid = user_input_validator.move_valid_integer? 1.0
+    context 'when called with a float' do
+      it 'should return false' do
+        is_valid = user_input_validator.move_valid_integer? 1.0
 
-      expect(is_valid).to be false
+        expect(is_valid).to be false
+      end
     end
   end
 
-  context 'when move_on_empty_square? is called with a valid string' do
-    it 'should return false if value is less than 1' do
-      is_valid = user_input_validator.move_on_empty_square?(board, 0)
+  describe 'move_on_empty_square?' do
+    context 'when the specified square is empty' do
+      it 'should return true' do
+        is_valid = user_input_validator.move_on_empty_square?(board, 1)
 
-      expect(is_valid).to be false
+        expect(is_valid).to be true
+      end
     end
 
-    it 'should return false if value is greater than 9' do
-      is_valid = user_input_validator.move_on_empty_square?(board, 10)
+    context 'when called with a value less than 1' do
+      it 'should return false' do
+        is_valid = user_input_validator.move_on_empty_square?(board, 0)
 
-      expect(is_valid).to be false
+        expect(is_valid).to be false
+      end
     end
 
-    it 'should return true if specified square is empty' do
-      is_valid = user_input_validator.move_on_empty_square?(board, 1)
+    context 'when called with a value greater than 9' do
+      it 'should return false ' do
+        is_valid = user_input_validator.move_on_empty_square?(board, 10)
 
-      expect(is_valid).to be true
+        expect(is_valid).to be false
+      end
     end
 
-    it 'should return false if position already has a mark' do
-      board_played_at_one = [
-        ['X', nil, nil],
-        [nil, nil, nil],
-        [nil, nil, nil]
-      ]
+    context 'when there is already a mark' do
+      it 'should return false' do
+        board_played_at_one = [
+          ['X', nil, nil],
+          [nil, nil, nil],
+          [nil, nil, nil]
+        ]
 
-      board.instance_variable_set(:@board, board_played_at_one)
+        board.instance_variable_set(:@board, board_played_at_one)
 
-      is_valid = user_input_validator.move_on_empty_square?(board, 1)
+        is_valid = user_input_validator.move_on_empty_square?(board, 1)
 
-      expect(is_valid).to be false
+        expect(is_valid).to be false
+      end
     end
   end
 end

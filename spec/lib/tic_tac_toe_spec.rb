@@ -3,7 +3,7 @@ require_relative '../../lib/cli'
 require_relative '../../lib/board'
 require_relative '../../lib/tic_tac_toe'
 
-RSpec.describe 'TicTacToe' do
+RSpec.describe TicTacToe do
   let(:ui) do
     cli = CLI.new
     UserInterface.new cli
@@ -16,7 +16,7 @@ RSpec.describe 'TicTacToe' do
     TicTacToe.new(ui, board, player)
   end
 
-  context 'when TicTacToe is initialized' do
+  describe 'initialize' do
     it 'should have instances of CLI and Board as instance variables' do
       # Allows access to private instance variable
       private_ui = tic_tac_toe.instance_variable_get(:@user_interface)
@@ -27,7 +27,7 @@ RSpec.describe 'TicTacToe' do
     end
   end
 
-  context 'when start is called' do
+  describe 'start' do
     it 'should display welcome, instructions,the board, and prompt a move' do
       pos_str = '2'
 
