@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../../lib/board'
 require_relative '../../lib/game_end_evaluator'
 
@@ -25,7 +23,7 @@ RSpec.describe GameEndEvaluator do
       )
       winner = game_end_evaluator.find_winner board
 
-      expect(winner).to be 'X'
+      expect(winner).to eq 'X'
     end
 
     it 'should return vertical winner' do
@@ -39,7 +37,7 @@ RSpec.describe GameEndEvaluator do
       )
       winner = game_end_evaluator.find_winner board
 
-      expect(winner).to be 'O'
+      expect(winner).to eq 'O'
     end
 
     it 'should return diagonal winner from left to right' do
@@ -53,7 +51,7 @@ RSpec.describe GameEndEvaluator do
       )
       winner = game_end_evaluator.find_winner board
 
-      expect(winner).to be 'X'
+      expect(winner).to eq 'X'
     end
 
     it 'should return diagonal winner from right to left' do
@@ -67,7 +65,7 @@ RSpec.describe GameEndEvaluator do
       )
       winner = game_end_evaluator.find_winner board
 
-      expect(winner).to be 'O'
+      expect(winner).to eq 'O'
     end
   end
 

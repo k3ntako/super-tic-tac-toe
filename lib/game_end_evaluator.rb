@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# GameEndEvaluator
 class GameEndEvaluator
   def find_winner(board)
     [board.rows, board.columns, board.diagonals].each do |board_state|
