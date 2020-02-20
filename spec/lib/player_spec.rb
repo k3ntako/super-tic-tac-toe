@@ -5,7 +5,7 @@ RSpec.describe Player do
   let(:user_interface) { UserInterface.new(cli) }
   let(:player) { Player.new(user_interface, 'X') }
 
-  context 'when get_move is called' do
+  describe 'get_move' do
     it 'should call get_user_input and receive the input' do
       input_text = 'input text'
       allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)

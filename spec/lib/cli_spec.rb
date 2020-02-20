@@ -1,18 +1,20 @@
 require_relative '../../lib/board'
 require_relative '../../lib/cli'
 
-RSpec.describe 'CLI' do
+RSpec.describe CLI do
   let(:cli) { CLI.new }
 
-  context 'when string is passed into CLI.display_message' do
-    it 'should print the string to the console' do
-      text = 'This should be printed to the console'
-      expect { cli.display_message text }.to output(text + "\n").to_stdout
+  describe 'display_message' do
+    context 'when string is passed' do
+      it 'should print the string to the console' do
+        text = 'This should be printed to the console'
+        expect { cli.display_message text }.to output(text + "\n").to_stdout
+      end
     end
   end
 
-  context 'when get_user_input is called' do
-    it 'should return string passed in without new line ("\n")' do
+  describe 'get_user_input' do
+    it 'should return the string passed in by the user without new line ("\n")' do
       input_text = 'input text'
       allow_any_instance_of(Kernel).to receive(:gets).and_return(input_text)
 
