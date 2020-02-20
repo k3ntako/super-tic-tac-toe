@@ -70,4 +70,18 @@ RSpec.describe GameEndEvaluator do
       expect(winner).to be 'O'
     end
   end
+
+  context 'when any_remaining_moves? is called' do
+    it 'should return true if there are moves left' do
+      allow(board).to receive(:find_available_positions).and_return([1, 2, 3])
+      available_moves_exist = game_end_evaluator.any_remaining_moves? board
+      expect(available_moves_exist).to be true
+    end
+
+    it 'should return false if there are no moves left' do
+      allow(board).to receive(:find_available_positions).and_return([])
+      available_moves_exist = game_end_evaluator.any_remaining_moves? board
+      expect(available_moves_exist).to be false
+    end
+  end
 end

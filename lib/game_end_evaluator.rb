@@ -11,6 +11,10 @@ class GameEndEvaluator
     nil
   end
 
+  def any_remaining_moves?(board)
+    board.find_available_positions.length.positive?
+  end
+
   private
 
   def find_winner_in_matrix(matrix)
