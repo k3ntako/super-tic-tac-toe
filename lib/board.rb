@@ -32,18 +32,6 @@ class Board
     @board[row][col] = mark
   end
 
-  private
-
-  def position_to_row(position)
-    zero_based_position = position.to_i - 1
-    (zero_based_position / 3).ceil # 3 is number of cols
-  end
-
-  def position_to_col(position)
-    zero_based_position = position.to_i - 1
-    zero_based_position % 3 # 3 is number of rows
-  end
-
   def rows
     @board
   end
@@ -60,6 +48,16 @@ class Board
   end
 
   private
+
+  def position_to_row(position)
+    zero_based_position = position.to_i - 1
+    (zero_based_position / 3).ceil # 3 is number of cols
+  end
+
+  def position_to_col(position)
+    zero_based_position = position.to_i - 1
+    zero_based_position % 3 # 3 is number of rows
+  end
 
   def left_to_right_diagonal
     (0..@board.length - 1).map do |idx|
