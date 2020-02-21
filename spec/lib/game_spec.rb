@@ -7,7 +7,7 @@ RSpec.describe Game do
     board = Board.new
     player = Player.new(ui, 'X')
 
-    Game.new(board, player)
+    Game.new(ui, board, player)
   end
 
   describe 'start' do
