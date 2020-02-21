@@ -1,6 +1,7 @@
 require_relative './board'
 
 class Player
+  attr_reader :mark
   def initialize(user_interface, mark)
     @user_interface = user_interface
     @mark = mark
