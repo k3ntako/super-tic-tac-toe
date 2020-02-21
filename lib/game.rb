@@ -1,8 +1,9 @@
 class Game
-  def initialize(user_interface, board, player)
+  def initialize(user_interface, board, player_one, player_two)
     @user_interface = user_interface
     @board = board
-    @player_one = player
+    @player_one = player_one
+    @player_two = player_two
   end
 
   def start

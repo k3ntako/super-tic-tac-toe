@@ -5,9 +5,10 @@ RSpec.describe Game do
     cli = CLI.new
     ui = UserInterface.new(cli)
     board = Board.new
-    player = Player.new(ui, 'X')
+    player_one = Player.new(ui, 'X')
+    player_two = Player.new(ui, 'O')
 
-    Game.new(ui, board, player)
+    Game.new(ui, board, player_one, player_two)
   end
 
   describe 'start' do
