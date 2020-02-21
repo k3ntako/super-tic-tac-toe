@@ -8,15 +8,21 @@ class Game
 
   def start
     display_board
+    one_turn
+  end
+
+  private
+
+  def one_turn
     display_move_instruction
 
     position = @player_one.get_move
     @player_one.make_move(@board, position)
 
     display_board
-  end
 
-  private
+    one_turn
+  end
 
   def display_board
     @user_interface.display_board @board.state
