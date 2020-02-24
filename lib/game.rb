@@ -21,11 +21,7 @@ class Game
       alertnate_active_player unless is_game_over
     end
 
-    if did_player_win
-      exit_game_with_winner active_player
-    else
-      exit_game_with_tie
-    end
+    exit_game did_player_win
   end
 
   private
@@ -68,6 +64,14 @@ class Game
 
     does_remaining_moves_exist = game_end_evaluator.any_remaining_moves?(@board)
     [!does_remaining_moves_exist, false]
+  end
+
+  def exit_game(did_player_win)
+    if did_player_win
+      exit_game_with_winner active_player
+    else
+      exit_game_with_tie
+    end
   end
 
   def exit_game_with_winner(winner)
