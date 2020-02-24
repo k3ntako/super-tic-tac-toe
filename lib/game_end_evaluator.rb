@@ -1,11 +1,11 @@
 class GameEndEvaluator
-  def find_winner(board)
+  def player_won?(board)
     [board.rows, board.columns, board.diagonals].each do |board_state|
       winner = find_winner_in_matrix board_state
-      return winner unless winner.nil?
+      return true unless winner.nil?
     end
 
-    nil
+    false
   end
 
   def any_remaining_moves?(board)

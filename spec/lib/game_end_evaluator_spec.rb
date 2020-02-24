@@ -5,17 +5,17 @@ RSpec.describe GameEndEvaluator do
   let(:game_end_evaluator) { GameEndEvaluator.new }
   let(:board) { Board.new }
 
-  describe 'find_winner' do
+  describe 'player_won?' do
     context 'when there is no winner' do
-      it 'should return nil' do
-        winner = game_end_evaluator.find_winner board
+      it 'should return false' do
+        did_player_win = game_end_evaluator.player_won? board
 
-        expect(winner).to be nil
+        expect(did_player_win).to be false
       end
     end
 
     context 'when there is a winner' do
-      it 'should return horizontal winner' do
+      it 'should return true for the horizontal winner' do
         board.instance_variable_set(
           :@board,
           [
@@ -24,12 +24,12 @@ RSpec.describe GameEndEvaluator do
             ['O', 'X', nil]
           ]
         )
-        winner = game_end_evaluator.find_winner board
+        did_player_win = game_end_evaluator.player_won? board
 
-        expect(winner).to eq 'X'
+        expect(did_player_win).to eq true
       end
 
-      it 'should return vertical winner' do
+      it 'should return true for the vertical winner' do
         board.instance_variable_set(
           :@board,
           [
@@ -38,12 +38,12 @@ RSpec.describe GameEndEvaluator do
             ['O', 'X', 'X']
           ]
         )
-        winner = game_end_evaluator.find_winner board
+        did_player_win = game_end_evaluator.player_won? board
 
-        expect(winner).to eq 'O'
+        expect(did_player_win).to eq true
       end
 
-      it 'should return diagonal winner from left to right' do
+      it 'should return true for the diagonal winner from left to right' do
         board.instance_variable_set(
           :@board,
           [
@@ -52,12 +52,12 @@ RSpec.describe GameEndEvaluator do
             ['O', 'O', 'X']
           ]
         )
-        winner = game_end_evaluator.find_winner board
+        did_player_win = game_end_evaluator.player_won? board
 
-        expect(winner).to eq 'X'
+        expect(did_player_win).to eq true
       end
 
-      it 'should return diagonal winner from right to left' do
+      it 'should return true for the diagonal winner from right to left' do
         board.instance_variable_set(
           :@board,
           [
@@ -66,9 +66,9 @@ RSpec.describe GameEndEvaluator do
             ['O', 'O', 'X']
           ]
         )
-        winner = game_end_evaluator.find_winner board
+        did_player_win = game_end_evaluator.player_won? board
 
-        expect(winner).to eq 'O'
+        expect(did_player_win).to eq true
       end
     end
   end

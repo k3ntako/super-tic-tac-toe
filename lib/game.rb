@@ -63,8 +63,8 @@ class Game
   def game_over?
     game_end_evaluator = GameEndEvaluator.new
 
-    winner = game_end_evaluator.find_winner(@board)
-    return true, true unless winner.nil?
+    did_player_win = game_end_evaluator.player_won?(@board)
+    return [true, true] if did_player_win
 
     does_remaining_moves_exist = game_end_evaluator.any_remaining_moves?(@board)
     [!does_remaining_moves_exist, false]
