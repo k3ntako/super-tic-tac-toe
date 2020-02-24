@@ -12,11 +12,46 @@ RSpec.describe Game do
   end
 
   describe 'start' do
-    it 'should display board and call one_turn' do
-      expect(game).to receive(:display_board).once.ordered
-      expect(game).to receive(:one_turn).once.ordered
+    context 'when a game ends in a tie' do
+      it 'should call exit_game_with_tie' do
+        player_one, player_two = game.instance_variable_get(:@players)
 
-      game.start
+        expect(game).to receive(:display_board).exactly(10).times
+        expect(game).to receive(:display_move_instruction).exactly(9).times
+
+        expect(player_one).to receive(:get_move).once.ordered.and_return 5
+        expect(player_two).to receive(:get_move).once.ordered.and_return 1
+        expect(player_one).to receive(:get_move).once.ordered.and_return 7
+        expect(player_two).to receive(:get_move).once.ordered.and_return 3
+        expect(player_one).to receive(:get_move).once.ordered.and_return 2
+        expect(player_two).to receive(:get_move).once.ordered.and_return 8
+        expect(player_one).to receive(:get_move).once.ordered.and_return 4
+        expect(player_two).to receive(:get_move).once.ordered.and_return 6
+        expect(player_one).to receive(:get_move).once.ordered.and_return 9
+
+        expect(game).to receive(:exit_game_with_tie).once.ordered
+
+        game.start
+      end
+    end
+
+    context 'when a user wins' do
+      it 'should call exit_game_with_winner' do
+        player_one, player_two = game.instance_variable_get(:@players)
+
+        expect(game).to receive(:display_board).exactly(6).times
+        expect(game).to receive(:display_move_instruction).exactly(5).times
+
+        expect(player_one).to receive(:get_move).once.ordered.and_return 5
+        expect(player_two).to receive(:get_move).once.ordered.and_return 1
+        expect(player_one).to receive(:get_move).once.ordered.and_return 2
+        expect(player_two).to receive(:get_move).once.ordered.and_return 1
+        expect(player_one).to receive(:get_move).once.ordered.and_return 8
+
+        expect(game).to receive(:exit_game_with_winner).once.ordered.with player_one
+
+        game.start
+      end
     end
   end
 end

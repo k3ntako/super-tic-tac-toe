@@ -10,7 +10,22 @@ class Game
 
   def start
     display_board
-    one_turn
+    is_game_over = false
+    did_player_win = false
+
+    until is_game_over
+      one_turn
+
+      is_game_over, did_player_win = game_over?
+
+      alertnate_active_player unless is_game_over
+    end
+
+    if did_player_win
+      exit_game_with_winner active_player
+    else
+      exit_game_with_tie
+    end
   end
 
   private
@@ -21,17 +36,6 @@ class Game
     prompt_move
 
     display_board
-
-    game_end_evaluator = GameEndEvaluator.new
-    winner = game_end_evaluator.find_winner(@board)
-    return exit_game_with_winner active_player unless winner.nil?
-
-    does_remaining_moves_exist = game_end_evaluator.any_remaining_moves?(@board)
-    return exit_game_with_tie unless does_remaining_moves_exist
-
-    alertnate_active_player
-
-    one_turn
   end
 
   def prompt_move
@@ -54,6 +58,16 @@ class Game
 
   def alertnate_active_player
     @active_player_index = @active_player_index.zero? ? 1 : 0
+  end
+
+  def game_over?
+    game_end_evaluator = GameEndEvaluator.new
+
+    winner = game_end_evaluator.find_winner(@board)
+    return true, true unless winner.nil?
+
+    does_remaining_moves_exist = game_end_evaluator.any_remaining_moves?(@board)
+    [!does_remaining_moves_exist, false]
   end
 
   def exit_game_with_winner(winner)
