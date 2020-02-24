@@ -14,7 +14,8 @@ RSpec.describe Game do
   describe 'start' do
     context 'when a game ends in a tie' do
       it 'should call exit_game_with_tie' do
-        player_one, player_two = game.instance_variable_get(:@players)
+        player_one = game.instance_variable_get(:@current_player)
+        player_two = game.instance_variable_get(:@previous_player)
 
         expect(game).to receive(:display_board).exactly(10).times
         expect(game).to receive(:display_move_instruction).exactly(9).times
@@ -37,7 +38,8 @@ RSpec.describe Game do
 
     context 'when a user wins' do
       it 'should call exit_game_with_winner' do
-        player_one, player_two = game.instance_variable_get(:@players)
+        player_one = game.instance_variable_get(:@current_player)
+        player_two = game.instance_variable_get(:@previous_player)
 
         expect(game).to receive(:display_board).exactly(6).times
         expect(game).to receive(:display_move_instruction).exactly(5).times

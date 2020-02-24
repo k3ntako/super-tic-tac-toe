@@ -4,8 +4,8 @@ class Game
   def initialize(user_interface, board, player_one, player_two)
     @user_interface = user_interface
     @board = board
-    @active_player_index = 0
-    @players = [player_one, player_two]
+    @current_player = player_one
+    @previous_player = player_two
   end
 
   def start
@@ -14,7 +14,7 @@ class Game
     until game_over?
       one_turn
 
-      alertnate_active_player
+      alertnate_current_player
     end
 
     exit_game
@@ -31,8 +31,8 @@ class Game
   end
 
   def prompt_move
-    position = active_player.get_move
-    active_player.make_move(@board, position)
+    position = @current_player.get_move
+    @current_player.make_move(@board, position)
   end
 
   def display_board
@@ -44,12 +44,8 @@ class Game
     @user_interface.display_message instruction
   end
 
-  def active_player
-    @players[@active_player_index]
-  end
-
-  def alertnate_active_player
-    @active_player_index = @active_player_index.zero? ? 1 : 0
+  def alertnate_current_player
+    @current_player, @previous_player = @previous_player, @current_player
   end
 
   def game_over?
@@ -66,9 +62,7 @@ class Game
     did_player_win = game_end_evaluator.player_won?(@board)
 
     if did_player_win
-      winner_index = @active_player_index.zero? ? 1 : 0
-      winner = @players[winner_index]
-      exit_game_with_winner winner
+      exit_game_with_winner @previous_player
     else
       exit_game_with_tie
     end
