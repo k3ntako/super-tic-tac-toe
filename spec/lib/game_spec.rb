@@ -4,11 +4,16 @@ RSpec.describe Game do
   let(:game) do
     cli = CLI.new
     ui = UserInterface.new(cli)
-    board = Board.new
-    player_one = Player.new(ui, 'X')
-    player_two = Player.new(ui, 'O')
 
-    Game.new(ui, board, player_one, player_two)
+    game_args = {
+      user_interface: ui,
+      board: Board.new,
+      game_end_evaluator: GameEndEvaluator.new,
+      player_one: Player.new(ui, 'X'),
+      player_two: Player.new(ui, 'O')
+    }
+
+    Game.new(game_args)
   end
 
   describe 'start' do

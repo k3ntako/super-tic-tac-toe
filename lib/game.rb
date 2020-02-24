@@ -1,11 +1,10 @@
-require_relative './game_end_evaluator'
-
 class Game
-  def initialize(user_interface, board, player_one, player_two)
-    @user_interface = user_interface
-    @board = board
-    @current_player = player_one
-    @previous_player = player_two
+  def initialize(args)
+    @user_interface = args[:user_interface]
+    @board = args[:board]
+    @game_end_evaluator = args[:game_end_evaluator]
+    @current_player = args[:player_one]
+    @previous_player = args[:player_two]
   end
 
   def start
@@ -49,17 +48,13 @@ class Game
   end
 
   def game_over?
-    game_end_evaluator = GameEndEvaluator.new
+    did_player_win = @game_end_evaluator.player_won?(@board)
 
-    did_player_win = game_end_evaluator.player_won?(@board)
-
-    did_player_win || !game_end_evaluator.any_remaining_moves?(@board)
+    did_player_win || !@game_end_evaluator.any_remaining_moves?(@board)
   end
 
   def exit_game
-    game_end_evaluator = GameEndEvaluator.new
-
-    did_player_win = game_end_evaluator.player_won?(@board)
+    did_player_win = @game_end_evaluator.player_won?(@board)
 
     if did_player_win
       exit_game_with_winner @previous_player
