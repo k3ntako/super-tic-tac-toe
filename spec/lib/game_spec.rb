@@ -30,13 +30,13 @@ RSpec.describe Game do
       expect(player_two).to receive(:get_move).once.ordered.and_return 5
       expect(player_one).to receive(:get_move).once.ordered.and_return 7
 
-      allow(game).to receive(:exit_game_with_winner)
+      allow(game).to receive(:display_game_over_with_winner)
 
       game.start
     end
 
     context 'when a game ends in a tie' do
-      it 'should call exit_game_with_tie' do
+      it 'should call display_game_over_with_tie' do
         board = Board.new
         played_board_state = [
           ['O', 'X', 'O'],
@@ -53,14 +53,14 @@ RSpec.describe Game do
         expect(game).to receive(:display_move_instruction).once
         expect(player_one).to receive(:get_move).once.ordered.and_return 9
 
-        expect(game).to receive(:exit_game_with_tie).once.ordered
+        expect(game).to receive(:display_game_over_with_tie).once.ordered
 
         game.start
       end
     end
 
     context 'when a user wins' do
-      it 'should call exit_game_with_winner' do
+      it 'should call display_game_over_with_winner' do
         board = Board.new
         played_board_state = [
           ['O', 'X', nil],
@@ -77,7 +77,7 @@ RSpec.describe Game do
         expect(game).to receive(:display_move_instruction).once
         expect(player_one).to receive(:get_move).once.ordered.and_return 3
 
-        expect(game).to receive(:exit_game_with_winner).once.ordered.with player_one
+        expect(game).to receive(:display_game_over_with_winner).once.ordered.with player_one
 
         game.start
       end
