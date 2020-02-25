@@ -7,10 +7,24 @@ RSpec.describe GameEndEvaluator do
 
   describe 'player_won?' do
     context 'when there is no winner' do
-      it 'should return false' do
+      it 'should return false for an empty board' do
         did_player_win = game_end_evaluator.player_won? board
 
         expect(did_player_win).to be false
+      end
+
+      it 'should return false for an empty board without a winner' do
+        board.instance_variable_set(
+          :@board,
+          [
+            [nil, 'O', 'X'],
+            ['X', 'X', 'O'],
+            ['O', 'X', nil]
+          ]
+        )
+        did_player_win = game_end_evaluator.player_won? board
+
+        expect(did_player_win).to eq false
       end
     end
 
