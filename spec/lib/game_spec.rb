@@ -1,12 +1,14 @@
 require_relative '../../lib/game'
 
 RSpec.describe Game do
-  let(:game) do
+  let(:ui) do
     cli = CLI.new
-    ui = UserInterface.new(cli)
-
+    UserInterface.new(cli)
+  end
+  let(:game_messenger) { GameMessenger.new(ui) }
+  let(:game) do
     game_args = {
-      user_interface: ui,
+      game_messenger: game_messenger,
       board: Board.new,
       game_end_evaluator: GameEndEvaluator.new,
       player_one: Player.new(ui, 'X'),
@@ -21,8 +23,8 @@ RSpec.describe Game do
       player_one = game.instance_variable_get(:@current_player)
       player_two = game.instance_variable_get(:@previous_player)
 
-      allow(game).to receive(:display_board)
-      allow(game).to receive(:display_move_instruction)
+      allow(game_messenger).to receive(:display_board)
+      allow(game_messenger).to receive(:display_move_instruction)
 
       expect(player_one).to receive(:get_move).once.ordered.and_return 1
       expect(player_two).to receive(:get_move).once.ordered.and_return 2
@@ -30,7 +32,7 @@ RSpec.describe Game do
       expect(player_two).to receive(:get_move).once.ordered.and_return 5
       expect(player_one).to receive(:get_move).once.ordered.and_return 7
 
-      allow(game).to receive(:display_game_over_with_winner)
+      allow(game_messenger).to receive(:display_game_over_with_winner)
 
       game.start
     end
@@ -49,11 +51,11 @@ RSpec.describe Game do
 
         player_one = game.instance_variable_get(:@current_player)
 
-        expect(game).to receive(:display_board).twice
-        expect(game).to receive(:display_move_instruction).once
+        expect(game_messenger).to receive(:display_board).twice
+        expect(game_messenger).to receive(:display_move_instruction).once
         expect(player_one).to receive(:get_move).once.ordered.and_return 9
 
-        expect(game).to receive(:display_game_over_with_tie).once.ordered
+        expect(game_messenger).to receive(:display_game_over_with_tie).once.ordered
 
         game.start
       end
@@ -73,11 +75,11 @@ RSpec.describe Game do
 
         player_one = game.instance_variable_get(:@current_player)
 
-        expect(game).to receive(:display_board).twice
-        expect(game).to receive(:display_move_instruction).once
+        expect(game_messenger).to receive(:display_board).twice
+        expect(game_messenger).to receive(:display_move_instruction).once
         expect(player_one).to receive(:get_move).once.ordered.and_return 3
 
-        expect(game).to receive(:display_game_over_with_winner).once.ordered.with player_one
+        expect(game_messenger).to receive(:display_game_over_with_winner).once.ordered.with player_one
 
         game.start
       end
