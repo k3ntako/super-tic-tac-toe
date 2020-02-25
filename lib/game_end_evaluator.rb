@@ -1,4 +1,10 @@
 class GameEndEvaluator
+  def game_over?(board)
+    did_player_win = player_won?(board)
+
+    did_player_win || !any_remaining_moves?(board)
+  end
+
   def player_won?(board)
     [board.rows, board.columns, board.diagonals].each do |board_state|
       winner = find_winner_in_matrix board_state
@@ -8,11 +14,11 @@ class GameEndEvaluator
     false
   end
 
+  private
+
   def any_remaining_moves?(board)
     board.find_available_positions.length.positive?
   end
-
-  private
 
   def find_winner_in_matrix(matrix)
     matrix.each do |row|

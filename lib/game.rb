@@ -10,7 +10,7 @@ class Game
   def start
     display_board
 
-    until game_over?
+    until @game_end_evaluator.game_over?(@board)
       one_turn
 
       alternate_current_player
@@ -45,12 +45,6 @@ class Game
 
   def alternate_current_player
     @current_player, @previous_player = @previous_player, @current_player
-  end
-
-  def game_over?
-    did_player_win = @game_end_evaluator.player_won?(@board)
-
-    did_player_win || !@game_end_evaluator.any_remaining_moves?(@board)
   end
 
   def exit_game
