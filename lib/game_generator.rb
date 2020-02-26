@@ -13,13 +13,13 @@ class GameGenerator
     ]
 
     game_state = GameState.new(
+      game_end_evaluator: GameEndEvaluator.new,
       board: Board.new,
       players: players
     )
 
     Game.new(
       game_messenger: GameMessenger.new(user_interface),
-      game_end_evaluator: GameEndEvaluator.new,
       game_state: game_state
     )
   end
