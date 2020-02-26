@@ -4,9 +4,9 @@ class GameEndEvaluator
   end
 
   def player_won?(board)
-    all_win_combinations = board.rows_cols_diagonals.flatten(1)
+    every_orientation_to_check = board.rows_cols_diagonals.flatten(1)
 
-    player_won_in_matrix? all_win_combinations
+    player_won_in_matrix? every_orientation_to_check
   end
 
   private
