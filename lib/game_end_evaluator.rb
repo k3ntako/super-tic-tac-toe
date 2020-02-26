@@ -25,6 +25,6 @@ class GameEndEvaluator
   end
 
   def array_has_winner?(array)
-    array.count('X') == 3 || array.count('O') == 3
+    array.count('X') == array.length || array.count('O') == array.length
   end
 end
