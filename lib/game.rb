@@ -1,7 +1,7 @@
 class Game
-  def initialize(args)
-    @game_messenger = args[:game_messenger]
-    @game_state = args[:game_state]
+  def initialize(game_messenger: nil, game_state: nil)
+    @game_messenger = game_messenger
+    @game_state = game_state
   end
 
   def start

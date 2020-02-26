@@ -1,10 +1,10 @@
 class GameState
   attr_reader :board
 
-  def initialize(args)
-    @game_end_evaluator = args[:game_end_evaluator]
-    @board = args[:board]
-    @players = args[:players]
+  def initialize(game_end_evaluator: nil, board: nil, players: nil)
+    @game_end_evaluator = game_end_evaluator
+    @board = board
+    @players = players
     @current_player_idx = 0
   end
 
