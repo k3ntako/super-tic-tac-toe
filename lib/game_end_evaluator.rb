@@ -1,17 +1,12 @@
 class GameEndEvaluator
   def game_over?(board)
-    did_player_win = player_won?(board)
-
-    did_player_win || !any_remaining_moves?(board)
+    player_won?(board) || !any_remaining_moves?(board)
   end
 
   def player_won?(board)
-    [board.rows, board.columns, board.diagonals].each do |board_state|
-      winner = find_winner_in_matrix board_state
-      return true unless winner.nil?
-    end
+    all_win_combinations = [board.rows, board.columns, board.diagonals].flatten(1)
 
-    false
+    player_won_in_matrix? all_win_combinations
   end
 
   private
@@ -20,23 +15,16 @@ class GameEndEvaluator
     board.find_available_positions.length.positive?
   end
 
-  def find_winner_in_matrix(matrix)
-    matrix.each do |row|
-      winner = find_winner_in_array row
-      return winner unless winner.nil?
-    end
+  def player_won_in_matrix?(matrix)
+    array = matrix.shift
 
-    nil
+    return true if array_has_winner? array
+    return player_won_in_matrix? matrix if matrix.length.positive?
+
+    false
   end
 
-  def find_winner_in_array(array)
-    marks_present_in_array = array.uniq
-
-    only_one_mark = marks_present_in_array.length == 1
-    the_one_mark_is_not_nil = only_one_mark && !marks_present_in_array[0].nil?
-
-    return marks_present_in_array[0] if the_one_mark_is_not_nil
-
-    nil
+  def array_has_winner?(array)
+    array.count('X') == 3 || array.count('O') == 3
   end
 end
