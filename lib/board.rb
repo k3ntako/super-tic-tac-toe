@@ -32,6 +32,12 @@ class Board
     @board[row][col] = mark
   end
 
+  def rows_cols_diagonals
+    [rows, columns, diagonals]
+  end
+
+  private
+
   def rows
     @board
   end
@@ -46,8 +52,6 @@ class Board
       right_to_left_diagonal
     ]
   end
-
-  private
 
   def position_to_row(position)
     zero_based_position = position.to_i - 1

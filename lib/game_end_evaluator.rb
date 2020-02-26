@@ -4,7 +4,7 @@ class GameEndEvaluator
   end
 
   def player_won?(board)
-    all_win_combinations = [board.rows, board.columns, board.diagonals].flatten(1)
+    all_win_combinations = board.rows_cols_diagonals.flatten(1)
 
     player_won_in_matrix? all_win_combinations
   end
