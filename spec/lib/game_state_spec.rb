@@ -1,17 +1,23 @@
 require_relative '../../lib/player'
 require_relative '../../lib/game_state'
+require_relative '../../lib/user_input_validator'
 
 RSpec.describe GameState do
-  let(:game_state) do
+  let(:ui) do
     cli = CLI.new
-    ui = UserInterface.new(cli)
-
+    UserInterface.new(cli)
+  end
+  let(:game_messenger) { GameMessenger.new(ui) }
+  let(:game_state) do
     players = [
       Player.new(ui, 'X'),
       Player.new(ui, 'O')
     ]
 
     GameState.new(
+      game_end_evaluator: GameEndEvaluator.new,
+      user_input_validator: UserInputValidator.new,
+      game_messenger: game_messenger,
       board: Board.new,
       players: players
     )
@@ -35,18 +41,70 @@ RSpec.describe GameState do
   end
 
   describe 'make_move' do
-    it 'should call update board based on current_players input' do
-      current_player_idx = game_state.instance_variable_get(:@current_player_idx)
-      players = game_state.instance_variable_get(:@players)
-      player_one = players[current_player_idx]
+    context 'when the move is valid' do
+      it 'should call update board based on current_players input' do
+        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+        players = game_state.instance_variable_get(:@players)
+        player_one = players[current_player_idx]
 
-      board = game_state.instance_variable_get(:@board)
+        board = game_state.instance_variable_get(:@board)
 
-      pos_str = '9'
-      expect(player_one).to receive(:get_move).and_return pos_str
-      expect(board).to receive(:update).with(player_one.mark, pos_str)
+        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
+        allow(user_input_validator).to receive(:move_valid_integer?).and_return true
+        allow(user_input_validator).to receive(:move_on_empty_square?).and_return true
 
-      game_state.make_move
+        pos_str = '9'
+        expect(player_one).to receive(:get_move).and_return pos_str
+        expect(board).to receive(:update).with(player_one.mark, pos_str)
+
+        game_state.make_move
+      end
+    end
+
+    context 'when the move is not a valid integer' do
+      it 'should ask user to try again' do
+        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+        players = game_state.instance_variable_get(:@players)
+        player_one = players[current_player_idx]
+
+        board = game_state.instance_variable_get(:@board)
+
+        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
+        allow(user_input_validator).to receive(:move_valid_integer?).and_return(false, true)
+        allow(user_input_validator).to receive(:move_on_empty_square?).and_return(true)
+
+        invalid_pos_str = 'abc'
+        pos_str = '9'
+        expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
+        expect(board).to receive(:update).with(player_one.mark, pos_str)
+
+        expect(game_messenger).to receive(:display_not_valid_integer).once
+
+        game_state.make_move
+      end
+    end
+
+    context 'when making a move on a square that is taken' do
+      it 'should ask user to try again' do
+        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+        players = game_state.instance_variable_get(:@players)
+        player_one = players[current_player_idx]
+
+        board = game_state.instance_variable_get(:@board)
+
+        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
+        allow(user_input_validator).to receive(:move_valid_integer?).and_return(true)
+        allow(user_input_validator).to receive(:move_on_empty_square?).and_return(false, true)
+
+        invalid_pos_str = '1'
+        pos_str = '9'
+        expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
+        expect(board).to receive(:update).with(player_one.mark, pos_str)
+
+        expect(game_messenger).to receive(:display_square_taken).once
+
+        game_state.make_move
+      end
     end
   end
 

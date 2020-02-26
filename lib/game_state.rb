@@ -1,8 +1,10 @@
 class GameState
   attr_reader :board
 
-  def initialize(game_end_evaluator: nil, board: nil, players: nil)
+  def initialize(game_end_evaluator: nil, user_input_validator: nil, game_messenger: nil, board: nil, players: nil)
+    @game_messenger = game_messenger
     @game_end_evaluator = game_end_evaluator
+    @user_input_validator = user_input_validator
     @board = board
     @players = players
     @current_player_idx = 0
@@ -14,7 +16,16 @@ class GameState
 
   def make_move
     position = current_player.get_move
-    @board.update(current_player.mark, position)
+
+    if !@user_input_validator.move_valid_integer? position
+      @game_messenger.display_not_valid_integer
+      make_move
+    elsif !@user_input_validator.move_on_empty_square?(@board, position)
+      @game_messenger.display_square_taken
+      make_move
+    else
+      @board.update(current_player.mark, position)
+    end
   end
 
   def game_over?

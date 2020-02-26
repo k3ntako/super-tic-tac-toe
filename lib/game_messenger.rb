@@ -21,4 +21,14 @@ class GameMessenger
     message = 'Game Over: Tie!'
     @user_interface.display_message message
   end
+
+  def display_not_valid_integer
+    message = 'Make sure it\'s an integer and try again!'
+    @user_interface.display_message message
+  end
+
+  def display_square_taken
+    message = 'You can\'t make a move there, try again!'
+    @user_interface.display_message message
+  end
 end
