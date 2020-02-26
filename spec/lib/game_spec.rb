@@ -6,7 +6,6 @@ RSpec.describe Game do
     UserInterface.new(cli)
   end
   let(:game_messenger) { GameMessenger.new(ui) }
-  let(:game_end_evaluator) { GameEndEvaluator.new }
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),
@@ -14,6 +13,7 @@ RSpec.describe Game do
     ]
 
     GameState.new(
+      game_end_evaluator: GameEndEvaluator.new,
       board: Board.new,
       players: players
     )
@@ -22,7 +22,6 @@ RSpec.describe Game do
   let(:game) do
     Game.new(
       game_messenger: game_messenger,
-      game_end_evaluator: game_end_evaluator,
       game_state: game_state
     )
   end
@@ -32,11 +31,11 @@ RSpec.describe Game do
       expect(game_messenger).to receive(:display_board).with(game_state.board).ordered
 
       # loop
-      expect(game_end_evaluator).to receive(:game_over?).with(game_state.board).ordered.and_return false
+      expect(game_state).to receive(:game_over?).ordered.and_return false
       expect(game_messenger).to receive(:display_move_instruction).ordered
       expect(game_state).to receive(:make_move).ordered
       expect(game_messenger).to receive(:display_board).with(game_state.board).ordered
-      expect(game_end_evaluator).to receive(:game_over?).ordered.and_return true
+      expect(game_state).to receive(:game_over?).ordered.and_return true
 
       # exit game
       expect(game_messenger).to receive(:display_game_over_with_tie).ordered
@@ -59,7 +58,7 @@ RSpec.describe Game do
         allow(game_messenger).to receive(:display_board)
 
         # loop
-        allow(game_end_evaluator).to receive(:game_over?).and_return(true)
+        allow(game_state).to receive(:game_over?).and_return(true)
 
         # exit game
         expect(game_messenger).to receive(:display_game_over_with_winner)

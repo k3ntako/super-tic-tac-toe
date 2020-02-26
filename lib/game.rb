@@ -1,14 +1,13 @@
 class Game
   def initialize(args)
     @game_messenger = args[:game_messenger]
-    @game_end_evaluator = args[:game_end_evaluator]
     @game_state = args[:game_state]
   end
 
   def start
     @game_messenger.display_board @game_state.board
 
-    until @game_end_evaluator.game_over?(@game_state.board)
+    until @game_state.game_over?
       one_turn
 
       @game_state.alternate_current_player
@@ -28,12 +27,12 @@ class Game
   end
 
   def exit_game
-    did_player_win = @game_end_evaluator.player_won?(@game_state.board)
+    winner = @game_state.winner
 
-    if did_player_win
-      @game_messenger.display_game_over_with_winner @game_state.previous_player
-    else
+    if winner.nil?
       @game_messenger.display_game_over_with_tie
+    else
+      @game_messenger.display_game_over_with_winner winner
     end
   end
 end
