@@ -64,25 +64,20 @@ RSpec.describe Board do
     end
   end
 
-  describe 'columns' do
-    it 'should return an array of columns (arrays)' do
+  describe 'rows_cols_diagonals' do
+    it 'should return an array of matrices (arrays or arrays)' do
       board.instance_variable_set(:@board, BOARD_WITH_MARKS)
 
-      expect(board.columns).to eq [
-        ['X', nil, nil],
-        ['X', 'X', 'X'],
-        [nil, nil, 'X']
-      ]
-    end
-  end
-
-  describe 'diagonals' do
-    it 'should return an array with both diagonals (arrays)' do
-      board.instance_variable_set(:@board, BOARD_WITH_MARKS)
-
-      expect(board.diagonals).to eq [
-        ['X', 'X', 'X'],
-        [nil, 'X', nil]
+      expect(board.rows_cols_diagonals).to eq [
+        BOARD_WITH_MARKS, # rows
+        [ # columns
+          ['X', nil, nil],
+          ['X', 'X', 'X'],
+          [nil, nil, 'X']
+        ], [ # diagonals
+          ['X', 'X', 'X'],
+          [nil, 'X', nil]
+        ]
       ]
     end
   end

@@ -1,24 +1,16 @@
 require_relative './cli'
-require_relative './board'
-require_relative './player'
+require_relative './game_generator'
 
 class TicTacToe
-  def initialize(user_interface, board, player)
+  def initialize(user_interface)
     @user_interface = user_interface
-    @board = board
-    @player_one = player
   end
 
   def start
     display_welcome
-    display_board
 
-    display_move_instruction
-
-    position = @player_one.get_move
-    @player_one.make_move(@board, position)
-
-    display_board
+    game = create_a_game
+    game.start
   end
 
   private
@@ -28,12 +20,8 @@ class TicTacToe
     @user_interface.display_message welcome_message
   end
 
-  def display_board
-    @user_interface.display_board @board.state
-  end
-
-  def display_move_instruction
-    instruction = 'Enter a number to make a move in the corresponding square:'
-    @user_interface.display_message instruction
+  def create_a_game
+    game_generator = GameGenerator.new
+    game_generator.create_a_game @user_interface
   end
 end

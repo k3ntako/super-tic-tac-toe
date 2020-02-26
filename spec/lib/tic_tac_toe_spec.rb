@@ -9,39 +9,23 @@ RSpec.describe TicTacToe do
     UserInterface.new cli
   end
 
-  let(:tic_tac_toe) do
-    board = Board.new
-    player = Player.new(ui, 'X')
-
-    TicTacToe.new(ui, board, player)
-  end
+  let(:tic_tac_toe) { TicTacToe.new(ui) }
 
   describe 'initialize' do
     it 'should have instances of CLI and Board as instance variables' do
       # Allows access to private instance variable
       private_ui = tic_tac_toe.instance_variable_get(:@user_interface)
       expect(private_ui).to be_kind_of UserInterface
-
-      private_board = tic_tac_toe.instance_variable_get(:@board)
-      expect(private_board).to be_kind_of Board
     end
   end
 
   describe 'start' do
-    it 'should display welcome, instructions,the board, and prompt a move' do
-      pos_str = '2'
-
-      player_one = tic_tac_toe.instance_variable_get(:@player_one)
-
-      board = spy('board')
-      tic_tac_toe.instance_variable_set(:@board, board)
+    it 'should display welcome, instructions, the board, and prompt a move' do
+      game_spy = spy('game')
 
       expect(tic_tac_toe).to receive(:display_welcome).once.ordered
-      expect(tic_tac_toe).to receive(:display_board).once.ordered
-      expect(tic_tac_toe).to receive(:display_move_instruction).ordered
-      expect(player_one).to receive(:get_move).and_return(pos_str).ordered
-      expect(player_one).to receive(:make_move).with(board, pos_str).ordered
-      expect(tic_tac_toe).to receive(:display_board).once.ordered
+      expect(tic_tac_toe).to receive(:create_a_game).once.ordered.and_return(game_spy)
+      expect(game_spy).to receive(:start).once.ordered
 
       tic_tac_toe.start
     end
