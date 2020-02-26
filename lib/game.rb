@@ -27,12 +27,13 @@ class Game
   end
 
   def exit_game
-    winner = @game_state.winner
+    did_player_win = @game_state.player_won?
 
-    if winner.nil?
-      @game_messenger.display_game_over_with_tie
-    else
+    if did_player_win
+      winner = @game_state.previous_player
       @game_messenger.display_game_over_with_winner winner
+    else
+      @game_messenger.display_game_over_with_tie
     end
   end
 end

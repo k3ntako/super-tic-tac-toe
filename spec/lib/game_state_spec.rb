@@ -49,4 +49,18 @@ RSpec.describe GameState do
       game_state.make_move
     end
   end
+
+  describe 'previous_player' do
+    it 'should return the player that is not currently active' do
+      player = game_state.previous_player
+      expect(player.mark).to eq('O')
+    end
+
+    it 'should return the other player when alternate_current_player is called' do
+      game_state.alternate_current_player
+      player = game_state.previous_player
+
+      expect(player.mark).to eq('X')
+    end
+  end
 end
