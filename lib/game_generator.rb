@@ -1,17 +1,26 @@
 require_relative './game'
 require_relative './game_end_evaluator'
 require_relative './game_messenger'
+require_relative './game_state'
+require_relative './player'
+require_relative './board'
 
 class GameGenerator
   def create_a_game(user_interface)
-    game_args = {
-      game_messenger: GameMessenger.new(user_interface),
-      board: Board.new,
-      game_end_evaluator: GameEndEvaluator.new,
-      player_one: Player.new(user_interface, 'X'),
-      player_two: Player.new(user_interface, 'O')
-    }
+    players = [
+      Player.new(user_interface, 'X'),
+      Player.new(user_interface, 'O')
+    ]
 
-    Game.new(game_args)
+    game_state = GameState.new(
+      board: Board.new,
+      players: players
+    )
+
+    Game.new(
+      game_messenger: GameMessenger.new(user_interface),
+      game_end_evaluator: GameEndEvaluator.new,
+      game_state: game_state
+    )
   end
 end
