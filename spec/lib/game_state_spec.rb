@@ -41,70 +41,64 @@ RSpec.describe GameState do
   end
 
   describe 'make_move' do
-    context 'when the move is valid' do
-      it 'should call update board based on current_players input' do
-        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
-        players = game_state.instance_variable_get(:@players)
-        player_one = players[current_player_idx]
+    it 'should call update board based on current_players input when move is valid' do
+      current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+      players = game_state.instance_variable_get(:@players)
+      player_one = players[current_player_idx]
 
-        board = game_state.instance_variable_get(:@board)
+      board = game_state.instance_variable_get(:@board)
 
-        move_validator = game_state.instance_variable_get(:@move_validator)
-        allow(move_validator).to receive(:valid_integer?).and_return true
-        allow(move_validator).to receive(:empty_square?).and_return true
+      move_validator = game_state.instance_variable_get(:@move_validator)
+      allow(move_validator).to receive(:valid_integer?).and_return true
+      allow(move_validator).to receive(:empty_square?).and_return true
 
-        pos_str = '9'
-        expect(player_one).to receive(:get_move).and_return pos_str
-        expect(board).to receive(:update).with(player_one.mark, pos_str)
+      pos_str = '9'
+      expect(player_one).to receive(:get_move).and_return pos_str
+      expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-        game_state.make_move
-      end
+      game_state.make_move
     end
 
-    context 'when the move is not a valid integer' do
-      it 'should ask user to try again' do
-        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
-        players = game_state.instance_variable_get(:@players)
-        player_one = players[current_player_idx]
+    it 'should ask user to try again when move is not a valid integer' do
+      current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+      players = game_state.instance_variable_get(:@players)
+      player_one = players[current_player_idx]
 
-        board = game_state.instance_variable_get(:@board)
+      board = game_state.instance_variable_get(:@board)
 
-        move_validator = game_state.instance_variable_get(:@move_validator)
-        allow(move_validator).to receive(:valid_integer?).and_return(false, true)
-        allow(move_validator).to receive(:empty_square?).and_return(true)
+      move_validator = game_state.instance_variable_get(:@move_validator)
+      allow(move_validator).to receive(:valid_integer?).and_return(false, true)
+      allow(move_validator).to receive(:empty_square?).and_return(true)
 
-        invalid_pos_str = 'abc'
-        pos_str = '9'
-        expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
-        expect(board).to receive(:update).with(player_one.mark, pos_str)
+      invalid_pos_str = 'abc'
+      pos_str = '9'
+      expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
+      expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-        expect(game_messenger).to receive(:display_not_valid_integer).once
+      expect(game_messenger).to receive(:display_not_valid_integer).once
 
-        game_state.make_move
-      end
+      game_state.make_move
     end
 
-    context 'when making a move on a square that is taken' do
-      it 'should ask user to try again' do
-        current_player_idx = game_state.instance_variable_get(:@current_player_idx)
-        players = game_state.instance_variable_get(:@players)
-        player_one = players[current_player_idx]
+    it 'should ask user to try again if the square is already taken' do
+      current_player_idx = game_state.instance_variable_get(:@current_player_idx)
+      players = game_state.instance_variable_get(:@players)
+      player_one = players[current_player_idx]
 
-        board = game_state.instance_variable_get(:@board)
+      board = game_state.instance_variable_get(:@board)
 
-        move_validator = game_state.instance_variable_get(:@move_validator)
-        allow(move_validator).to receive(:valid_integer?).and_return(true)
-        allow(move_validator).to receive(:empty_square?).and_return(false, true)
+      move_validator = game_state.instance_variable_get(:@move_validator)
+      allow(move_validator).to receive(:valid_integer?).and_return(true)
+      allow(move_validator).to receive(:empty_square?).and_return(false, true)
 
-        invalid_pos_str = '1'
-        pos_str = '9'
-        expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
-        expect(board).to receive(:update).with(player_one.mark, pos_str)
+      invalid_pos_str = '1'
+      pos_str = '9'
+      expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
+      expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-        expect(game_messenger).to receive(:display_square_unavaliable).once
+      expect(game_messenger).to receive(:display_square_unavaliable).once
 
-        game_state.make_move
-      end
+      game_state.make_move
     end
   end
 

@@ -43,28 +43,26 @@ RSpec.describe Game do
       game.start
     end
 
-    context 'when a player wins' do
-      it 'should call display_game_over_with_tie' do
-        board_with_winner = [
-          ['X', 'X', 'X'],
-          [nil, nil, nil],
-          ['O', 'O', nil]
-        ]
+    it 'should call display_game_over_with_tie when a player wins' do
+      board_with_winner = [
+        ['X', 'X', 'X'],
+        [nil, nil, nil],
+        ['O', 'O', nil]
+      ]
 
-        board = Board.new
-        board.instance_variable_set(:@board, board_with_winner)
-        game_state.instance_variable_set(:@board, board)
+      board = Board.new
+      board.instance_variable_set(:@board, board_with_winner)
+      game_state.instance_variable_set(:@board, board)
 
-        allow(game_messenger).to receive(:display_board)
+      allow(game_messenger).to receive(:display_board)
 
-        # loop
-        allow(game_state).to receive(:game_over?).and_return(true)
+      # loop
+      allow(game_state).to receive(:game_over?).and_return(true)
 
-        # exit game
-        expect(game_messenger).to receive(:display_game_over_with_winner)
+      # exit game
+      expect(game_messenger).to receive(:display_game_over_with_winner)
 
-        game.start
-      end
+      game.start
     end
   end
 end

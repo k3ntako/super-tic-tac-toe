@@ -7,23 +7,19 @@ RSpec.describe UserInterface do
   let(:user_interface) { UserInterface.new(cli) }
 
   describe 'initialize' do
-    context 'when initiated with a CLI instance' do
-      it 'should set @platform to the CLI instance' do
-        private_cli = user_interface.instance_variable_get(:@platform)
-        expect(private_cli).to be_kind_of CLI
-      end
+    it 'should set @platform to the CLI instance' do
+      private_cli = user_interface.instance_variable_get(:@platform)
+      expect(private_cli).to be_kind_of CLI
     end
   end
 
   describe 'display_message' do
-    context 'when UserInterface@platform is set to CLI' do
-      it 'should call CLI#display_message with the string argument passed in' do
-        text = 'This should is a text'
+    it 'should call CLI#display_message with the string argument passed in' do
+      text = 'This should is a text'
 
-        expect(cli).to receive(:display_message).with(text).once
+      expect(cli).to receive(:display_message).with(text).once
 
-        user_interface.display_message text
-      end
+      user_interface.display_message text
     end
   end
 

@@ -5,11 +5,9 @@ RSpec.describe CLI do
   let(:cli) { CLI.new }
 
   describe 'display_message' do
-    context 'when string is passed' do
-      it 'should print the string to the console' do
-        text = 'This should be printed to the console'
-        expect { cli.display_message text }.to output(text + "\n").to_stdout
-      end
+    it 'should print the string to the console given a string' do
+      text = 'This should be printed to the console'
+      expect { cli.display_message text }.to output(text + "\n").to_stdout
     end
   end
 

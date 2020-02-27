@@ -88,52 +88,46 @@ RSpec.describe GameEndEvaluator do
   end
 
   describe 'game_over?' do
-    context 'when there are moves left and there is no winner' do
-      it 'should return false' do
-        board.instance_variable_set(
-          :@board,
-          [
-            [nil, 'X', 'O'],
-            ['O', 'X', 'X'],
-            ['X', 'O', nil]
-          ]
-        )
-        is_game_over = game_end_evaluator.game_over? board
+    it 'should return false if there are moves left and there is no winner' do
+      board.instance_variable_set(
+        :@board,
+        [
+          [nil, 'X', 'O'],
+          ['O', 'X', 'X'],
+          ['X', 'O', nil]
+        ]
+      )
+      is_game_over = game_end_evaluator.game_over? board
 
-        expect(is_game_over).to eq false
-      end
+      expect(is_game_over).to eq false
     end
 
-    context 'when there are moves left but there is a winner' do
-      it 'should return true' do
-        board.instance_variable_set(
-          :@board,
-          [
-            [nil, 'X', 'O'],
-            ['O', 'X', 'X'],
-            ['O', 'X', nil]
-          ]
-        )
-        is_game_over = game_end_evaluator.game_over? board
+    it 'should return true if there are moves left but there is a winner' do
+      board.instance_variable_set(
+        :@board,
+        [
+          [nil, 'X', 'O'],
+          ['O', 'X', 'X'],
+          ['O', 'X', nil]
+        ]
+      )
+      is_game_over = game_end_evaluator.game_over? board
 
-        expect(is_game_over).to eq true
-      end
+      expect(is_game_over).to eq true
     end
 
-    context 'when there are no moves left' do
-      it 'should return true' do
-        board.instance_variable_set(
-          :@board,
-          [
-            ['X', 'X', 'O'],
-            ['O', 'X', 'X'],
-            ['O', 'O', 'X']
-          ]
-        )
-        is_game_over = game_end_evaluator.game_over? board
+    it 'should return true when there are no moves left' do
+      board.instance_variable_set(
+        :@board,
+        [
+          ['X', 'X', 'O'],
+          ['O', 'X', 'X'],
+          ['O', 'O', 'X']
+        ]
+      )
+      is_game_over = game_end_evaluator.game_over? board
 
-        expect(is_game_over).to eq true
-      end
+      expect(is_game_over).to eq true
     end
   end
 end
