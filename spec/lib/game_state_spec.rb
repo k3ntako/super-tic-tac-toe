@@ -1,6 +1,6 @@
 require_relative '../../lib/player'
 require_relative '../../lib/game_state'
-require_relative '../../lib/user_input_validator'
+require_relative '../../lib/move_validator'
 
 RSpec.describe GameState do
   let(:ui) do
@@ -16,7 +16,7 @@ RSpec.describe GameState do
 
     GameState.new(
       game_end_evaluator: GameEndEvaluator.new,
-      user_input_validator: UserInputValidator.new,
+      move_validator: MoveValidator.new,
       game_messenger: game_messenger,
       board: Board.new,
       players: players
@@ -49,9 +49,9 @@ RSpec.describe GameState do
 
         board = game_state.instance_variable_get(:@board)
 
-        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
-        allow(user_input_validator).to receive(:move_valid_integer?).and_return true
-        allow(user_input_validator).to receive(:move_on_empty_square?).and_return true
+        move_validator = game_state.instance_variable_get(:@move_validator)
+        allow(move_validator).to receive(:valid_integer?).and_return true
+        allow(move_validator).to receive(:empty_square?).and_return true
 
         pos_str = '9'
         expect(player_one).to receive(:get_move).and_return pos_str
@@ -69,9 +69,9 @@ RSpec.describe GameState do
 
         board = game_state.instance_variable_get(:@board)
 
-        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
-        allow(user_input_validator).to receive(:move_valid_integer?).and_return(false, true)
-        allow(user_input_validator).to receive(:move_on_empty_square?).and_return(true)
+        move_validator = game_state.instance_variable_get(:@move_validator)
+        allow(move_validator).to receive(:valid_integer?).and_return(false, true)
+        allow(move_validator).to receive(:empty_square?).and_return(true)
 
         invalid_pos_str = 'abc'
         pos_str = '9'
@@ -92,16 +92,16 @@ RSpec.describe GameState do
 
         board = game_state.instance_variable_get(:@board)
 
-        user_input_validator = game_state.instance_variable_get(:@user_input_validator)
-        allow(user_input_validator).to receive(:move_valid_integer?).and_return(true)
-        allow(user_input_validator).to receive(:move_on_empty_square?).and_return(false, true)
+        move_validator = game_state.instance_variable_get(:@move_validator)
+        allow(move_validator).to receive(:valid_integer?).and_return(true)
+        allow(move_validator).to receive(:empty_square?).and_return(false, true)
 
         invalid_pos_str = '1'
         pos_str = '9'
         expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
         expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-        expect(game_messenger).to receive(:display_square_taken).once
+        expect(game_messenger).to receive(:display_square_unavaliable).once
 
         game_state.make_move
       end

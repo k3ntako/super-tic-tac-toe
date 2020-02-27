@@ -1,10 +1,10 @@
 class GameState
   attr_reader :board
 
-  def initialize(game_end_evaluator: nil, user_input_validator: nil, game_messenger: nil, board: nil, players: nil)
+  def initialize(game_end_evaluator: nil, move_validator: nil, game_messenger: nil, board: nil, players: nil)
     @game_messenger = game_messenger
     @game_end_evaluator = game_end_evaluator
-    @user_input_validator = user_input_validator
+    @move_validator = move_validator
     @board = board
     @players = players
     @current_player_idx = 0
@@ -15,17 +15,19 @@ class GameState
   end
 
   def make_move
-    position = current_player.get_move
+    position = nil
 
-    if !@user_input_validator.move_valid_integer? position
-      @game_messenger.display_not_valid_integer
-      make_move
-    elsif !@user_input_validator.move_on_empty_square?(@board, position)
-      @game_messenger.display_square_taken
-      make_move
-    else
-      @board.update(current_player.mark, position)
+    loop do
+      position = current_player.get_move
+
+      is_valid_int, is_valid = validate_move(position)
+
+      display_move_error(is_valid_int) unless is_valid
+
+      break if is_valid
     end
+
+    @board.update(current_player.mark, position)
   end
 
   def game_over?
@@ -42,6 +44,19 @@ class GameState
   end
 
   private
+
+  def validate_move(position)
+    is_valid_int = @move_validator.valid_integer?(position)
+    is_valid = is_valid_int && @move_validator.empty_square?(@board, position)
+
+    return [is_valid_int, is_valid]
+  end
+
+  def display_move_error(is_valid_int)
+    return @game_messenger.display_not_valid_integer unless is_valid_int
+
+    @game_messenger.display_square_unavaliable
+  end
 
   def current_player
     @players[@current_player_idx]

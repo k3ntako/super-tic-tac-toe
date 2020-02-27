@@ -2,7 +2,7 @@ require_relative './game'
 require_relative './game_end_evaluator'
 require_relative './game_messenger'
 require_relative './game_state'
-require_relative './user_input_validator'
+require_relative './move_validator'
 require_relative './player'
 require_relative './board'
 
@@ -17,7 +17,7 @@ class GameGenerator
 
     game_state = GameState.new(
       game_end_evaluator: GameEndEvaluator.new,
-      user_input_validator: UserInputValidator.new,
+      move_validator: MoveValidator.new,
       game_messenger: game_messenger,
       board: Board.new,
       players: players

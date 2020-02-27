@@ -27,7 +27,7 @@ class GameMessenger
     @user_interface.display_message message
   end
 
-  def display_square_taken
+  def display_square_unavaliable
     message = 'You can\'t make a move there, try again!'
     @user_interface.display_message message
   end

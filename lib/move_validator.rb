@@ -1,5 +1,5 @@
-class UserInputValidator
-  def move_valid_integer?(position_input)
+class MoveValidator
+  def valid_integer?(position_input)
     is_integer_or_string = (position_input.is_a? Integer) || (position_input.is_a? String)
     return false unless is_integer_or_string
 
@@ -15,7 +15,7 @@ class UserInputValidator
     true
   end
 
-  def move_on_empty_square?(board, position)
+  def empty_square?(board, position)
     board.position_available? position
   end
 end
