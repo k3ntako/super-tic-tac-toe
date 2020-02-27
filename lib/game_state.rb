@@ -49,7 +49,7 @@ class GameState
     is_valid_int = @move_validator.valid_integer?(position)
     is_valid = is_valid_int && @move_validator.empty_square?(@board, position)
 
-    return [is_valid_int, is_valid]
+    [is_valid_int, is_valid]
   end
 
   def display_move_error(is_valid_int)
