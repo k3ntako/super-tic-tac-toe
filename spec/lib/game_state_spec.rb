@@ -67,7 +67,7 @@ RSpec.describe GameState do
       board = game_state.instance_variable_get(:@board)
 
       move_validator = game_state.instance_variable_get(:@move_validator)
-      allow(move_validator).to receive(:valid_integer?).and_return(false, true)
+      allow(move_validator).to receive(:valid_integer?).and_return(false, false, true)
       allow(move_validator).to receive(:empty_square?).and_return(true)
 
       invalid_pos_str = 'abc'

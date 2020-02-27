@@ -15,16 +15,11 @@ class GameState
   end
 
   def make_move
-    position = nil
+    position = current_player.get_move
 
-    loop do
+    until valid_move?(position)
+      display_move_error(position)
       position = current_player.get_move
-
-      is_valid_int, is_valid = validate_move(position)
-
-      display_move_error(is_valid_int) unless is_valid
-
-      break if is_valid
     end
 
     @board.update(current_player.mark, position)
@@ -45,14 +40,13 @@ class GameState
 
   private
 
-  def validate_move(position)
+  def valid_move?(position)
     is_valid_int = @move_validator.valid_integer?(position)
-    is_valid = is_valid_int && @move_validator.empty_square?(@board, position)
-
-    [is_valid_int, is_valid]
+    is_valid_int && @move_validator.empty_square?(@board, position)
   end
 
-  def display_move_error(is_valid_int)
+  def display_move_error(position)
+    is_valid_int = @move_validator.valid_integer?(position)
     return @game_messenger.display_not_valid_integer unless is_valid_int
 
     @game_messenger.display_square_unavaliable
