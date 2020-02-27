@@ -5,14 +5,20 @@ RSpec.describe MoveValidator do
   let(:board) { Board.new }
 
   describe 'valid_integer? ' do
-    it 'should return true given an integer' do
-      is_valid = move_validator.valid_integer? 1
+    it 'should return true given a negative integer' do
+      is_valid = move_validator.valid_integer?(-1)
 
       expect(is_valid).to be true
     end
 
     it 'should return true given an integer as a string' do
       is_valid = move_validator.valid_integer? '2'
+
+      expect(is_valid).to be true
+    end
+
+    it 'should return true given an integer as a string surrounded by whitespace' do
+      is_valid = move_validator.valid_integer? ' 2 '
 
       expect(is_valid).to be true
     end
@@ -25,6 +31,24 @@ RSpec.describe MoveValidator do
 
     it 'should return false given a float' do
       is_valid = move_validator.valid_integer? 1.0
+
+      expect(is_valid).to be false
+    end
+
+    it 'should return false given nil' do
+      is_valid = move_validator.valid_integer? nil
+
+      expect(is_valid).to be false
+    end
+
+    it 'should return false given white space' do
+      is_valid = move_validator.valid_integer? ' '
+
+      expect(is_valid).to be false
+    end
+
+    it 'should return false given special characters' do
+      is_valid = move_validator.valid_integer? '!'
 
       expect(is_valid).to be false
     end
