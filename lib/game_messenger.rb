@@ -1,34 +1,18 @@
 class GameMessenger
-  def initialize(user_interface)
+  def initialize(user_interface:, messages: {})
+    @messages = messages
     @user_interface = user_interface
+  end
+
+  def display(message:)
+    @user_interface.display_message messages[message]
   end
 
   def display_board(board)
     @user_interface.display_board board.state
   end
 
-  def display_move_instruction
-    instruction = 'Enter a number to make a move in the corresponding square:'
-    @user_interface.display_message instruction
-  end
+  private
 
-  def display_game_over_with_winner(winner)
-    message = "Game Over: #{winner.mark} Wins"
-    @user_interface.display_message message
-  end
-
-  def display_game_over_with_tie
-    message = 'Game Over: Tie!'
-    @user_interface.display_message message
-  end
-
-  def display_not_valid_integer
-    message = 'Make sure it\'s an integer and try again!'
-    @user_interface.display_message message
-  end
-
-  def display_square_unavaliable
-    message = 'You can\'t make a move there, try again!'
-    @user_interface.display_message message
-  end
+  attr_reader :messages
 end

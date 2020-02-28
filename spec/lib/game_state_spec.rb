@@ -7,7 +7,7 @@ RSpec.describe GameState do
     cli = CLI.new
     UserInterface.new(cli)
   end
-  let(:game_messenger) { GameMessenger.new(ui) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui) }
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),

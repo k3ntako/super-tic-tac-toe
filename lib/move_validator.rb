@@ -11,7 +11,7 @@ class MoveValidator
 
   def valid_integer?(pos_input)
     if !int_or_str?(pos_input) || !parses_to_integer?(pos_input)
-      @game_messenger.display_not_valid_integer
+      @game_messenger.display(message: :not_valid_integer)
       return false
     end
 
@@ -21,7 +21,7 @@ class MoveValidator
   def empty_square?(board, position)
     is_empty = board.position_available? position
 
-    @game_messenger.display_square_unavaliable unless is_empty
+    @game_messenger.display(message: :square_unavaliable) unless is_empty
 
     is_empty
   end
