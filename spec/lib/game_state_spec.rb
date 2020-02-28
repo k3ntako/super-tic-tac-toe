@@ -14,10 +14,11 @@ RSpec.describe GameState do
       Player.new(ui, 'O')
     ]
 
+    move_validator = MoveValidator.new(game_messenger: game_messenger)
+
     GameState.new(
       game_end_evaluator: GameEndEvaluator.new,
-      move_validator: MoveValidator.new,
-      game_messenger: game_messenger,
+      move_validator: move_validator,
       board: Board.new,
       players: players
     )
@@ -67,15 +68,13 @@ RSpec.describe GameState do
       board = game_state.instance_variable_get(:@board)
 
       move_validator = game_state.instance_variable_get(:@move_validator)
-      allow(move_validator).to receive(:valid_integer?).and_return(false, false, true)
+      allow(move_validator).to receive(:valid_integer?).and_return(false, true)
       allow(move_validator).to receive(:empty_square?).and_return(true)
 
       invalid_pos_str = 'abc'
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
       expect(board).to receive(:update).with(player_one.mark, pos_str)
-
-      expect(game_messenger).to receive(:display_not_valid_integer).once
 
       game_state.make_move
     end
@@ -95,8 +94,6 @@ RSpec.describe GameState do
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
       expect(board).to receive(:update).with(player_one.mark, pos_str)
-
-      expect(game_messenger).to receive(:display_square_unavaliable).once
 
       game_state.make_move
     end
