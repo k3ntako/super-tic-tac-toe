@@ -21,7 +21,7 @@ class Game
   def one_turn
     @game_messenger.display message: :move_instruction
 
-    @game_state.make_move
+    @game_state.player_move
 
     @game_messenger.display_board @game_state.board
   end

@@ -33,7 +33,7 @@ RSpec.describe Game do
       # loop
       expect(game_state).to receive(:game_over?).ordered.and_return false
       expect(game_messenger).to receive(:display).ordered.with(message: :move_instruction)
-      expect(game_state).to receive(:make_move).ordered
+      expect(game_state).to receive(:player_move).ordered
       expect(game_messenger).to receive(:display_board).with(game_state.board).ordered
       expect(game_state).to receive(:game_over?).ordered.and_return true
 

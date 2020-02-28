@@ -41,7 +41,7 @@ RSpec.describe GameState do
     end
   end
 
-  describe 'make_move' do
+  describe 'player_move' do
     it 'should call update board based on current_players input when move is valid' do
       current_player_idx = game_state.instance_variable_get(:@current_player_idx)
       players = game_state.instance_variable_get(:@players)
@@ -57,7 +57,7 @@ RSpec.describe GameState do
       expect(player_one).to receive(:get_move).and_return pos_str
       expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-      game_state.make_move
+      game_state.player_move
     end
 
     it 'should ask user to try again when move is not a valid integer' do
@@ -76,7 +76,7 @@ RSpec.describe GameState do
       expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
       expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-      game_state.make_move
+      game_state.player_move
     end
 
     it 'should ask user to try again if the square is already taken' do
@@ -95,7 +95,7 @@ RSpec.describe GameState do
       expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
       expect(board).to receive(:update).with(player_one.mark, pos_str)
 
-      game_state.make_move
+      game_state.player_move
     end
   end
 

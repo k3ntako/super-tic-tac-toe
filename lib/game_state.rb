@@ -13,7 +13,7 @@ class GameState
     @current_player_idx = @current_player_idx.zero? ? 1 : 0
   end
 
-  def make_move
+  def player_move
     loop do
       position = current_player.get_move
 
