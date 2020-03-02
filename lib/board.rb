@@ -14,7 +14,7 @@ class Board
   def position_available?(position)
     available_positions = find_available_positions
 
-    available_positions.include? position
+    available_positions.include? Integer(position)
   end
 
   def find_available_positions

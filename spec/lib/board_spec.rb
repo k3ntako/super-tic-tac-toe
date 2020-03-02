@@ -20,39 +20,35 @@ RSpec.describe Board do
   end
 
   describe 'update' do
-    context 'when position (integer) is passed in as an string' do
-      it 'should update the board at the specified position' do
-        position = '1'
-        board.update('X', position)
+    it 'should update the board when position (integer) is passed in as an string' do
+      position = '1'
+      board.update('X', position)
 
-        expect(board.state).to eq [
-          ['X', nil, nil],
-          [nil, nil, nil],
-          [nil, nil, nil]
-        ]
+      expect(board.state).to eq [
+        ['X', nil, nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
+      ]
 
-        position = '8'
-        board.update('X', position)
+      position = '8'
+      board.update('X', position)
 
-        expect(board.state).to eq [
-          ['X', nil, nil],
-          [nil, nil, nil],
-          [nil, 'X', nil]
-        ]
-      end
+      expect(board.state).to eq [
+        ['X', nil, nil],
+        [nil, nil, nil],
+        [nil, 'X', nil]
+      ]
     end
 
-    context 'when position (integer) is passed in as an integer' do
-      it 'should update the board at the specified position' do
-        position = 2
-        board.update('X', position)
+    it 'should update the board at the specified position when position is passed in as an integer' do
+      position = 2
+      board.update('X', position)
 
-        expect(board.state).to eq [
-          [nil, 'X', nil],
-          [nil, nil, nil],
-          [nil, nil, nil]
-        ]
-      end
+      expect(board.state).to eq [
+        [nil, 'X', nil],
+        [nil, nil, nil],
+        [nil, nil, nil]
+      ]
     end
   end
 

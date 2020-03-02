@@ -19,9 +19,9 @@ class Game
   private
 
   def one_turn
-    @game_messenger.display_move_instruction
+    @game_messenger.display message: :move_instruction
 
-    @game_state.make_move
+    @game_state.player_move
 
     @game_messenger.display_board @game_state.board
   end
@@ -31,9 +31,10 @@ class Game
 
     if did_player_win
       winner = @game_state.previous_player
-      @game_messenger.display_game_over_with_winner winner
+      @game_messenger.display message: :game_over_X_wins if winner.mark == 'X'
+      @game_messenger.display message: :game_over_O_wins if winner.mark == 'O'
     else
-      @game_messenger.display_game_over_with_tie
+      @game_messenger.display(message: :game_over_with_tie)
     end
   end
 end
