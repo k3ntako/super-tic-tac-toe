@@ -11,8 +11,8 @@ MESSAGES = {
   game_over_X_wins: 'Game Over: X Wins',
   game_over_O_wins: 'Game Over: O Wins',
   game_over_with_tie: 'Game Over: Tie!',
-  display_not_valid_integer: 'Make sure it\'s an integer and try again!',
-  display_square_unavailable: 'You can\'t make a move there, try again!'
+  not_valid_integer: 'Make sure it\'s an integer and try again!',
+  square_unavailable: 'You can\'t make a move there, try again!'
 }.freeze
 
 class GameGenerator

@@ -24,7 +24,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given a non-integer string' do
       expect(game_messenger).to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).not_to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).not_to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, '1one')
 
@@ -33,7 +33,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given a float' do
       expect(game_messenger).to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).not_to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).not_to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, 1.0)
 
@@ -42,7 +42,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given nil' do
       expect(game_messenger).to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).not_to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).not_to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, nil)
 
@@ -51,7 +51,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given white space' do
       expect(game_messenger).to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).not_to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).not_to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, ' ')
 
@@ -60,7 +60,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given special characters' do
       expect(game_messenger).to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).not_to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).not_to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, '!')
 
@@ -75,7 +75,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given a position less than 1' do
       expect(game_messenger).not_to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, 0)
 
@@ -84,7 +84,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false given a position greater than 9' do
       expect(game_messenger).not_to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).to receive(:display).with(message: :square_unavailable)
 
       is_valid = move_validator.move_valid?(board, 10)
 
@@ -93,7 +93,7 @@ RSpec.describe MoveValidator do
 
     it 'should return false if the square is occupied' do
       expect(game_messenger).not_to receive(:display).with(message: :not_valid_integer)
-      expect(game_messenger).to receive(:display).with(message: :square_unavaliable)
+      expect(game_messenger).to receive(:display).with(message: :square_unavailable)
 
       board_played_at_one = [
         ['X', nil, nil],

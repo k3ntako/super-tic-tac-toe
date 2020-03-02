@@ -21,7 +21,7 @@ class MoveValidator
   def empty_square?(board, position)
     is_empty = board.position_available? position
 
-    @game_messenger.display(message: :square_unavaliable) unless is_empty
+    @game_messenger.display(message: :square_unavailable) unless is_empty
 
     is_empty
   end
