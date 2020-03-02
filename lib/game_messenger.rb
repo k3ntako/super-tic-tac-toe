@@ -15,4 +15,8 @@ class GameMessenger
   private
 
   attr_reader :messages
+
+  def clear_output
+    @user_interface.clear_output
+  end
 end

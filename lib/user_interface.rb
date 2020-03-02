@@ -14,4 +14,8 @@ class UserInterface
   def get_user_input
     @platform.get_user_input
   end
+
+  def clear_output
+    @platform.clear_output
+  end
 end

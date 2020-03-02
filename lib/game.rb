@@ -5,6 +5,8 @@ class Game
   end
 
   def start
+    @game_messenger.clear_output
+
     @game_messenger.display_board @game_state.board
 
     until @game_state.game_over?
@@ -22,6 +24,8 @@ class Game
     @game_messenger.display message: :move_instruction
 
     @game_state.player_move
+
+    @game_messenger.clear_output
 
     @game_messenger.display_board @game_state.board
   end

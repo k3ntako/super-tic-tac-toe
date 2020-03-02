@@ -12,6 +12,10 @@ class CLI
     display_message formatted_board
   end
 
+  def clear_output
+    system "clear"
+  end
+
   private
 
   def format_board_for_display(board)
