@@ -16,6 +16,17 @@ class GameMessenger
     @user_interface.clear_output
   end
 
+  def display_messages(top_message:, board:, bottom_messages:)
+    clear_output
+
+    display(message: top_message)
+    display_board(board)
+
+    bottom_messages.each do |message_key|
+      display(message: message_key)
+    end
+  end
+
   private
 
   attr_reader :messages
