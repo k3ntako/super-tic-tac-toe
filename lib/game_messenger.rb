@@ -12,11 +12,11 @@ class GameMessenger
     @user_interface.display_board board.state
   end
 
-  private
-
-  attr_reader :messages
-
   def clear_output
     @user_interface.clear_output
   end
+
+  private
+
+  attr_reader :messages
 end
