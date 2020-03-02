@@ -13,7 +13,7 @@ class CLI
   end
 
   def clear_output
-    system "clear"
+    system 'clear'
   end
 
   private
