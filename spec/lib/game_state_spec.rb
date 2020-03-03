@@ -19,13 +19,12 @@ RSpec.describe GameState do
   let(:ui) { UserInterface.new(TestCLI.new) }
   let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: MESSAGES) }
   let(:board) { Board.new }
+  let(:move_validator) { MoveValidator.new }
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),
       Player.new(ui, 'O')
     ]
-
-    move_validator = MoveValidator.new(game_messenger: game_messenger)
 
     GameState.new(
       game_messenger: game_messenger,
@@ -59,7 +58,6 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      move_validator = game_state.instance_variable_get(:@move_validator)
       allow(move_validator).to receive(:error_for_integer).and_return nil
       allow(move_validator).to receive(:error_for_square).and_return nil
 
@@ -75,7 +73,6 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      move_validator = game_state.instance_variable_get(:@move_validator)
       allow(move_validator).to receive(:error_for_integer).and_return(:not_valid_integer, nil)
       allow(move_validator).to receive(:error_for_square).and_return(nil)
 
@@ -94,7 +91,6 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      move_validator = game_state.instance_variable_get(:@move_validator)
       allow(move_validator).to receive(:error_for_integer).and_return(nil)
       allow(move_validator).to receive(:error_for_square).and_return(:square_unavailable, nil)
 

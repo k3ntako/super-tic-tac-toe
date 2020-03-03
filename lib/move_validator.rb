@@ -1,8 +1,4 @@
 class MoveValidator
-  def initialize(game_messenger: nil)
-    @game_messenger = game_messenger
-  end
-
   def error_for_move(board, position_input)
     error_for_integer(position_input) || error_for_square(board, position_input)
   end

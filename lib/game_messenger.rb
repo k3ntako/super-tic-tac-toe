@@ -1,5 +1,5 @@
 class GameMessenger
-  def initialize(user_interface:, messages: {})
+  def initialize(user_interface:, messages:)
     @messages = messages
     @user_interface = user_interface
   end

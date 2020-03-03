@@ -1,7 +1,7 @@
 class GameState
   attr_reader :board
 
-  def initialize(game_messenger:, game_end_evaluator: nil, move_validator: nil, board: nil, players: nil)
+  def initialize(game_messenger:, game_end_evaluator:, move_validator:, board:, players:)
     @game_messenger = game_messenger
     @game_end_evaluator = game_end_evaluator
     @move_validator = move_validator

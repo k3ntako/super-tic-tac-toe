@@ -1,6 +1,5 @@
 class Game
-  def initialize(game_messenger: nil, game_state: nil)
-    @game_messenger = game_messenger
+  def initialize(game_state:)
     @game_state = game_state
   end
 

@@ -25,19 +25,15 @@ class GameGenerator
       Player.new(user_interface, 'O')
     ]
 
-    game_messenger = GameMessenger.new(user_interface: user_interface, messages: MESSAGES)
-    move_validator = MoveValidator.new(game_messenger: game_messenger)
-
     game_state = GameState.new(
-      game_messenger: game_messenger,
+      game_messenger: GameMessenger.new(user_interface: user_interface, messages: MESSAGES),
       game_end_evaluator: GameEndEvaluator.new,
-      move_validator: move_validator,
+      move_validator: MoveValidator.new,
       board: Board.new,
       players: players
     )
 
     Game.new(
-      game_messenger: game_messenger,
       game_state: game_state
     )
   end

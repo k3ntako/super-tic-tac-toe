@@ -5,8 +5,8 @@ RSpec.describe MoveValidator do
     cli = CLI.new
     UserInterface.new(cli)
   end
-  let(:game_messenger) { GameMessenger.new(user_interface: ui) }
-  let(:move_validator) { MoveValidator.new(game_messenger: game_messenger) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: {}) }
+  let(:move_validator) { MoveValidator.new }
   let(:board) { Board.new }
 
   describe 'error_for_move' do
