@@ -19,13 +19,13 @@ class CLI
   private
 
   def format_board_for_display(board_state)
-    board_str = ''
+    board_str = "\n"
 
     board_state.each_with_index do |row, row_idx|
       board_str += generate_board_row(row, row_idx)
     end
 
-    board_str
+    board_str + "\n"
   end
 
   def generate_board_row(row, row_idx)

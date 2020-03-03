@@ -17,14 +17,14 @@ class GameState
   def player_move
     loop do
       position = current_player.get_move
-      error_symbol = valid_move?(position)
+      error = valid_move?(position)
 
-      if error_symbol.nil?
+      if error.nil?
         @board.update(current_player.mark, position)
         break
       end
 
-      display_board_with_messages_for_move bottom_messages: [error_symbol]
+      display_board_with_messages_for_move bottom_messages: [error]
     end
   end
 
