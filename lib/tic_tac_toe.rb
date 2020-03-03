@@ -7,7 +7,7 @@ class TicTacToe
   end
 
   def start
-    # @game_messenger.clear_output
+    @user_interface.clear_output
 
     display_welcome
 
