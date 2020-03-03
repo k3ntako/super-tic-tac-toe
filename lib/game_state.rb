@@ -17,7 +17,7 @@ class GameState
   def player_move
     loop do
       position = current_player.get_move
-      error = valid_move?(position)
+      error = check_for_error(position)
 
       if error.nil?
         @board.update(current_player.mark, position)
@@ -64,8 +64,8 @@ class GameState
     @current_player_idx.zero? ? :move_instruction_x : :move_instruction_o
   end
 
-  def valid_move?(position)
-    @move_validator.error_for_move(@board, position)
+  def check_for_error(position)
+    @move_validator.move_error(@board, position)
   end
 
   def current_player
