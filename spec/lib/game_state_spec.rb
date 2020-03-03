@@ -1,25 +1,36 @@
 require_relative '../../lib/player'
 require_relative '../../lib/game_state'
 require_relative '../../lib/move_validator'
+require_relative './mock_classes/cli_mock'
+
+MESSAGES = {
+  welcome: 'Welcome to a game of Tic-Tac-Toe!',
+  title: 'Super TicTacToe',
+  move_instruction_x: 'Enter a number to make a move in the corresponding square (X\'s turn):',
+  move_instruction_o: 'Enter a number to make a move in the corresponding square (O\'s turn):',
+  game_over_X_wins: 'Game Over: X Wins',
+  game_over_O_wins: 'Game Over: O Wins',
+  game_over_with_tie: 'Game Over: Tie!',
+  not_valid_integer: 'Make sure it\'s an integer and try again!',
+  square_unavailable: 'You can\'t make a move there, try again!'
+}.freeze
 
 RSpec.describe GameState do
-  let(:ui) do
-    cli = CLI.new
-    UserInterface.new(cli)
-  end
-  let(:game_messenger) { GameMessenger.new(user_interface: ui) }
+  let(:ui) { UserInterface.new(TestCLI.new) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: MESSAGES) }
+  let(:board) { Board.new }
+  let(:move_validator) { MoveValidator.new }
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),
       Player.new(ui, 'O')
     ]
 
-    move_validator = MoveValidator.new(game_messenger: game_messenger)
-
     GameState.new(
+      game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
       move_validator: move_validator,
-      board: Board.new,
+      board: board,
       players: players
     )
   end
@@ -47,11 +58,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      board = game_state.instance_variable_get(:@board)
-
-      move_validator = game_state.instance_variable_get(:@move_validator)
-      allow(move_validator).to receive(:valid_integer?).and_return true
-      allow(move_validator).to receive(:empty_square?).and_return true
+      allow(move_validator).to receive(:input_error).and_return nil
+      allow(move_validator).to receive(:position_error).and_return nil
 
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return pos_str
@@ -65,11 +73,10 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      board = game_state.instance_variable_get(:@board)
+      allow(move_validator).to receive(:input_error).and_return(:not_valid_integer, nil)
+      allow(move_validator).to receive(:position_error).and_return(nil)
 
-      move_validator = game_state.instance_variable_get(:@move_validator)
-      allow(move_validator).to receive(:valid_integer?).and_return(false, true)
-      allow(move_validator).to receive(:empty_square?).and_return(true)
+      allow(game_state).to receive(:display_board_with_messages)
 
       invalid_pos_str = 'abc'
       pos_str = '9'
@@ -84,11 +91,10 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      board = game_state.instance_variable_get(:@board)
+      allow(move_validator).to receive(:input_error).and_return(nil)
+      allow(move_validator).to receive(:position_error).and_return(:square_unavailable, nil)
 
-      move_validator = game_state.instance_variable_get(:@move_validator)
-      allow(move_validator).to receive(:valid_integer?).and_return(true)
-      allow(move_validator).to receive(:empty_square?).and_return(false, true)
+      allow(game_state).to receive(:display_board_with_messages)
 
       invalid_pos_str = '1'
       pos_str = '9'
@@ -110,6 +116,77 @@ RSpec.describe GameState do
       player = game_state.previous_player
 
       expect(player.mark).to eq('X')
+    end
+  end
+
+  describe 'display_board_with_messages' do
+    let(:test_cli) do
+      game_state.display_board_with_messages(
+        top_message: :welcome,
+        bottom_messages: [:move_instruction_o]
+      )
+
+      ui.instance_variable_get(:@platform)
+    end
+
+    it 'should print clear output first' do
+      expect(test_cli.triggered_actions[0]).to eq 'clear_output'
+    end
+
+    it 'should print the top message' do
+      expect(test_cli.triggered_actions[1]).to eq 'display_message'
+      expect(test_cli.diplayed_messages[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
+    end
+
+    it 'should print the board' do
+      expect(test_cli.triggered_actions[2]).to eq 'display_board'
+      expect(test_cli.triggered_actions[3]).to eq 'display_message'
+      expect(test_cli.diplayed_messages[1]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+    end
+
+    it 'should print the bottom message' do
+      expect(test_cli.triggered_actions[4]).to eq 'display_message'
+      expect(test_cli.diplayed_messages[2]).to eq(
+        'Enter a number to make a move in the corresponding square (O\'s turn):'
+      )
+    end
+  end
+
+  describe 'display_board_with_messages_with_welcome' do
+    it 'should display welcome message along with board' do
+      expect(game_state).to receive(:display_board_with_messages_for_move).with(top_message: :welcome)
+      game_state.display_board_with_messages_with_welcome
+    end
+  end
+
+  describe 'display_board_with_messages_for_move' do
+    it 'should add instruction to bottom message' do
+      expect(game_state).to receive(:display_board_with_messages).with(
+        top_message: :test,
+        bottom_messages: %i[second_test move_instruction_x]
+      )
+
+      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [:second_test])
+    end
+
+    it 'should display the appropriate instructions based on the current played index' do
+      game_state.instance_variable_set(:@current_player_idx, 1)
+      expect(game_state).to receive(:display_board_with_messages).with(
+        top_message: :test,
+        bottom_messages: %i[second_test move_instruction_o]
+      )
+
+      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [:second_test])
+    end
+
+    it 'should display default messages if nothing is passed in' do
+      game_state.instance_variable_set(:@current_player_idx, 1)
+      expect(game_state).to receive(:display_board_with_messages).with(
+        top_message: :title,
+        bottom_messages: [:move_instruction_o]
+      )
+
+      game_state.display_board_with_messages_for_move
     end
   end
 end

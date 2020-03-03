@@ -23,6 +23,7 @@ RSpec.describe TicTacToe do
     it 'should display welcome, instructions, the board, and prompt a move' do
       game_spy = spy('game')
 
+      expect(ui).to receive(:clear_output).once.ordered
       expect(tic_tac_toe).to receive(:display_welcome).once.ordered
       expect(tic_tac_toe).to receive(:create_a_game).once.ordered.and_return(game_spy)
       expect(game_spy).to receive(:start).once.ordered

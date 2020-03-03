@@ -7,21 +7,25 @@ class CLI
     gets.chomp
   end
 
-  def display_board(board)
-    formatted_board = format_board_for_display board
+  def display_board(board_state)
+    formatted_board = format_board_for_display board_state
     display_message formatted_board
+  end
+
+  def clear_output
+    system 'clear'
   end
 
   private
 
-  def format_board_for_display(board)
-    board_str = ''
+  def format_board_for_display(board_state)
+    board_str = "\n"
 
-    board.each_with_index do |row, row_idx|
+    board_state.each_with_index do |row, row_idx|
       board_str += generate_board_row(row, row_idx)
     end
 
-    board_str
+    board_str + "\n"
   end
 
   def generate_board_row(row, row_idx)
