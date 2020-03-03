@@ -3,19 +3,24 @@ require_relative '../../lib/cli'
 require_relative '../../lib/board'
 
 class TestCLI
-  def display_message(text)
-    "Displayed: #{text}"
+  attr_reader :diplayed_message
+  def initialize
+    @diplayed_message = []
+  end
+
+  def display_message(message)
+    @diplayed_message.push message
   end
 
   def display_board(board_state)
     return nil unless board_state.is_a? Array
 
     board_str = board_state.flatten.map { |square| square || 'nil' }
-    board_str.join(',')
+    @diplayed_message.push board_str.join(',')
   end
 
   def clear_output
-    'Cleared!'
+    true
   end
 end
 
@@ -31,26 +36,32 @@ RSpec.describe UserInterface do
   end
 
   describe 'display_message' do
-    it 'should call CLI#display_message with the string argument passed in' do
-      text = 'This should is a text'
-      diplayed = user_interface.display_message text
+    it 'should print the message' do
+      message = 'This was written at PencilWorks'
+      user_interface.display_message message
 
-      expect(diplayed).to eq "Displayed: #{text}"
+      test_cli = user_interface.instance_variable_get(:@platform)
+
+      expect(test_cli.diplayed_message.length).to eq 1
+      expect(test_cli.diplayed_message.last).to eq message
     end
   end
 
   describe 'display_board' do
-    it 'should call CLI#display_message with formatted board' do
+    it 'should print the board' do
       board = Board.new
-      board_str = user_interface.display_board board.state
+      user_interface.display_board board.state
 
-      expect(board_str).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+      test_cli = user_interface.instance_variable_get(:@platform)
+
+      expect(test_cli.diplayed_message.length).to eq 1
+      expect(test_cli.diplayed_message.last).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
     end
   end
 
   describe 'clear_output' do
-    it 'should call CLI#display_message with formatted board' do
-      expect(user_interface.clear_output).to eq 'Cleared!'
+    it 'should clear outputs' do
+      expect(user_interface.clear_output).to eq true
     end
   end
 end
