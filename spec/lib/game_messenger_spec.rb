@@ -2,25 +2,29 @@ require_relative '../../lib/player'
 require_relative '../../lib/game_messenger'
 
 class TestUserInterface
-  attr_reader :displayed_messages
+  attr_reader :triggered_actions
   def initialize
-    @displayed_messages = []
+    @triggered_actions = []
   end
 
   def display_message(message)
     raise ArgumentError, 'Argument must be a string' unless message.is_a? String
 
-    @displayed_messages.push message
-    'Displayed: ' + message
+    @triggered_actions.push 'Displayed: ' + message
+
+    nil
   end
 
   def display_board(board_state)
     board_str = board_state.flatten.map { |square| square || 'nil' }
-    @displayed_messages.push board_str.join(',')
+    @triggered_actions.push board_str.join(',')
+
+    nil
   end
 
   def clear_output
-    @displayed_messages.push 'Cleared'
+    @triggered_actions.push 'Cleared'
+    true
   end
 end
 
@@ -38,36 +42,39 @@ RSpec.describe GameMessenger do
 
   describe 'display' do
     it 'should display the associated message given a symbol' do
-      displayed_message = game_messenger.display message: :hello
-      expect(displayed_message).to eq('Displayed: Hello')
+      game_messenger.display message: :hello
+      game_messenger.display message: :bye
 
-      displayed_message = game_messenger.display message: :bye
-      expect(displayed_message).to eq('Displayed: Bye')
+      test_ui = game_messenger.instance_variable_get(:@user_interface)
+      triggered_actions = test_ui.triggered_actions
+
+      expect(triggered_actions[0]).to eq('Displayed: Hello')
+      expect(triggered_actions[1]).to eq('Displayed: Bye')
     end
   end
 
-  describe 'display' do
-    let(:displayed_messages) do
-      game_messenger.display_messages top_message: :hello, board: board, bottom_messages: %i[instruction bye]
+  describe 'display_board_with_messages' do
+    let(:triggered_actions) do
+      game_messenger.display_board_with_messages top_message: :hello, board: board, bottom_messages: %i[instruction bye]
       test_ui = game_messenger.instance_variable_get(:@user_interface)
-      test_ui.displayed_messages
+      test_ui.triggered_actions
     end
 
     it 'should clear all output' do
-      expect(displayed_messages[0]).to eq('Cleared')
+      expect(triggered_actions[0]).to eq('Cleared')
     end
 
     it 'should display top message' do
-      expect(displayed_messages[1]).to eq('Hello')
+      expect(triggered_actions[1]).to eq('Displayed: Hello')
     end
 
     it 'should display board' do
-      expect(displayed_messages[2]).to eq('nil,nil,nil,nil,nil,nil,nil,nil,nil')
+      expect(triggered_actions[2]).to eq('nil,nil,nil,nil,nil,nil,nil,nil,nil')
     end
 
     it 'should display bottom messages in order' do
-      expect(displayed_messages[3]).to eq('Make your move')
-      expect(displayed_messages[4]).to eq('Bye')
+      expect(triggered_actions[3]).to eq('Displayed: Make your move')
+      expect(triggered_actions[4]).to eq('Displayed: Bye')
     end
   end
 end

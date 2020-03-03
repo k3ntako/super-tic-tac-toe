@@ -72,7 +72,7 @@ RSpec.describe GameState do
       allow(move_validator).to receive(:error_for_integer).and_return(:not_valid_integer, nil)
       allow(move_validator).to receive(:error_for_square).and_return(nil)
 
-      allow(game_state).to receive(:print_screen)
+      allow(game_state).to receive(:display_board_with_messages)
 
       invalid_pos_str = 'abc'
       pos_str = '9'
@@ -93,7 +93,7 @@ RSpec.describe GameState do
       allow(move_validator).to receive(:error_for_integer).and_return(nil)
       allow(move_validator).to receive(:error_for_square).and_return(:square_unavailable, nil)
 
-      allow(game_state).to receive(:print_screen)
+      allow(game_state).to receive(:display_board_with_messages)
 
       invalid_pos_str = '1'
       pos_str = '9'

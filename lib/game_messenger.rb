@@ -16,7 +16,7 @@ class GameMessenger
     @user_interface.clear_output
   end
 
-  def display_messages(top_message:, board:, bottom_messages:)
+  def display_board_with_messages(top_message:, board:, bottom_messages:)
     clear_output
 
     display(message: top_message)
