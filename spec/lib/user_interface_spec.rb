@@ -2,28 +2,6 @@ require_relative '../../lib/user_interface'
 require_relative '../../lib/cli'
 require_relative '../../lib/board'
 
-# class TestCLI
-#   attr_reader :diplayed_messages
-#   def initialize
-#     @diplayed_messages = []
-#   end
-
-#   def display_message(message)
-#     @diplayed_messages.push message
-#   end
-
-#   def display_board(board_state)
-#     return nil unless board_state.is_a? Array
-
-#     board_str = board_state.flatten.map { |square| square || 'nil' }
-#     @diplayed_messages.push board_str.join(',')
-#   end
-
-#   def clear_output
-#     true
-#   end
-# end
-
 RSpec.describe UserInterface do
   let(:cli) { TestCLI.new }
   let(:user_interface) { UserInterface.new(cli) }
