@@ -72,6 +72,8 @@ RSpec.describe GameState do
       allow(move_validator).to receive(:error_for_integer).and_return(:not_valid_integer, nil)
       allow(move_validator).to receive(:error_for_square).and_return(nil)
 
+      allow(game_state).to receive(:print_screen)
+
       invalid_pos_str = 'abc'
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
@@ -90,6 +92,8 @@ RSpec.describe GameState do
       move_validator = game_state.instance_variable_get(:@move_validator)
       allow(move_validator).to receive(:error_for_integer).and_return(nil)
       allow(move_validator).to receive(:error_for_square).and_return(:square_unavailable, nil)
+
+      allow(game_state).to receive(:print_screen)
 
       invalid_pos_str = '1'
       pos_str = '9'

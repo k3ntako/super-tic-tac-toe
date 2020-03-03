@@ -67,6 +67,7 @@ RSpec.describe Game do
 
       # exit game
       expect(game_messenger).to receive(:display).ordered.with(message: :title)
+      expect(game_messenger).to receive(:display_board).ordered
       expect(game_messenger).to receive(:display).with(message: :game_over_X_wins)
 
       game.start
