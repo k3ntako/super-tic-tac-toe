@@ -7,7 +7,10 @@ require_relative './player'
 require_relative './board'
 
 MESSAGES = {
-  move_instruction: 'Enter a number to make a move in the corresponding square:',
+  welcome: 'Welcome to a game of Tic-Tac-Toe!',
+  title: 'Super TicTacToe',
+  move_instruction_x: 'Enter a number to make a move in the corresponding square (X\'s turn):',
+  move_instruction_o: 'Enter a number to make a move in the corresponding square (O\'s turn):',
   game_over_X_wins: 'Game Over: X Wins',
   game_over_O_wins: 'Game Over: O Wins',
   game_over_with_tie: 'Game Over: Tie!',
@@ -26,6 +29,7 @@ class GameGenerator
     move_validator = MoveValidator.new(game_messenger: game_messenger)
 
     game_state = GameState.new(
+      game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
       move_validator: move_validator,
       board: Board.new,

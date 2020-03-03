@@ -13,7 +13,9 @@ RSpec.describe Game do
     ]
 
     GameState.new(
+      game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
+      move_validator: MoveValidator.new,
       board: Board.new,
       players: players
     )
@@ -28,19 +30,20 @@ RSpec.describe Game do
 
   describe 'start' do
     it 'should go through the loop and exit with a tie' do
-      expect(game_messenger).to receive(:clear_output).ordered
-      expect(game_messenger).to receive(:display_board).with(game_state.board).ordered
+      expect(game_state).to receive(:print_screen_with_welcome).ordered
 
       # loop
       expect(game_state).to receive(:game_over?).ordered.and_return false
-      expect(game_messenger).to receive(:display).ordered.with(message: :move_instruction)
       expect(game_state).to receive(:player_move).ordered
-      expect(game_messenger).to receive(:clear_output).ordered
-      expect(game_messenger).to receive(:display_board).with(game_state.board).ordered
+      expect(game_state).to receive(:alternate_current_player).ordered
+      expect(game_state).to receive(:print_screen_for_move).ordered
+
       expect(game_state).to receive(:game_over?).ordered.and_return true
 
       # exit game
-      expect(game_messenger).to receive(:display).ordered.with(message: :game_over_with_tie)
+      expect(game_state).to receive(:player_won?).ordered.and_return false
+
+      expect(game_state).to receive(:print_screen).ordered.with(bottom_messages: [:game_over_with_tie])
 
       game.start
     end
@@ -57,13 +60,13 @@ RSpec.describe Game do
       game_state.instance_variable_set(:@board, board)
       game_state.instance_variable_set(:@current_player_idx, 1)
 
-      allow(game_messenger).to receive(:clear_output)
-      allow(game_messenger).to receive(:display_board)
+      expect(game_state).to receive(:print_screen_with_welcome).ordered
 
       # loop
       allow(game_state).to receive(:game_over?).and_return(true)
 
       # exit game
+      expect(game_messenger).to receive(:display).ordered.with(message: :title)
       expect(game_messenger).to receive(:display).with(message: :game_over_X_wins)
 
       game.start

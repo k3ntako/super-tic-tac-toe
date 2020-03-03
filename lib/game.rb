@@ -5,15 +5,9 @@ class Game
   end
 
   def start
-    @game_messenger.clear_output
+    @game_state.print_screen_with_welcome
 
-    @game_messenger.display_board @game_state.board
-
-    until @game_state.game_over?
-      one_turn
-
-      @game_state.alternate_current_player
-    end
+    one_turn until @game_state.game_over?
 
     exit_game
   end
@@ -21,13 +15,11 @@ class Game
   private
 
   def one_turn
-    @game_messenger.display message: :move_instruction
-
     @game_state.player_move
 
-    @game_messenger.clear_output
+    @game_state.alternate_current_player
 
-    @game_messenger.display_board @game_state.board
+    @game_state.print_screen_for_move
   end
 
   def exit_game
@@ -35,10 +27,10 @@ class Game
 
     if did_player_win
       winner = @game_state.previous_player
-      @game_messenger.display message: :game_over_X_wins if winner.mark == 'X'
-      @game_messenger.display message: :game_over_O_wins if winner.mark == 'O'
+      @game_state.print_screen bottom_messages: [:game_over_X_wins] if winner.mark == 'X'
+      @game_state.print_screen bottom_messages: [:game_over_O_wins] if winner.mark == 'O'
     else
-      @game_messenger.display(message: :game_over_with_tie)
+      @game_state.print_screen bottom_messages: [:game_over_with_tie]
     end
   end
 end

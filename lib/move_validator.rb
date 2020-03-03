@@ -3,27 +3,18 @@ class MoveValidator
     @game_messenger = game_messenger
   end
 
-  def move_valid?(board, position_input)
-    valid_integer?(position_input) && empty_square?(board, position_input)
+  def error_for_move(board, position_input)
+    error_for_integer(position_input) || error_for_square(board, position_input)
   end
 
   private
 
-  def valid_integer?(pos_input)
-    if !int_or_str?(pos_input) || !parses_to_integer?(pos_input)
-      @game_messenger.display(message: :not_valid_integer)
-      return false
-    end
-
-    true
+  def error_for_integer(pos_input)
+    return :not_valid_integer unless int_or_str?(pos_input) && parses_to_integer?(pos_input)
   end
 
-  def empty_square?(board, position)
-    is_empty = board.position_available? position
-
-    @game_messenger.display(message: :square_unavailable) unless is_empty
-
-    is_empty
+  def error_for_square(board, position)
+    return :square_unavailable unless board.position_available? position
   end
 
   def int_or_str?(position_input)
