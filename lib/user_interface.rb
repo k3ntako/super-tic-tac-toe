@@ -7,8 +7,8 @@ class UserInterface
     @platform.display_message message
   end
 
-  def display_board(board)
-    @platform.display_board board
+  def display_board(board_state)
+    @platform.display_board board_state
   end
 
   def get_user_input

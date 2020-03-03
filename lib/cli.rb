@@ -7,8 +7,8 @@ class CLI
     gets.chomp
   end
 
-  def display_board(board)
-    formatted_board = format_board_for_display board
+  def display_board(board_state)
+    formatted_board = format_board_for_display board_state
     display_message formatted_board
   end
 
@@ -18,10 +18,10 @@ class CLI
 
   private
 
-  def format_board_for_display(board)
+  def format_board_for_display(board_state)
     board_str = ''
 
-    board.each_with_index do |row, row_idx|
+    board_state.each_with_index do |row, row_idx|
       board_str += generate_board_row(row, row_idx)
     end
 
