@@ -29,7 +29,7 @@ class GameState
   end
 
   def display_board_with_messages_with_welcome
-    display_board_with_messages_for_move_for_move top_message: :welcome
+    display_board_with_messages_for_move top_message: :welcome
   end
 
   def display_board_with_messages_for_move(top_message: :title, bottom_messages: [])
