@@ -2,27 +2,27 @@ require_relative '../../lib/user_interface'
 require_relative '../../lib/cli'
 require_relative '../../lib/board'
 
-class TestCLI
-  attr_reader :diplayed_message
-  def initialize
-    @diplayed_message = []
-  end
+# class TestCLI
+#   attr_reader :diplayed_messages
+#   def initialize
+#     @diplayed_messages = []
+#   end
 
-  def display_message(message)
-    @diplayed_message.push message
-  end
+#   def display_message(message)
+#     @diplayed_messages.push message
+#   end
 
-  def display_board(board_state)
-    return nil unless board_state.is_a? Array
+#   def display_board(board_state)
+#     return nil unless board_state.is_a? Array
 
-    board_str = board_state.flatten.map { |square| square || 'nil' }
-    @diplayed_message.push board_str.join(',')
-  end
+#     board_str = board_state.flatten.map { |square| square || 'nil' }
+#     @diplayed_messages.push board_str.join(',')
+#   end
 
-  def clear_output
-    true
-  end
-end
+#   def clear_output
+#     true
+#   end
+# end
 
 RSpec.describe UserInterface do
   let(:cli) { TestCLI.new }
@@ -42,8 +42,8 @@ RSpec.describe UserInterface do
 
       test_cli = user_interface.instance_variable_get(:@platform)
 
-      expect(test_cli.diplayed_message.length).to eq 1
-      expect(test_cli.diplayed_message.last).to eq message
+      expect(test_cli.diplayed_messages.length).to eq 1
+      expect(test_cli.diplayed_messages.last).to eq message
     end
   end
 
@@ -54,8 +54,8 @@ RSpec.describe UserInterface do
 
       test_cli = user_interface.instance_variable_get(:@platform)
 
-      expect(test_cli.diplayed_message.length).to eq 1
-      expect(test_cli.diplayed_message.last).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+      expect(test_cli.diplayed_messages.length).to eq 1
+      expect(test_cli.diplayed_messages.last).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
     end
   end
 
