@@ -33,8 +33,13 @@ RSpec.describe GameMessageGenerator do
       output_message_x = game_message_generator.message(key: :move_instruction, params: { current_player: 'O' })
       expect(output_message_x).to eq 'Enter a number to make a move in the corresponding square (O\'s turn):'
 
-      output_message_happiness = game_message_generator.message(key: :move_instruction, params: { current_player: 'Happiness' })
-      expect(output_message_happiness).to eq 'Enter a number to make a move in the corresponding square (Happiness\'s turn):'
+      output_message_happiness = game_message_generator.message(
+        key: :move_instruction,
+        params: { current_player: 'Happiness' }
+      )
+      expect(output_message_happiness).to eq(
+        'Enter a number to make a move in the corresponding square (Happiness\'s turn):'
+      )
     end
   end
 end

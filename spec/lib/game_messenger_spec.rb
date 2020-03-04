@@ -1,5 +1,6 @@
 require_relative '../../lib/player'
 require_relative '../../lib/game_messenger'
+require_relative '../../lib/game_message_generator'
 
 class TestUserInterface
   attr_reader :triggered_actions
@@ -8,7 +9,7 @@ class TestUserInterface
   end
 
   def display_message(message)
-    raise ArgumentError, 'Argument must be a string' unless message.is_a? String
+    raise ArgumentError, "Argument must be a string. Got #{message.class}" unless message.is_a? String
 
     @triggered_actions.push 'Displayed: ' + message
 
@@ -28,34 +29,37 @@ class TestUserInterface
   end
 end
 
-GAME_MESSENGER_MESSAGES = {
-  hello: 'Hello',
-  instruction: 'Make your move',
-  bye: 'Bye'
-}.freeze
-
 RSpec.describe GameMessenger do
   let(:board) { Board.new }
   let(:test_user_interface) { TestUserInterface.new }
-  let(:game_messenger) { GameMessenger.new(user_interface: test_user_interface, messages: GAME_MESSENGER_MESSAGES) }
+  let(:game_message_generator) { GameMessageGenerator.new }
+  let(:game_messenger) do
+    GameMessenger.new(
+      user_interface: test_user_interface,
+      game_message_generator: game_message_generator
+    )
+  end
   let(:player) { Player.new(user_interface, 'X') }
 
   describe 'display' do
     it 'should display the associated message given a symbol' do
-      game_messenger.display message: :hello
-      game_messenger.display message: :bye
+      game_messenger.display message: :welcome
+      game_messenger.display message: :title
 
       test_ui = game_messenger.instance_variable_get(:@user_interface)
       triggered_actions = test_ui.triggered_actions
 
-      expect(triggered_actions[0]).to eq('Displayed: Hello')
-      expect(triggered_actions[1]).to eq('Displayed: Bye')
+      expect(triggered_actions[0]).to eq('Displayed: Welcome to a game of Tic-Tac-Toe!')
+      expect(triggered_actions[1]).to eq('Displayed: Super TicTacToe')
     end
   end
 
   describe 'display_board_with_messages' do
     let(:triggered_actions) do
-      game_messenger.display_board_with_messages top_message: :hello, board: board, bottom_messages: %i[instruction bye]
+      game_messenger.display_board_with_messages top_message: :welcome, board: board, bottom_messages: [
+        [:not_valid_integer],
+        [:move_instruction, { current_player: 'X' }]
+      ]
       test_ui = game_messenger.instance_variable_get(:@user_interface)
       test_ui.triggered_actions
     end
@@ -65,7 +69,7 @@ RSpec.describe GameMessenger do
     end
 
     it 'should display top message' do
-      expect(triggered_actions[1]).to eq('Displayed: Hello')
+      expect(triggered_actions[1]).to eq('Displayed: Welcome to a game of Tic-Tac-Toe!')
     end
 
     it 'should display board' do
@@ -73,8 +77,10 @@ RSpec.describe GameMessenger do
     end
 
     it 'should display bottom messages in order' do
-      expect(triggered_actions[3]).to eq('Displayed: Make your move')
-      expect(triggered_actions[4]).to eq('Displayed: Bye')
+      expect(triggered_actions[3]).to eq('Displayed: Make sure it\'s an integer and try again!')
+      expect(triggered_actions[4]).to eq(
+        'Displayed: Enter a number to make a move in the corresponding square (X\'s turn):'
+      )
     end
   end
 end

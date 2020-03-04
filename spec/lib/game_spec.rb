@@ -5,7 +5,12 @@ RSpec.describe Game do
     cli = CLI.new
     UserInterface.new(cli)
   end
-  let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: {}) }
+  let(:game_messenger) do
+    GameMessenger.new(
+      user_interface: ui,
+      game_message_generator: GameMessageGenerator.new
+    )
+  end
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),
@@ -42,7 +47,9 @@ RSpec.describe Game do
       # exit game
       expect(game_state).to receive(:player_won?).ordered.and_return false
 
-      expect(game_state).to receive(:display_board_with_messages).ordered.with(bottom_messages: [:game_over_with_tie])
+      expect(game_state).to receive(:display_board_with_messages).ordered.with(
+        bottom_messages: [[:game_over, { winner: nil }]]
+      )
 
       game.start
     end
@@ -67,7 +74,7 @@ RSpec.describe Game do
       # exit game
       expect(game_messenger).to receive(:display).ordered.with(message: :title)
       expect(game_messenger).to receive(:display_board).ordered
-      expect(game_messenger).to receive(:display).with(message: :game_over_X_wins)
+      expect(game_messenger).to receive(:display).with(message: :game_over, params: { winner: 'X' })
 
       game.start
     end

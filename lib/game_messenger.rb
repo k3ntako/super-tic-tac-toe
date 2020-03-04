@@ -1,11 +1,12 @@
 class GameMessenger
-  def initialize(user_interface:, messages:)
-    @messages = messages
+  def initialize(user_interface:, game_message_generator:)
     @user_interface = user_interface
+    @game_message_generator = game_message_generator
   end
 
-  def display(message:)
-    @user_interface.display_message messages[message]
+  def display(message:, params: nil)
+    message = @game_message_generator.message(key: message, params: params)
+    @user_interface.display_message message
   end
 
   def display_board(board)
@@ -22,8 +23,8 @@ class GameMessenger
     display(message: top_message)
     display_board(board)
 
-    bottom_messages.each do |message_key|
-      display(message: message_key)
+    bottom_messages.each do |message|
+      display(message: message[0], params: message[1])
     end
   end
 

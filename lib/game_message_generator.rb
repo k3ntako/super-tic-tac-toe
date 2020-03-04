@@ -7,19 +7,18 @@ MESSAGES = {
 
 class GameMessageGenerator
   def message(key:, params: nil)
-    p params
     return MESSAGES[key] if params.nil?
 
-    self.send(key, params)
+    send(key, params)
+  end
+
+  def move_instruction(params)
+    "Enter a number to make a move in the corresponding square (#{params[:current_player]}'s turn):"
   end
 
   def game_over(params)
     return 'Game Over: Tie!' if params[:winner].nil?
 
     "Game Over: #{params[:winner]} Wins!"
-  end
-
-  def move_instruction(params)
-    "Enter a number to make a move in the corresponding square (#{params[:current_player]}'s turn):"
   end
 end

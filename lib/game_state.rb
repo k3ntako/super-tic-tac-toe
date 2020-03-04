@@ -24,7 +24,7 @@ class GameState
         break
       end
 
-      display_board_with_messages_for_move bottom_messages: [error]
+      display_board_with_messages_for_move bottom_messages: [[error]]
     end
   end
 
@@ -61,7 +61,7 @@ class GameState
   private
 
   def instruction_symbol
-    @current_player_idx.zero? ? :move_instruction_x : :move_instruction_o
+    [:move_instruction, { current_player: current_player.mark }]
   end
 
   def check_for_error(position)

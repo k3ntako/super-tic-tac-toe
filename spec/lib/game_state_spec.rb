@@ -3,21 +3,9 @@ require_relative '../../lib/game_state'
 require_relative '../../lib/move_validator'
 require_relative './mock_classes/cli_mock'
 
-MESSAGES = {
-  welcome: 'Welcome to a game of Tic-Tac-Toe!',
-  title: 'Super TicTacToe',
-  move_instruction_x: 'Enter a number to make a move in the corresponding square (X\'s turn):',
-  move_instruction_o: 'Enter a number to make a move in the corresponding square (O\'s turn):',
-  game_over_X_wins: 'Game Over: X Wins',
-  game_over_O_wins: 'Game Over: O Wins',
-  game_over_with_tie: 'Game Over: Tie!',
-  not_valid_integer: 'Make sure it\'s an integer and try again!',
-  square_unavailable: 'You can\'t make a move there, try again!'
-}.freeze
-
 RSpec.describe GameState do
   let(:ui) { UserInterface.new(TestCLI.new) }
-  let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: MESSAGES) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, game_message_generator: GameMessageGenerator.new) }
   let(:board) { Board.new }
   let(:move_validator) { MoveValidator.new }
   let(:game_state) do
@@ -123,7 +111,7 @@ RSpec.describe GameState do
     let(:test_cli) do
       game_state.display_board_with_messages(
         top_message: :welcome,
-        bottom_messages: [:move_instruction_o]
+        bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )
 
       ui.instance_variable_get(:@platform)
@@ -163,27 +151,27 @@ RSpec.describe GameState do
     it 'should add instruction to bottom message' do
       expect(game_state).to receive(:display_board_with_messages).with(
         top_message: :test,
-        bottom_messages: %i[second_test move_instruction_x]
+        bottom_messages: [[:second_test], [:move_instruction, { current_player: 'X' }]]
       )
 
-      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [:second_test])
+      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [[:second_test]])
     end
 
     it 'should display the appropriate instructions based on the current played index' do
       game_state.instance_variable_set(:@current_player_idx, 1)
       expect(game_state).to receive(:display_board_with_messages).with(
         top_message: :test,
-        bottom_messages: %i[second_test move_instruction_o]
+        bottom_messages: [[:second_test], [:move_instruction, { current_player: 'O' }]]
       )
 
-      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [:second_test])
+      game_state.display_board_with_messages_for_move(top_message: :test, bottom_messages: [[:second_test]])
     end
 
     it 'should display default messages if nothing is passed in' do
       game_state.instance_variable_set(:@current_player_idx, 1)
       expect(game_state).to receive(:display_board_with_messages).with(
         top_message: :title,
-        bottom_messages: [:move_instruction_o]
+        bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )
 
       game_state.display_board_with_messages_for_move
