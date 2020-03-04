@@ -7,10 +7,6 @@ class TicTacToe
   end
 
   def start
-    @user_interface.clear_output
-
-    display_welcome
-
     game = create_a_game
     game.start
   end

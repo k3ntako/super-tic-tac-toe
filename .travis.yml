@@ -4,4 +4,5 @@ rvm:
 
 script:
   - bundle exec rspec
+  - bundle exec cucumber
   - bundle exec rubocop

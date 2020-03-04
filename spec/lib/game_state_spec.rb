@@ -135,18 +135,18 @@ RSpec.describe GameState do
 
     it 'should print the top message' do
       expect(test_cli.triggered_actions[1]).to eq 'display_message'
-      expect(test_cli.diplayed_messages[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
+      expect(test_cli.displayed_messages[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
     end
 
     it 'should print the board' do
       expect(test_cli.triggered_actions[2]).to eq 'display_board'
       expect(test_cli.triggered_actions[3]).to eq 'display_message'
-      expect(test_cli.diplayed_messages[1]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+      expect(test_cli.displayed_messages[1]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
     end
 
     it 'should print the bottom message' do
       expect(test_cli.triggered_actions[4]).to eq 'display_message'
-      expect(test_cli.diplayed_messages[2]).to eq(
+      expect(test_cli.displayed_messages[2]).to eq(
         'Enter a number to make a move in the corresponding square (O\'s turn):'
       )
     end
