@@ -7,7 +7,6 @@ require_relative '../../lib/game_messenger'
 
 require_relative '../../spec/lib/mock_classes/cli_mock'
 
-original_stdout = $stdout
 test_cli = nil
 
 When(/^I am prompted to make a move$/) do
