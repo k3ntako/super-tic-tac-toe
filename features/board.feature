@@ -6,4 +6,4 @@ Feature: Board
   Scenario: User sees the empty board
     When the game starts
     Then I should see the empty board
-    Then I should be prompted to make a move
+    And I should be prompted to make a move

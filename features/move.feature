@@ -6,4 +6,4 @@ Feature: Board
   Scenario: User makes a move
     When I am prompted to make a move
     Then I should be able to enter an integer
-    Then I should be able to see the updated board
+    And I should be able to see the updated board

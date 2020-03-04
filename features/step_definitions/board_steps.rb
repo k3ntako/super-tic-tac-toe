@@ -27,7 +27,7 @@ Then(/^I should see the empty board$/) do
   expect(stdout_ouput[6]).to eq ' 7 | 8 | 9 '
 end
 
-Then(/^I should be prompted to make a move$/) do
+And(/^I should be prompted to make a move$/) do
   stdout_ouput = $stdout.string.split("\n")
   expect(stdout_ouput[8]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
 

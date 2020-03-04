@@ -28,7 +28,5 @@ Then(/^I should be able to enter an integer$/) do
 end
 
 Then(/^I should be able to see the updated board$/) do
-  p test_cli.displayed_messages
-
   expect(test_cli.displayed_messages[4]).to eq 'nil,X,nil,nil,nil,nil,nil,nil,nil'
 end
