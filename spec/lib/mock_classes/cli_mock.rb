@@ -1,12 +1,12 @@
 class TestCLI
-  attr_reader :diplayed_messages, :triggered_actions
+  attr_reader :displayed_messages, :triggered_actions
   def initialize
-    @diplayed_messages = []
+    @displayed_messages = []
     @triggered_actions = []
   end
 
   def display_message(message)
-    @diplayed_messages.push message
+    @displayed_messages.push message
     @triggered_actions.push 'display_message'
 
     nil
@@ -26,5 +26,11 @@ class TestCLI
     @triggered_actions.push 'clear_output'
 
     true
+  end
+
+  def get_user_input
+    @triggered_actions.push 'get_user_input'
+
+    'Called: get_user_input'
   end
 end

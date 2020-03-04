@@ -20,8 +20,8 @@ RSpec.describe UserInterface do
 
       test_cli = user_interface.instance_variable_get(:@platform)
 
-      expect(test_cli.diplayed_messages.length).to eq 1
-      expect(test_cli.diplayed_messages.last).to eq message
+      expect(test_cli.displayed_messages.length).to eq 1
+      expect(test_cli.displayed_messages.last).to eq message
     end
   end
 
@@ -32,8 +32,8 @@ RSpec.describe UserInterface do
 
       test_cli = user_interface.instance_variable_get(:@platform)
 
-      expect(test_cli.diplayed_messages.length).to eq 1
-      expect(test_cli.diplayed_messages.last).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+      expect(test_cli.displayed_messages.length).to eq 1
+      expect(test_cli.displayed_messages.last).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
     end
   end
 

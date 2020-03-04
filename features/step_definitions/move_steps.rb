@@ -5,24 +5,23 @@ require_relative '../../lib/tic_tac_toe'
 require_relative '../../lib/game_state'
 require_relative '../../lib/game_messenger'
 
+require_relative '../../spec/lib/mock_classes/cli_mock'
+
 original_stdout = $stdout
+test_cli = nil
 
 When(/^I am prompted to make a move$/) do
-  $stdout = StringIO.new
+  allow_any_instance_of(GameState).to receive(:check_for_error).and_return(nil)
+  allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, true)
 
-  allow_any_instance_of(GameMessenger).to receive(:clear_output).and_return(nil)
+  test_cli = TestCLI.new
 
-  cli = CLI.new
-  tic_tac_toe = TicTacToe.new(cli)
+  tic_tac_toe = TicTacToe.new(test_cli)
+
   tic_tac_toe.start
 end
 
 Then(/^I should be able to enter an integer$/) do
-  expect(GameMessenger).to receive(:clear_output).and_return(nil)
-
-
-  stdout_ouput = $stdout.string.split("\n")
-  expect(stdout_ouput[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
-
-  $stdout = original_stdout
+  expect(test_cli.displayed_messages[2]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
+  expect(test_cli.triggered_actions[5]).to eq 'get_user_input'
 end
