@@ -1,8 +1,11 @@
 class TestCLI
   attr_reader :displayed_messages, :triggered_actions
+  attr_accessor :fake_user_inputs
   def initialize
     @displayed_messages = []
     @triggered_actions = []
+    @fake_user_inputs = []
+    @fake_user_input_idx = -1
   end
 
   def display_message(message)
@@ -30,7 +33,8 @@ class TestCLI
 
   def get_user_input
     @triggered_actions.push 'get_user_input'
+    @fake_user_input_idx += 1
 
-    'Called: get_user_input'
+    @fake_user_inputs[@fake_user_input_idx]
   end
 end
