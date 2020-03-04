@@ -26,6 +26,6 @@ Then(/^I should be able to enter an integer$/) do
   expect(test_cli.triggered_actions[5]).to eq 'get_user_input'
 end
 
-Then(/^I should be able to see the updated board$/) do
+And(/^I should be able to see the updated board$/) do
   expect(test_cli.displayed_messages[4]).to eq 'nil,X,nil,nil,nil,nil,nil,nil,nil'
 end

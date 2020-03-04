@@ -1,6 +1,6 @@
 Feature: Move
   As a user
-  I should be able to enter a move and see the board update
+  I want to be able to enter a move and see the board update
   So I can make a move
 
   Scenario: User makes a move to update board
