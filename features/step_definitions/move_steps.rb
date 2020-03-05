@@ -26,8 +26,8 @@ Then(/^I should be able to enter an integer$/) do
   expect(test_cli.triggered_actions[5]).to eq 'get_user_input'
 end
 
-And(/^I should see who made the last move$/) do
-  expect(test_cli.displayed_messages[3]).to eq 'Last Move: X on 2'
+And(/^I should see who made the previous move$/) do
+  expect(test_cli.displayed_messages[3]).to eq 'Previous Move: X on 2'
 end
 
 And(/^I should be able to see the updated board$/) do

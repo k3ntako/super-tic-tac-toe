@@ -38,9 +38,9 @@ RSpec.describe GameMessageGenerator do
       )
     end
 
-    it 'should return last move' do
-      output_message = game_message_generator.message(key: :last_move, params: { player: 'O', position: 1 })
-      expect(output_message).to eq 'Last Move: O on 1'
+    it 'should return previous move' do
+      output_message = game_message_generator.message(key: :previous_move, params: { player: 'O', position: 1 })
+      expect(output_message).to eq 'Previous Move: O on 1'
     end
   end
 end

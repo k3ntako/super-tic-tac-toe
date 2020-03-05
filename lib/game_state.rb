@@ -8,7 +8,7 @@ class GameState
     @board = board
     @players = players
     @current_player_idx = 0
-    @last_move_position = nil
+    @prev_move_position = nil
   end
 
   def alternate_current_player
@@ -22,7 +22,7 @@ class GameState
 
       if error.nil?
         @board.update(current_player.mark, position)
-        @last_move_position = position
+        @prev_move_position = position
         break
       end
 
@@ -61,13 +61,13 @@ class GameState
   private
 
   def default_top_message
-    return [:welcome] if @last_move_position.nil?
+    return [:welcome] if @prev_move_position.nil?
 
     [
-      :last_move,
+      :previous_move,
       {
         player: previous_player.mark,
-        position: @last_move_position
+        position: @prev_move_position
       }
     ]
   end
