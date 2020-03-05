@@ -4,8 +4,6 @@ class Game
   end
 
   def start
-    @game_state.display_board_with_messages_for_move
-
     one_turn until @game_state.game_over?
 
     exit_game
@@ -14,11 +12,11 @@ class Game
   private
 
   def one_turn
+    @game_state.display_board_with_messages_for_move
+
     @game_state.player_move
 
     @game_state.alternate_current_player
-
-    @game_state.display_board_with_messages_for_move
   end
 
   def exit_game
