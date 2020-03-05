@@ -26,8 +26,6 @@ class MockGameGenerator
   def create_a_game(user_interface:, opponent:)
     @triggered_actions.push('create_a_game')
 
-    p user_interface if 1 == 2
-
     @last_game_created = MockGame.new(players: [:human, opponent])
     @last_game_created
   end
