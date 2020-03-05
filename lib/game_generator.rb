@@ -4,6 +4,7 @@ require_relative './game_messenger'
 require_relative './game_state'
 require_relative './move_validator'
 require_relative './player'
+require_relative './computer'
 require_relative './board'
 
 MESSAGES = {
@@ -19,10 +20,12 @@ MESSAGES = {
 }.freeze
 
 class GameGenerator
-  def create_a_game(user_interface)
+  def create_a_game(user_interface:, opponent: :player)
+    opponent_player = opponent == :player ? Player.new(user_interface, 'O') : Computer.new(mark: 'O')
+
     players = [
       Player.new(user_interface, 'X'),
-      Player.new(user_interface, 'O')
+      opponent_player
     ]
 
     game_state = GameState.new(
