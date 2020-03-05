@@ -20,8 +20,8 @@ MESSAGES = {
 }.freeze
 
 class GameGenerator
-  def create_a_game(user_interface:, opponent: :player)
-    opponent_player = opponent == :player ? Player.new(user_interface, 'O') : Computer.new(mark: 'O')
+  def create_a_game(user_interface:, opponent: :human)
+    opponent_player = opponent == :human ? Player.new(user_interface, 'O') : Computer.new(mark: 'O')
 
     players = [
       Player.new(user_interface, 'X'),
