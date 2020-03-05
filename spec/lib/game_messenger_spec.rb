@@ -44,19 +44,19 @@ RSpec.describe GameMessenger do
   describe 'display' do
     it 'should display the associated message given a symbol' do
       game_messenger.display message: :welcome
-      game_messenger.display message: :title
+      game_messenger.display message: :not_valid_integer
 
       test_ui = game_messenger.instance_variable_get(:@user_interface)
       triggered_actions = test_ui.triggered_actions
 
       expect(triggered_actions[0]).to eq('Displayed: Welcome to a game of Tic-Tac-Toe!')
-      expect(triggered_actions[1]).to eq('Displayed: Super TicTacToe')
+      expect(triggered_actions[1]).to eq('Displayed: Make sure it\'s an integer and try again!')
     end
   end
 
   describe 'display_board_with_messages' do
     let(:triggered_actions) do
-      game_messenger.display_board_with_messages top_message: :welcome, board: board, bottom_messages: [
+      game_messenger.display_board_with_messages top_message: [:welcome], board: board, bottom_messages: [
         [:not_valid_integer],
         [:move_instruction, { current_player: 'X' }]
       ]

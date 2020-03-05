@@ -110,7 +110,7 @@ RSpec.describe GameState do
   describe 'display_board_with_messages' do
     let(:test_cli) do
       game_state.display_board_with_messages(
-        top_message: :welcome,
+        top_message: [:welcome],
         bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )
 
@@ -140,17 +140,11 @@ RSpec.describe GameState do
     end
   end
 
-  describe 'display_board_with_messages_with_welcome' do
-    it 'should display welcome message along with board' do
-      expect(game_state).to receive(:display_board_with_messages_for_move).with(top_message: :welcome)
-      game_state.display_board_with_messages_with_welcome
-    end
-  end
-
   describe 'display_board_with_messages_for_move' do
     it 'should add instruction to bottom message' do
-      expect(game_state).to receive(:display_board_with_messages).with(
+      expect(game_messenger).to receive(:display_board_with_messages).with(
         top_message: :test,
+        board: board,
         bottom_messages: [[:second_test], [:move_instruction, { current_player: 'X' }]]
       )
 
@@ -159,8 +153,9 @@ RSpec.describe GameState do
 
     it 'should display the appropriate instructions based on the current played index' do
       game_state.instance_variable_set(:@current_player_idx, 1)
-      expect(game_state).to receive(:display_board_with_messages).with(
+      expect(game_messenger).to receive(:display_board_with_messages).with(
         top_message: :test,
+        board: board,
         bottom_messages: [[:second_test], [:move_instruction, { current_player: 'O' }]]
       )
 
@@ -169,8 +164,9 @@ RSpec.describe GameState do
 
     it 'should display default messages if nothing is passed in' do
       game_state.instance_variable_set(:@current_player_idx, 1)
-      expect(game_state).to receive(:display_board_with_messages).with(
-        top_message: :title,
+      expect(game_messenger).to receive(:display_board_with_messages).with(
+        top_message: [:welcome],
+        board: board,
         bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )
 

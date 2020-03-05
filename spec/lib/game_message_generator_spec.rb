@@ -3,10 +3,6 @@ require_relative '../../lib/game_message_generator'
 
 RSpec.describe GameMessageGenerator do
   let(:game_message_generator) { GameMessageGenerator.new }
-  # let(:board) { Board.new }
-  # let(:test_user_interface) { TestUserInterface.new }
-  # let(:game_messenger) { GameMessenger.new(user_interface: test_user_interface, messages: GAME_MESSENGER_MESSAGES) }
-  # let(:player) { Player.new(user_interface, 'X') }
 
   describe 'message' do
     it 'should return associated static message if no param is passed in' do
@@ -40,6 +36,11 @@ RSpec.describe GameMessageGenerator do
       expect(output_message_happiness).to eq(
         'Enter a number to make a move in the corresponding square (Happiness\'s turn):'
       )
+    end
+
+    it 'should return last move' do
+      output_message = game_message_generator.message(key: :last_move, params: { player: 'O', position: 1 })
+      expect(output_message).to eq 'Last Move: O on 1'
     end
   end
 end

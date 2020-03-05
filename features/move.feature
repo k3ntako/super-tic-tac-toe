@@ -6,4 +6,5 @@ Feature: Move
   Scenario: User makes a move to update board
     When I am prompted to make a move
     Then I should be able to enter an integer
+    And I should see who made the last move
     And I should be able to see the updated board

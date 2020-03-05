@@ -20,7 +20,7 @@ class GameMessenger
   def display_board_with_messages(top_message:, board:, bottom_messages:)
     clear_output
 
-    display(message: top_message)
+    display(message: top_message[0], params: top_message[1])
     display_board(board)
 
     bottom_messages.each do |message|
