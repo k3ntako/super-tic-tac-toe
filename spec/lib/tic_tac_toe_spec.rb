@@ -75,7 +75,7 @@ RSpec.describe TicTacToe do
       expect(mock_game.players).to eq %i[human human]
     end
 
-    it 'should create a game with Computer if user picks computer  as the opponent' do
+    it 'should create a game with computer if user picks computer as the opponent' do
       mock_cli.fake_user_inputs.push '2'
 
       tic_tac_toe.start
