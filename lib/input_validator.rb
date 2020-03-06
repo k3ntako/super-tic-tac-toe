@@ -1,4 +1,4 @@
-class MoveValidator
+class InputValidator
   def move_error(board, position_input)
     input_error(position_input) || position_error(board, position_input)
   end

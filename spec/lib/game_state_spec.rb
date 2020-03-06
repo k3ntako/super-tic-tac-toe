@@ -1,6 +1,6 @@
 require_relative '../../lib/player'
 require_relative '../../lib/game_state'
-require_relative '../../lib/move_validator'
+require_relative '../../lib/input_validator'
 require_relative './mock_classes/cli_mock'
 
 MESSAGES = {
@@ -19,7 +19,7 @@ RSpec.describe GameState do
   let(:ui) { UserInterface.new(TestCLI.new) }
   let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: MESSAGES) }
   let(:board) { Board.new }
-  let(:move_validator) { MoveValidator.new }
+  let(:input_validator) { InputValidator.new }
   let(:game_state) do
     players = [
       Player.new(ui, 'X'),
@@ -29,7 +29,7 @@ RSpec.describe GameState do
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      move_validator: move_validator,
+      input_validator: input_validator,
       board: board,
       players: players
     )
@@ -58,8 +58,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return nil
-      allow(move_validator).to receive(:position_error).and_return nil
+      allow(input_validator).to receive(:input_error).and_return nil
+      allow(input_validator).to receive(:position_error).and_return nil
 
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return pos_str
@@ -73,8 +73,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return(:not_valid_integer, nil)
-      allow(move_validator).to receive(:position_error).and_return(nil)
+      allow(input_validator).to receive(:input_error).and_return(:not_valid_integer, nil)
+      allow(input_validator).to receive(:position_error).and_return(nil)
 
       allow(game_state).to receive(:display_board_with_messages)
 
@@ -91,8 +91,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return(nil)
-      allow(move_validator).to receive(:position_error).and_return(:square_unavailable, nil)
+      allow(input_validator).to receive(:input_error).and_return(nil)
+      allow(input_validator).to receive(:position_error).and_return(:square_unavailable, nil)
 
       allow(game_state).to receive(:display_board_with_messages)
 

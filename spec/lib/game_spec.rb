@@ -15,7 +15,7 @@ RSpec.describe Game do
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      move_validator: MoveValidator.new,
+      input_validator: InputValidator.new,
       board: Board.new,
       players: players
     )

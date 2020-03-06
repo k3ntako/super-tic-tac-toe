@@ -1,10 +1,10 @@
 class GameState
   attr_reader :board
 
-  def initialize(game_messenger:, game_end_evaluator:, move_validator:, board:, players:)
+  def initialize(game_messenger:, game_end_evaluator:, input_validator:, board:, players:)
     @game_messenger = game_messenger
     @game_end_evaluator = game_end_evaluator
-    @move_validator = move_validator
+    @input_validator = input_validator
     @board = board
     @players = players
     @current_player_idx = 0
@@ -65,7 +65,7 @@ class GameState
   end
 
   def check_for_error(position)
-    @move_validator.move_error(@board, position)
+    @input_validator.move_error(@board, position)
   end
 
   def current_player
