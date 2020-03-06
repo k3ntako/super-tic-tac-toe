@@ -53,6 +53,7 @@ RSpec.describe TicTacToe do
     it 'should ask user if they would like to play a computer or a human' do
       tic_tac_toe.start
 
+      expect(mock_cli.triggered_actions[2]).to eq 'display_empty_line'
       expect(mock_cli.displayed_messages[1]).to eq 'Would you like to play a human or a computer?'
       expect(mock_cli.displayed_messages[2]).to eq 'Enter 1 for human, and 2 for computer:'
     end
@@ -60,7 +61,7 @@ RSpec.describe TicTacToe do
     it 'should ask user if they would like to play a computer or a human' do
       tic_tac_toe.start
 
-      expect(mock_cli.triggered_actions[4]).to eq 'get_user_input'
+      expect(mock_cli.triggered_actions[5]).to eq 'get_user_input'
     end
 
     it 'should create a game with two human if user picks human as the opponent' do

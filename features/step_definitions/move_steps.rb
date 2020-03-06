@@ -25,7 +25,7 @@ end
 
 Then(/^I should be able to enter an integer$/) do
   expect(test_cli.displayed_messages[5]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
-  expect(test_cli.triggered_actions[10]).to eq 'get_user_input'
+  expect(test_cli.triggered_actions[11]).to eq 'get_user_input'
 end
 
 And(/^I should be able to see the updated board$/) do

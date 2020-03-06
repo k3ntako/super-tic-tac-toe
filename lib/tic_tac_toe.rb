@@ -26,6 +26,7 @@ class TicTacToe
   end
 
   def ask_for_opponent_selection
+    @user_interface.display_empty_line
     @user_interface.display_message 'Would you like to play a human or a computer?'
     @user_interface.display_message 'Enter 1 for human, and 2 for computer:'
   end
