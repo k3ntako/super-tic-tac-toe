@@ -32,6 +32,10 @@ Then(/^I should be able to enter an integer$/) do
   expect(test_cli.triggered_actions[12]).to eq 'get_user_input'
 end
 
+And(/^I should see who made the previous move$/) do
+  expect(test_cli.displayed_messages[7]).to eq 'Previous Move: X on 2'
+end
+
 And(/^I should be able to see the updated board$/) do
   expect(test_cli.displayed_messages[8]).to eq 'nil,X,nil,nil,nil,nil,nil,nil,nil'
 end

@@ -6,6 +6,7 @@ Feature: Move
   Scenario: Human vs. Human
     When I am prompted to make a move
     Then I should be able to enter an integer
+    And I should see who made the previous move
     And I should be able to see the updated board
     Then the other player should be prompted to make a move
     And they should be able to enter an integer

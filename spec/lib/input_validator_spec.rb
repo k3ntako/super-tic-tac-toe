@@ -5,7 +5,7 @@ RSpec.describe InputValidator do
     cli = CLI.new
     UserInterface.new(cli)
   end
-  let(:game_messenger) { GameMessenger.new(user_interface: ui, messages: {}) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, game_message_generator: GameMessageGenerator.new) }
   let(:input_validator) { InputValidator.new }
   let(:board) { Board.new }
 
