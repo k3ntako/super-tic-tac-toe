@@ -8,6 +8,7 @@ class GameState
     @board = board
     @players = players
     @current_player_idx = 0
+    @prev_move_position = nil
   end
 
   def alternate_current_player
@@ -21,23 +22,22 @@ class GameState
 
       if error.nil?
         @board.update(current_player.mark, position)
+        @prev_move_position = position
         break
       end
 
-      display_board_with_messages_for_move bottom_messages: [error]
+      display_board_with_messages_for_move bottom_messages: [[error]]
     end
   end
 
-  def display_board_with_messages_with_welcome
-    display_board_with_messages_for_move top_message: :welcome
+  def display_board_with_messages_for_move(top_message: nil, bottom_messages: [])
+    bottom_messages = bottom_messages.push(move_instruction_message)
+    display_board_with_messages(top_message: top_message, bottom_messages: bottom_messages)
   end
 
-  def display_board_with_messages_for_move(top_message: :title, bottom_messages: [])
-    bottom_message_symbols = bottom_messages.push(instruction_symbol)
-    display_board_with_messages top_message: top_message, bottom_messages: bottom_message_symbols
-  end
+  def display_board_with_messages(top_message: nil, bottom_messages: [])
+    top_message ||= default_top_message
 
-  def display_board_with_messages(top_message: :title, bottom_messages: [])
     @game_messenger.display_board_with_messages(
       top_message: top_message,
       board: @board,
@@ -60,8 +60,20 @@ class GameState
 
   private
 
-  def instruction_symbol
-    @current_player_idx.zero? ? :move_instruction_x : :move_instruction_o
+  def default_top_message
+    return [:welcome] if @prev_move_position.nil?
+
+    [
+      :previous_move,
+      {
+        player: previous_player.mark,
+        position: @prev_move_position
+      }
+    ]
+  end
+
+  def move_instruction_message
+    [:move_instruction, { current_player: current_player.mark }]
   end
 
   def check_for_error(position)

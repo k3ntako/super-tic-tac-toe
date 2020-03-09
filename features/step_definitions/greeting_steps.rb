@@ -12,7 +12,8 @@ When(/^I start the program$/) do
   $stdout = StringIO.new
 
   allow_any_instance_of(GameMessenger).to receive(:clear_output).and_return(nil)
-  allow_any_instance_of(GameState).to receive(:game_over?).and_return(true)
+  allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, true)
+  allow_any_instance_of(GameState).to receive(:player_move).and_return('1')
 
   cli = CLI.new
   tic_tac_toe = TicTacToe.new(cli)
