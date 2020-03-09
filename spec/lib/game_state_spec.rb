@@ -8,12 +8,8 @@ RSpec.describe GameState do
   let(:game_messenger) { GameMessenger.new(user_interface: ui, game_message_generator: GameMessageGenerator.new) }
   let(:board) { Board.new }
   let(:input_validator) { InputValidator.new }
+  let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
   let(:game_state) do
-    players = [
-      HumanPlayer.new(ui, 'X'),
-      HumanPlayer.new(ui, 'O')
-    ]
-
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
@@ -165,7 +161,7 @@ RSpec.describe GameState do
     it 'should display default messages if nothing is passed in' do
       game_state.instance_variable_set(:@current_player_idx, 1)
       expect(game_messenger).to receive(:display_board_with_messages).with(
-        top_message: [:welcome],
+        top_message: [:match_up, { players: players }],
         board: board,
         bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )

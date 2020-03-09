@@ -45,23 +45,21 @@ RSpec.describe GameMessageGenerator do
     end
 
     it 'should return match up message' do
-      player_one = HumanPlayer.new(ui, 'X')
-      player_two = HumanPlayer.new(ui, 'O')
+      players = [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')]
 
       output_message = game_message_generator.message(
         key: :match_up,
-        params: { player_one: player_one, player_two: player_two }
+        params: { players: players }
       )
       expect(output_message).to eq 'Human (X) vs. Human (O)'
     end
 
     it 'should return match up message with a computer' do
-      player_one = HumanPlayer.new(ui, 'X')
-      player_two = ComputerPlayer.new(mark: 'O')
+      players = [HumanPlayer.new(ui, 'X'), ComputerPlayer.new(mark: 'O')]
 
       output_message = game_message_generator.message(
         key: :match_up,
-        params: { player_one: player_one, player_two: player_two }
+        params: { players: players }
       )
       expect(output_message).to eq 'Human (X) vs. Computer (O)'
     end

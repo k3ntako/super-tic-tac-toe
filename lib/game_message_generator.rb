@@ -29,8 +29,8 @@ class GameMessageGenerator
   end
 
   def match_up(params)
-    player_one = params[:player_one]
-    player_two = params[:player_two]
+    player_one = params[:players][0]
+    player_two = params[:players][1]
 
     player_one_type = player_one.class.name.gsub('Player', '')
     player_two_type = player_two.class.name.gsub('Player', '')

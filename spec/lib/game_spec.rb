@@ -11,12 +11,8 @@ RSpec.describe Game do
       game_message_generator: GameMessageGenerator.new
     )
   end
+  let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
   let(:game_state) do
-    players = [
-      HumanPlayer.new(ui, 'X'),
-      HumanPlayer.new(ui, 'O')
-    ]
-
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
@@ -68,7 +64,10 @@ RSpec.describe Game do
       allow(game_state).to receive(:game_over?).and_return(true)
 
       # exit game
-      expect(game_messenger).to receive(:display).ordered.with(message: :welcome, params: nil)
+      expect(game_messenger).to receive(:display).ordered.with(
+        message: :match_up,
+        params: { players: players }
+      )
       expect(game_messenger).to receive(:display_board).ordered
       expect(game_messenger).to receive(:display).with(message: :game_over, params: { winner: 'X' })
 

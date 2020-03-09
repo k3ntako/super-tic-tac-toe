@@ -55,13 +55,15 @@ class GameState
 
   def previous_player
     previous_player_idx = @current_player_idx.zero? ? 1 : 0
-    @players[previous_player_idx]
+    players[previous_player_idx]
   end
 
   private
 
+  attr_reader :players
+
   def default_top_message
-    return [:welcome] if @prev_move_position.nil?
+    return [:match_up, { players: players }] if @prev_move_position.nil?
 
     [
       :previous_move,
@@ -81,6 +83,6 @@ class GameState
   end
 
   def current_player
-    @players[@current_player_idx]
+    players[@current_player_idx]
   end
 end
