@@ -29,7 +29,7 @@ RSpec.describe Game do
 
   describe 'start' do
     it 'should go through the loop and exit with a tie' do
-      expect(game_state).to receive(:display_board_with_messages_with_welcome).ordered
+      expect(game_state).to receive(:display_board_with_messages_for_move).ordered
 
       # loop
       expect(game_state).to receive(:game_over?).ordered.and_return false
@@ -59,7 +59,7 @@ RSpec.describe Game do
       game_state.instance_variable_set(:@board, board)
       game_state.instance_variable_set(:@current_player_idx, 1)
 
-      expect(game_state).to receive(:display_board_with_messages_with_welcome).ordered
+      expect(game_state).to receive(:display_board_with_messages_for_move).ordered
 
       # loop
       allow(game_state).to receive(:game_over?).and_return(true)

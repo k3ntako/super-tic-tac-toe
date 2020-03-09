@@ -152,13 +152,6 @@ RSpec.describe GameState do
     end
   end
 
-  describe 'display_board_with_messages_with_welcome' do
-    it 'should display welcome message along with board' do
-      expect(game_state).to receive(:display_board_with_messages_for_move).with(top_message: :welcome)
-      game_state.display_board_with_messages_with_welcome
-    end
-  end
-
   describe 'display_board_with_messages_for_move' do
     it 'should add instruction to bottom message' do
       expect(game_state).to receive(:display_board_with_messages).with(

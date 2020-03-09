@@ -28,10 +28,6 @@ class GameState
     end
   end
 
-  def display_board_with_messages_with_welcome
-    display_board_with_messages_for_move top_message: :welcome
-  end
-
   def display_board_with_messages_for_move(top_message: :title, bottom_messages: [])
     bottom_message_symbols = bottom_messages.push(instruction_symbol)
     display_board_with_messages top_message: top_message, bottom_messages: bottom_message_symbols

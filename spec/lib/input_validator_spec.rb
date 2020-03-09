@@ -84,4 +84,42 @@ RSpec.describe InputValidator do
       expect(error_symbol).to eq :square_unavailable
     end
   end
+
+  describe 'input_error' do
+    it 'should return error given nil' do
+      expect(input_validator.input_error(nil)).to eq :not_valid_integer
+    end
+
+    it 'should return error given empty string' do
+      expect(input_validator.input_error('')).to eq :not_valid_integer
+    end
+
+    it 'should return error given a string with alphabet characters' do
+      expect(input_validator.input_error('527ck1129')).to eq :not_valid_integer
+    end
+
+    it 'should return error given a string with special characters' do
+      expect(input_validator.input_error('!')).to eq :not_valid_integer
+    end
+
+    it 'should return error given a float' do
+      expect(input_validator.input_error(1.2)).to eq :not_valid_integer
+    end
+
+    it 'should return error given a float string' do
+      expect(input_validator.input_error('1.2')).to eq :not_valid_integer
+    end
+
+    it 'should return nil given an integer' do
+      expect(input_validator.input_error(807)).to eq nil
+    end
+
+    it 'should return nil given a string with only numbers' do
+      expect(input_validator.input_error('807')).to eq nil
+    end
+
+    it 'should return nil given a string with numbers and white space' do
+      expect(input_validator.input_error(" 1123\n")).to eq nil
+    end
+  end
 end

@@ -22,9 +22,13 @@ When(/^I start the program$/) do
 
   ui = UserInterface.new(cli)
   game_generator = GameGenerator.new
-  tic_tac_toe = TicTacToe.new(user_interface: ui, game_generator: game_generator)
+  tic_tac_toe = TicTacToe.new(
+    user_interface: ui,
+    game_generator: game_generator,
+    input_validator: InputValidator.new
+  )
 
-  allow(tic_tac_toe).to receive(:get_opponent_selection).and_return(:human)
+  allow(cli).to receive(:get_user_input).and_return('1')
 
   tic_tac_toe.start
 

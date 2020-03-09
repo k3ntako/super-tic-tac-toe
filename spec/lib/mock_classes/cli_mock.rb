@@ -27,6 +27,7 @@ class TestCLI
 
   def display_empty_line
     @triggered_actions.push 'display_empty_line'
+    display_message ''
   end
 
   def clear_output

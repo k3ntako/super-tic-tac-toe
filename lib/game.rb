@@ -4,7 +4,7 @@ class Game
   end
 
   def start
-    @game_state.display_board_with_messages_with_welcome
+    @game_state.display_board_with_messages_for_move
 
     one_turn until @game_state.game_over?
 
