@@ -1,8 +1,9 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 require_relative '../../lib/game_message_generator'
 
 RSpec.describe GameMessageGenerator do
   let(:game_message_generator) { GameMessageGenerator.new }
+  let(:ui) { UserInterface.new(TestCLI.new) }
 
   describe 'message' do
     it 'should return associated static message if no param is passed in' do
@@ -41,6 +42,28 @@ RSpec.describe GameMessageGenerator do
     it 'should return previous move' do
       output_message = game_message_generator.message(key: :previous_move, params: { player: 'O', position: 1 })
       expect(output_message).to eq 'Previous Move: O on 1'
+    end
+
+    it 'should return match up message' do
+      player_one = HumanPlayer.new(ui, 'X')
+      player_two = HumanPlayer.new(ui, 'O')
+
+      output_message = game_message_generator.message(
+        key: :match_up,
+        params: { player_one: player_one, player_two: player_two }
+      )
+      expect(output_message).to eq 'Human (X) vs. Human (O)'
+    end
+
+    it 'should return match up message with a computer' do
+      player_one = HumanPlayer.new(ui, 'X')
+      player_two = ComputerPlayer.new(mark: 'O')
+
+      output_message = game_message_generator.message(
+        key: :match_up,
+        params: { player_one: player_one, player_two: player_two }
+      )
+      expect(output_message).to eq 'Human (X) vs. Computer (O)'
     end
   end
 end

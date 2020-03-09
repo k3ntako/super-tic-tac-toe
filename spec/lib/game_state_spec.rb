@@ -1,4 +1,4 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 require_relative '../../lib/game_state'
 require_relative '../../lib/input_validator'
 require_relative './mock_classes/cli_mock'
@@ -10,8 +10,8 @@ RSpec.describe GameState do
   let(:input_validator) { InputValidator.new }
   let(:game_state) do
     players = [
-      Player.new(ui, 'X'),
-      Player.new(ui, 'O')
+      HumanPlayer.new(ui, 'X'),
+      HumanPlayer.new(ui, 'O')
     ]
 
     GameState.new(

@@ -27,4 +27,14 @@ class GameMessageGenerator
   def previous_move(params)
     "Previous Move: #{params[:player]} on #{params[:position]}"
   end
+
+  def match_up(params)
+    player_one = params[:player_one]
+    player_two = params[:player_two]
+
+    player_one_type = player_one.class.name.gsub('Player', '')
+    player_two_type = player_two.class.name.gsub('Player', '')
+
+    "#{player_one_type} (#{player_one.mark}) vs. #{player_two_type} (#{player_two.mark})"
+  end
 end

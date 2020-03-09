@@ -4,16 +4,16 @@ require_relative './game_messenger'
 require_relative './game_message_generator'
 require_relative './game_state'
 require_relative './input_validator'
-require_relative './player'
-require_relative './computer'
+require_relative './human_player'
+require_relative './computer_player'
 require_relative './board'
 
 class GameGenerator
   def create_a_game(user_interface:, opponent: :human)
-    opponent_player = opponent == :human ? Player.new(user_interface, 'O') : Computer.new(mark: 'O')
+    opponent_player = opponent == :human ? HumanPlayer.new(user_interface, 'O') : ComputerPlayer.new(mark: 'O')
 
     players = [
-      Player.new(user_interface, 'X'),
+      HumanPlayer.new(user_interface, 'X'),
       opponent_player
     ]
 

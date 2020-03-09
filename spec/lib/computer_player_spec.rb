@@ -1,7 +1,7 @@
-require_relative '../../lib/computer'
+require_relative '../../lib/computer_player'
 
-RSpec.describe Computer do
-  let(:computer) { Computer.new(mark: 'X') }
+RSpec.describe ComputerPlayer do
+  let(:computer) { ComputerPlayer.new(mark: 'X') }
 
   describe 'get_move' do
     it 'should return random number available on the board' do

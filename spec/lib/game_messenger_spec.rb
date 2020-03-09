@@ -1,4 +1,4 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 require_relative '../../lib/game_messenger'
 require_relative '../../lib/game_message_generator'
 
@@ -39,7 +39,7 @@ RSpec.describe GameMessenger do
       game_message_generator: game_message_generator
     )
   end
-  let(:player) { Player.new(user_interface, 'X') }
+  let(:player) { HumanPlayer.new(user_interface, 'X') }
 
   describe 'display' do
     it 'should display the associated message given a symbol' do

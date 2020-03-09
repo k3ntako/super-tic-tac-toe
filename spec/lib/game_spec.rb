@@ -13,8 +13,8 @@ RSpec.describe Game do
   end
   let(:game_state) do
     players = [
-      Player.new(ui, 'X'),
-      Player.new(ui, 'O')
+      HumanPlayer.new(ui, 'X'),
+      HumanPlayer.new(ui, 'O')
     ]
 
     GameState.new(

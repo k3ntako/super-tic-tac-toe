@@ -19,8 +19,8 @@ RSpec.describe GameGenerator do
       game_state = game.instance_variable_get(:@game_state)
       players = game_state.instance_variable_get(:@players)
 
-      expect(players[0]).to be_kind_of Player
-      expect(players[1]).to be_kind_of Player
+      expect(players[0]).to be_kind_of HumanPlayer
+      expect(players[1]).to be_kind_of HumanPlayer
     end
 
     it 'should return a game with a human and a computer if opponent is not defined' do
@@ -28,8 +28,8 @@ RSpec.describe GameGenerator do
       game_state = game.instance_variable_get(:@game_state)
       players = game_state.instance_variable_get(:@players)
 
-      expect(players[0]).to be_kind_of Player
-      expect(players[1]).to be_kind_of Computer
+      expect(players[0]).to be_kind_of HumanPlayer
+      expect(players[1]).to be_kind_of ComputerPlayer
     end
   end
 end

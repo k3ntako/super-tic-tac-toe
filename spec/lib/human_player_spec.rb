@@ -1,9 +1,9 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 
-RSpec.describe Player do
+RSpec.describe HumanPlayer do
   let(:cli) { CLI.new }
   let(:user_interface) { UserInterface.new(cli) }
-  let(:player) { Player.new(user_interface, 'X') }
+  let(:player) { HumanPlayer.new(user_interface, 'X') }
 
   describe 'get_move' do
     it 'should call get_user_input and receive the input' do
