@@ -4,6 +4,7 @@ require_relative '../../lib/cli'
 require_relative '../../lib/tic_tac_toe'
 require_relative '../../lib/game_state'
 require_relative '../../lib/game_messenger'
+require_relative '../../lib/game_configurator_message'
 
 require_relative '../../spec/lib/mock_classes/cli_mock'
 
@@ -17,10 +18,12 @@ When(/^I start the game$/) do
   test_cli.fake_user_inputs = ['1'] # opponent selection
 
   ui = UserInterface.new(test_cli)
+  messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
   game_configurator = GameConfigurator.new(
     user_interface: ui,
     input_validator: InputValidator.new,
-    game_generator: GameGenerator.new
+    game_generator: GameGenerator.new,
+    messenger: messenger
   )
   tic_tac_toe = TicTacToe.new(
     user_interface: ui,
@@ -31,9 +34,9 @@ When(/^I start the game$/) do
 end
 
 Then(/^I should see the empty board$/) do
-  expect(test_cli.displayed_messages[5]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+  expect(test_cli.displayed_messages[4]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
 end
 
 And(/^I should be prompted to make a move$/) do
-  expect(test_cli.displayed_messages[6]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
+  expect(test_cli.displayed_messages[5]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
 end

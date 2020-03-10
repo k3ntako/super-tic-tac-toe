@@ -25,10 +25,12 @@ When(/^I start the program$/) do
   allow(cli).to receive(:clear_output)
 
   ui = UserInterface.new(cli)
+  messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
   game_configurator = GameConfigurator.new(
     user_interface: ui,
     input_validator: InputValidator.new,
-    game_generator: GameGenerator.new
+    game_generator: GameGenerator.new,
+    messenger: messenger
   )
   tic_tac_toe = TicTacToe.new(
     user_interface: ui,

@@ -8,7 +8,7 @@ RSpec.describe Game do
   let(:game_messenger) do
     GameMessenger.new(
       user_interface: ui,
-      game_message_generator: GameMessageGenerator.new
+      message_generator: GameMessage.new
     )
   end
   let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }

@@ -1,15 +1,12 @@
-STATIC_MESSAGES = {
-  welcome: 'Welcome to a game of Tic-Tac-Toe!',
-  not_valid_integer: 'Make sure it\'s an integer and try again!',
-  square_unavailable: 'You can\'t make a move there, try again!'
-}.freeze
+require_relative './message'
 
-class GameMessageGenerator
-  def message(key:, params: nil)
-    return STATIC_MESSAGES[key] if params.nil?
-
-    # if "key" is ":move_instruction", then move_instruction will be called with params
-    send(key, params)
+class GameMessage < Message
+  def initialize
+    @static_messages = {
+      welcome: 'Welcome to a game of Tic-Tac-Toe!',
+      not_valid_integer: 'Make sure it\'s an integer and try again!',
+      square_unavailable: 'You can\'t make a move there, try again!'
+    }
   end
 
   private

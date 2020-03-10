@@ -17,10 +17,12 @@ When(/^I am setting up the game$/) do
   test_cli.fake_user_inputs = ['1', '2', '1'] # first input is for selecting human as opponent
 
   ui = UserInterface.new(test_cli)
+  messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
   game_configurator = GameConfigurator.new(
     user_interface: ui,
     input_validator: InputValidator.new,
-    game_generator: GameGenerator.new
+    game_generator: GameGenerator.new,
+    messenger: messenger
   )
   tic_tac_toe = TicTacToe.new(
     user_interface: ui,
@@ -32,6 +34,7 @@ end
 
 Then(/^I should be asked to choose a computer or human opponent$/) do
   expect(test_cli.displayed_messages[1]).to eq ''
-  expect(test_cli.displayed_messages[2]).to eq 'Would you like to play a human or a computer?'
-  expect(test_cli.displayed_messages[3]).to eq 'Enter 1 for human, and 2 for computer:'
+  expect(test_cli.displayed_messages[2]).to eq(
+    "Would you like to play a human or a computer?\nEnter 1 for human, and 2 for computer:"
+  )
 end

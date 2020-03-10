@@ -11,7 +11,8 @@ RSpec.describe TicTacToe do
     MockGameConfigurator.new(
       user_interface: ui,
       input_validator: nil,
-      game_generator: nil
+      game_generator: nil,
+      messenger: nil
     )
   end
   let(:tic_tac_toe) do

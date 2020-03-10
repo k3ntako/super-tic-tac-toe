@@ -1,23 +1,23 @@
 class GameConfigurator
-  def initialize(user_interface:, input_validator:, game_generator:)
+  def initialize(user_interface:, input_validator:, game_generator:, messenger:)
     @user_interface = user_interface
     @input_validator = input_validator
     @game_generator = game_generator
+    @messenger = messenger
   end
 
   def create_a_game
     opponent = get_opponent_selection
-    @game_generator.create_a_game(user_interface: user_interface, opponent: opponent)
+    game_generator.create_a_game(user_interface: user_interface, opponent: opponent)
   end
 
   private
 
-  attr_reader :user_interface, :input_validator
+  attr_reader :user_interface, :input_validator, :game_generator, :messenger
 
   def ask_for_opponent_selection
-    user_interface.display_empty_line
-    user_interface.display_message 'Would you like to play a human or a computer?'
-    user_interface.display_message 'Enter 1 for human, and 2 for computer:'
+    messenger.display_empty_line
+    messenger.display(message: :ask_for_opponent_selection)
   end
 
   def get_opponent_selection
@@ -32,8 +32,8 @@ class GameConfigurator
       return :human if selection_int == 1
       return :computer if selection_int == 2
 
-      user_interface.clear_output
-      user_interface.display_message 'We got an invalid input, try again!'
+      messenger.clear_output
+      messenger.display(message: :try_again)
     end
   end
 end

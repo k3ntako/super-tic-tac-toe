@@ -5,7 +5,7 @@ require_relative './mock_classes/cli_mock'
 
 RSpec.describe GameState do
   let(:ui) { UserInterface.new(TestCLI.new) }
-  let(:game_messenger) { GameMessenger.new(user_interface: ui, game_message_generator: GameMessageGenerator.new) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
   let(:board) { Board.new }
   let(:input_validator) { InputValidator.new }
   let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
