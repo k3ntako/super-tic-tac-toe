@@ -25,6 +25,11 @@ class TestCLI
     display_message board_str.join(',')
   end
 
+  def display_empty_line
+    @triggered_actions.push 'display_empty_line'
+    display_message ''
+  end
+
   def clear_output
     @triggered_actions.push 'clear_output'
 

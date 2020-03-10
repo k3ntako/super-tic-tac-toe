@@ -2,11 +2,16 @@ require_relative './cli'
 require_relative './game_generator'
 
 class TicTacToe
-  def initialize(user_interface)
+  def initialize(user_interface:, game_configurator:)
     @user_interface = user_interface
+    @game_configurator = game_configurator
   end
 
   def start
+    @user_interface.clear_output
+
+    display_welcome
+
     game = create_a_game
     game.start
   end
@@ -19,7 +24,6 @@ class TicTacToe
   end
 
   def create_a_game
-    game_generator = GameGenerator.new
-    game_generator.create_a_game @user_interface
+    @game_configurator.create_a_game
   end
 end

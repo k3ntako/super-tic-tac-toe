@@ -1,23 +1,19 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 require_relative '../../lib/game_state'
-require_relative '../../lib/move_validator'
+require_relative '../../lib/input_validator'
 require_relative './mock_classes/cli_mock'
 
 RSpec.describe GameState do
   let(:ui) { UserInterface.new(TestCLI.new) }
-  let(:game_messenger) { GameMessenger.new(user_interface: ui, game_message_generator: GameMessageGenerator.new) }
+  let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
   let(:board) { Board.new }
-  let(:move_validator) { MoveValidator.new }
+  let(:input_validator) { InputValidator.new }
+  let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
   let(:game_state) do
-    players = [
-      Player.new(ui, 'X'),
-      Player.new(ui, 'O')
-    ]
-
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      move_validator: move_validator,
+      input_validator: input_validator,
       board: board,
       players: players
     )
@@ -46,8 +42,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return nil
-      allow(move_validator).to receive(:position_error).and_return nil
+      allow(input_validator).to receive(:input_error).and_return nil
+      allow(input_validator).to receive(:position_error).and_return nil
 
       pos_str = '9'
       expect(player_one).to receive(:get_move).and_return pos_str
@@ -61,8 +57,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return(:not_valid_integer, nil)
-      allow(move_validator).to receive(:position_error).and_return(nil)
+      allow(input_validator).to receive(:input_error).and_return(:not_valid_integer, nil)
+      allow(input_validator).to receive(:position_error).and_return(nil)
 
       allow(game_state).to receive(:display_board_with_messages)
 
@@ -79,8 +75,8 @@ RSpec.describe GameState do
       players = game_state.instance_variable_get(:@players)
       player_one = players[current_player_idx]
 
-      allow(move_validator).to receive(:input_error).and_return(nil)
-      allow(move_validator).to receive(:position_error).and_return(:square_unavailable, nil)
+      allow(input_validator).to receive(:input_error).and_return(nil)
+      allow(input_validator).to receive(:position_error).and_return(:square_unavailable, nil)
 
       allow(game_state).to receive(:display_board_with_messages)
 
@@ -165,7 +161,7 @@ RSpec.describe GameState do
     it 'should display default messages if nothing is passed in' do
       game_state.instance_variable_set(:@current_player_idx, 1)
       expect(game_messenger).to receive(:display_board_with_messages).with(
-        top_message: [:welcome],
+        top_message: [:match_up, { players: players }],
         board: board,
         bottom_messages: [[:move_instruction, { current_player: 'O' }]]
       )

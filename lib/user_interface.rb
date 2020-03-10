@@ -7,6 +7,10 @@ class UserInterface
     @platform.display_message message
   end
 
+  def display_empty_line
+    @platform.display_empty_line
+  end
+
   def display_board(board_state)
     @platform.display_board board_state
   end

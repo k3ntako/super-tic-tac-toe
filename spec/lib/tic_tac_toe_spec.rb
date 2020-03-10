@@ -1,32 +1,51 @@
 require_relative '../../lib/user_interface'
-require_relative '../../lib/cli'
 require_relative '../../lib/board'
 require_relative '../../lib/tic_tac_toe'
+require_relative './mock_classes/game_configurator_mock'
+require_relative './mock_classes/game_mock'
 
 RSpec.describe TicTacToe do
-  let(:ui) do
-    cli = CLI.new
-    UserInterface.new cli
+  let(:mock_cli) { TestCLI.new }
+  let(:ui) { UserInterface.new mock_cli }
+  let(:mock_game_configurator) do
+    MockGameConfigurator.new(
+      user_interface: ui,
+      input_validator: nil,
+      game_generator: nil,
+      messenger: nil
+    )
   end
-
-  let(:tic_tac_toe) { TicTacToe.new(ui) }
-
-  describe 'initialize' do
-    it 'should have instances of CLI and Board as instance variables' do
-      # Allows access to private instance variable
-      private_ui = tic_tac_toe.instance_variable_get(:@user_interface)
-      expect(private_ui).to be_kind_of UserInterface
-    end
+  let(:tic_tac_toe) do
+    TicTacToe.new(
+      user_interface: ui,
+      game_configurator: mock_game_configurator
+    )
   end
 
   describe 'start' do
-    it 'should display welcome, instructions, the board, and prompt a move' do
-      game_spy = spy('game')
-
-      expect(tic_tac_toe).to receive(:create_a_game).once.ordered.and_return(game_spy)
-      expect(game_spy).to receive(:start).once.ordered
-
+    it 'should clear output' do
       tic_tac_toe.start
+
+      expect(mock_cli.triggered_actions[0]).to eq 'clear_output'
+    end
+
+    it 'should display welcome' do
+      tic_tac_toe.start
+
+      expect(mock_cli.displayed_messages[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
+    end
+
+    it 'should create new game' do
+      tic_tac_toe.start
+
+      expect(mock_game_configurator.triggered_actions[0]).to eq('create_a_game')
+    end
+
+    it 'should play game' do
+      tic_tac_toe.start
+
+      game = mock_game_configurator.last_game_created
+      expect(game.triggered_actions[0]).to eq('start')
     end
   end
 end

@@ -1,13 +1,13 @@
-class MoveValidator
+class InputValidator
   def move_error(board, position_input)
     input_error(position_input) || position_error(board, position_input)
   end
 
-  private
-
   def input_error(pos_input)
     return :not_valid_integer unless int_or_str?(pos_input) && parses_to_integer?(pos_input)
   end
+
+  private
 
   def position_error(board, position)
     return :square_unavailable unless board.position_available? position

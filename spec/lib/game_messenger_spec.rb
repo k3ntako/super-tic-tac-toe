@@ -1,6 +1,6 @@
-require_relative '../../lib/player'
+require_relative '../../lib/human_player'
 require_relative '../../lib/game_messenger'
-require_relative '../../lib/game_message_generator'
+require_relative '../../lib/game_message'
 
 class TestUserInterface
   attr_reader :triggered_actions
@@ -32,14 +32,14 @@ end
 RSpec.describe GameMessenger do
   let(:board) { Board.new }
   let(:test_user_interface) { TestUserInterface.new }
-  let(:game_message_generator) { GameMessageGenerator.new }
+  let(:game_message) { GameMessage.new }
   let(:game_messenger) do
     GameMessenger.new(
       user_interface: test_user_interface,
-      game_message_generator: game_message_generator
+      message_generator: game_message
     )
   end
-  let(:player) { Player.new(user_interface, 'X') }
+  let(:player) { HumanPlayer.new(user_interface, 'X') }
 
   describe 'display' do
     it 'should display the associated message given a symbol' do

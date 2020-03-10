@@ -7,6 +7,10 @@ class CLI
     gets.chomp
   end
 
+  def display_empty_line
+    display_message ''
+  end
+
   def display_board(board_state)
     formatted_board = format_board_for_display board_state
     display_message formatted_board

@@ -36,3 +36,9 @@ Naming/AccessorMethodName:
 
 Style/WordArray:
   Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: true
+  Exclude:
+    - 'spec/*'
+    - 'spec/**/*'

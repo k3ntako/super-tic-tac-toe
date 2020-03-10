@@ -20,4 +20,10 @@ RSpec.describe CLI do
       expect(received_input_text).to eql(input_text)
     end
   end
+
+  describe 'display_empty_line' do
+    it 'should display an empty line' do
+      expect { cli.display_empty_line }.to output("\n").to_stdout
+    end
+  end
 end
