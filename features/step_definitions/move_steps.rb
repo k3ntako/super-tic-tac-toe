@@ -17,11 +17,14 @@ When(/^I am prompted to make a move$/) do
   test_cli.fake_user_inputs = ['1', '2', '1'] # first input is for selecting human as opponent
 
   ui = UserInterface.new(test_cli)
-  game_generator = GameGenerator.new
+  game_configurator = GameConfigurator.new(
+    user_interface: ui,
+    input_validator: InputValidator.new,
+    game_generator: GameGenerator.new
+  )
   tic_tac_toe = TicTacToe.new(
     user_interface: ui,
-    game_generator: game_generator,
-    input_validator: InputValidator.new
+    game_configurator: game_configurator
   )
 
   tic_tac_toe.start
@@ -60,11 +63,14 @@ When(/^the human player has made a move$/) do
   test_cli.fake_user_inputs = ['2', '9'] # first input is for selecting computer as opponent
 
   ui = UserInterface.new(test_cli)
-  game_generator = GameGenerator.new
+  game_configurator = GameConfigurator.new(
+    user_interface: ui,
+    input_validator: InputValidator.new,
+    game_generator: GameGenerator.new
+  )
   tic_tac_toe = TicTacToe.new(
     user_interface: ui,
-    game_generator: game_generator,
-    input_validator: InputValidator.new
+    game_configurator: game_configurator
   )
 
   tic_tac_toe.start
