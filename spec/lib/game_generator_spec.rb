@@ -9,13 +9,13 @@ RSpec.describe GameGenerator do
 
   describe 'create_a_game' do
     it 'should return a game' do
-      game = game_generator.create_a_game(user_interface: ui, opponent: :human, difficulty: :easy)
+      game = game_generator.create_a_game(user_interface: ui, opponent: :human, strategy: EasyStrategy.new)
 
       expect(game).to be_kind_of Game
     end
 
     it 'should return a game with two human players if opponent is not defined' do
-      game = game_generator.create_a_game(user_interface: ui, opponent: :human, difficulty: :easy)
+      game = game_generator.create_a_game(user_interface: ui, opponent: :human, strategy: EasyStrategy.new)
       game_state = game.instance_variable_get(:@game_state)
       players = game_state.instance_variable_get(:@players)
 
@@ -24,7 +24,7 @@ RSpec.describe GameGenerator do
     end
 
     it 'should return a game with a human and a computer if opponent is not defined' do
-      game = game_generator.create_a_game(user_interface: ui, opponent: :computer, difficulty: :easy)
+      game = game_generator.create_a_game(user_interface: ui, opponent: :computer, strategy: EasyStrategy.new)
       game_state = game.instance_variable_get(:@game_state)
       players = game_state.instance_variable_get(:@players)
 

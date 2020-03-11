@@ -1,3 +1,6 @@
+require_relative './easy_strategy'
+require_relative './medium_strategy'
+
 class GameConfigurator
   def initialize(user_interface:, input_validator:, game_generator:, messenger:)
     @user_interface = user_interface
@@ -9,9 +12,9 @@ class GameConfigurator
   def create_a_game
     opponent = get_opponent_selection
 
-    difficulty = get_difficulty if opponent == :computer
+    strategy = get_strategy if opponent == :computer
 
-    game_generator.create_a_game(user_interface: user_interface, opponent: opponent, difficulty: difficulty)
+    game_generator.create_a_game(user_interface: user_interface, opponent: opponent, strategy: strategy)
   end
 
   private
@@ -21,6 +24,11 @@ class GameConfigurator
   def ask_for_opponent_selection
     messenger.display_empty_line
     messenger.display(message: :ask_for_opponent_selection)
+  end
+
+  def display_try_again
+    messenger.clear_output
+    messenger.display(message: :try_again)
   end
 
   def get_opponent_selection
@@ -45,7 +53,7 @@ class GameConfigurator
     messenger.display(message: :ask_for_difficulty)
   end
 
-  def get_difficulty
+  def get_strategy
     loop do
       ask_for_difficulty
 
@@ -54,11 +62,10 @@ class GameConfigurator
 
       selection_int = error.nil? && Integer(selection)
 
-      return :easy if selection_int == 1
-      return :medium if selection_int == 2
+      return EasyStrategy.new if selection_int == 1
+      return MediumStrategy.new if selection_int == 2
 
-      messenger.clear_output
-      messenger.display(message: :try_again)
+      display_try_again
     end
   end
 end

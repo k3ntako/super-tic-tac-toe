@@ -63,7 +63,9 @@ When(/^the human player has made a move$/) do
   allow_any_instance_of(GameConfigurator).to receive(:get_difficulty).and_return(:easy)
 
   test_cli = TestCLI.new
-  test_cli.fake_user_inputs = ['2', '9'] # first input is for selecting computer as opponent
+  select_computer = '2'
+  select_each = '2'
+  test_cli.fake_user_inputs = [select_computer, select_each, '9']
 
   ui = UserInterface.new(test_cli)
   messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
@@ -82,8 +84,8 @@ When(/^the human player has made a move$/) do
 end
 
 Then(/^I should see the board update with the computer move$/) do
-  expect(test_cli.displayed_messages[10]).to include 'O'
+  expect(test_cli.displayed_messages[12]).to include 'O'
 
-  square_nine = test_cli.displayed_messages[10].split('').last
+  square_nine = test_cli.displayed_messages[12].split('').last
   expect(square_nine).to eq 'X' # user moved at 9, so it should not be overwritten by computer
 end

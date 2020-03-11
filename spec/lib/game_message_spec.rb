@@ -55,7 +55,7 @@ RSpec.describe GameMessage do
     end
 
     it 'should return match up message with a computer' do
-      players = [HumanPlayer.new(ui, 'X'), ComputerPlayer.new(mark: 'O', difficulty: :easy)]
+      players = [HumanPlayer.new(ui, 'X'), ComputerPlayer.new(mark: 'O', strategy: EasyStrategy.new)]
 
       output_message = game_message.generate(
         key: :match_up,
