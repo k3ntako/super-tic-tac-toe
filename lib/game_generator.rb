@@ -9,8 +9,12 @@ require_relative './computer_player'
 require_relative './board'
 
 class GameGenerator
-  def create_a_game(user_interface:, opponent:)
-    opponent_player = opponent == :human ? HumanPlayer.new(user_interface, 'O') : ComputerPlayer.new(mark: 'O')
+  def create_a_game(user_interface:, opponent:, difficulty:)
+    opponent_player = if opponent == :human
+                        HumanPlayer.new(user_interface, 'O')
+                      else
+                        ComputerPlayer.new(mark: 'O', difficulty: difficulty)
+                      end
 
     players = [
       HumanPlayer.new(user_interface, 'X'),

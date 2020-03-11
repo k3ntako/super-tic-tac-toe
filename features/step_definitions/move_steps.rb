@@ -60,6 +60,7 @@ end
 When(/^the human player has made a move$/) do
   allow_any_instance_of(GameState).to receive(:check_for_error).and_return(nil)
   allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, false, true)
+  allow_any_instance_of(GameConfigurator).to receive(:get_difficulty).and_return(:easy)
 
   test_cli = TestCLI.new
   test_cli.fake_user_inputs = ['2', '9'] # first input is for selecting computer as opponent

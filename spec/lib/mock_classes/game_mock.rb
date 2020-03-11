@@ -6,7 +6,7 @@ class MockGame
     @triggered_actions = []
   end
 
-  def start
+  def play
     @triggered_actions.push('start')
   end
 end

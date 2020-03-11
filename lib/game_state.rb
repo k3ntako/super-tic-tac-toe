@@ -21,7 +21,7 @@ class GameState
       error = check_for_error(position)
 
       if error.nil?
-        @board.update(current_player.mark, position)
+        current_player.make_move(board: board, position: position)
         @prev_move_position = position
         break
       end

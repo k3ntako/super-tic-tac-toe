@@ -45,7 +45,7 @@ RSpec.describe Game do
         bottom_messages: [[:game_over, { winner: nil }]]
       )
 
-      game.start
+      game.play
     end
 
     it 'should let user know that X won' do
@@ -71,7 +71,7 @@ RSpec.describe Game do
       expect(game_messenger).to receive(:display_board).ordered
       expect(game_messenger).to receive(:display).with(message: :game_over, params: { winner: 'X' })
 
-      game.start
+      game.play
     end
   end
 end

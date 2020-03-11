@@ -5,6 +5,10 @@ class HumanPlayer
     @mark = mark
   end
 
+  def make_move(board:, position:)
+    board.update(@mark, position)
+  end
+
   def get_move
     @user_interface.get_user_input
   end
