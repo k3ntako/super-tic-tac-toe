@@ -17,7 +17,7 @@ class GameState
 
   def player_move
     loop do
-      position = current_player.get_move
+      position = current_player.get_move(board: board)
       error = check_for_error(position)
 
       if error.nil?

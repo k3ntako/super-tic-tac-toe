@@ -9,7 +9,8 @@ class HumanPlayer
     board.update(@mark, position)
   end
 
-  def get_move
+  # star (*) ignores any arguments passed in
+  def get_move(*)
     @user_interface.get_user_input
   end
 end
