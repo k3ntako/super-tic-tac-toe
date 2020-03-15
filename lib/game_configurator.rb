@@ -33,18 +33,18 @@ class GameConfigurator
 
   def get_opponent_selection
     loop do
-      ask_for_opponent_selection
+      begin
+        ask_for_opponent_selection
 
-      selection = user_interface.get_user_input
-      error = input_validator.input_error selection
+        selection = user_interface.get_user_input
+        input_validator.input_error selection
 
-      selection_int = error.nil? && Integer(selection)
+        return :human if Integer(selection) == 1
+        return :computer if Integer(selection) == 2
+      rescue IntegerError # rubocop:disable Lint/SuppressedException
+      end
 
-      return :human if selection_int == 1
-      return :computer if selection_int == 2
-
-      messenger.clear_output
-      messenger.display(message: :try_again)
+      display_try_again
     end
   end
 
@@ -55,15 +55,16 @@ class GameConfigurator
 
   def get_strategy
     loop do
-      ask_for_difficulty
+      begin
+        ask_for_difficulty
 
-      selection = user_interface.get_user_input
-      error = input_validator.input_error selection
+        selection = user_interface.get_user_input
+        input_validator.input_error selection
 
-      selection_int = error.nil? && Integer(selection)
-
-      return EasyStrategy.new if selection_int == 1
-      return MediumStrategy.new if selection_int == 2
+        return EasyStrategy.new if Integer(selection) == 1
+        return MediumStrategy.new if Integer(selection) == 2
+      rescue IntegerError # rubocop:disable Lint/SuppressedException
+      end
 
       display_try_again
     end

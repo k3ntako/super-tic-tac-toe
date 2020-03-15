@@ -23,33 +23,38 @@ RSpec.describe InputValidator do
     end
 
     it 'should return false given a non-integer string' do
-      error_symbol = input_validator.move_error(board, '1one')
-
-      expect(error_symbol).to eq :not_valid_integer
+      input_validator.move_error(board, '1one')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return false given a float' do
-      error_symbol = input_validator.move_error(board, 1.0)
-
-      expect(error_symbol).to eq :not_valid_integer
+      input_validator.move_error(board, 1.0)
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return false given nil' do
-      error_symbol = input_validator.move_error(board, nil)
-
-      expect(error_symbol).to eq :not_valid_integer
+      input_validator.move_error(board, nil)
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return false given white space' do
-      error_symbol = input_validator.move_error(board, ' ')
-
-      expect(error_symbol).to eq :not_valid_integer
+      input_validator.move_error(board, ' ')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return false given special characters' do
-      error_symbol = input_validator.move_error(board, '!')
-
-      expect(error_symbol).to eq :not_valid_integer
+      input_validator.move_error(board, '!')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return true given the square is empty' do
@@ -59,15 +64,19 @@ RSpec.describe InputValidator do
     end
 
     it 'should return false given a position less than 1' do
-      error_symbol = input_validator.move_error(board, 0)
+      input_validator.move_error(board, 0)
 
-      expect(error_symbol).to eq :square_unavailable
+      raise 'Expected error to be thrown'
+    rescue SquareUnavailableError => e
+      expect(e.message_symbol).to eq :square_unavailable
     end
 
     it 'should return false given a position greater than 9' do
-      error_symbol = input_validator.move_error(board, 10)
+      input_validator.move_error(board, 10)
 
-      expect(error_symbol).to eq :square_unavailable
+      raise 'Expected error to be thrown'
+    rescue SquareUnavailableError => e
+      expect(e.message_symbol).to eq :square_unavailable
     end
 
     it 'should return false if the square is occupied' do
@@ -79,35 +88,54 @@ RSpec.describe InputValidator do
 
       board.instance_variable_set(:@board, board_played_at_one)
 
-      error_symbol = input_validator.move_error(board, 1)
-
-      expect(error_symbol).to eq :square_unavailable
+      input_validator.move_error(board, 1)
+      raise 'Expected error to be thrown'
+    rescue SquareUnavailableError => e
+      expect(e.message_symbol).to eq :square_unavailable
     end
   end
 
   describe 'input_error' do
     it 'should return error given nil' do
-      expect(input_validator.input_error(nil)).to eq :not_valid_integer
+      input_validator.input_error(nil)
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return error given empty string' do
-      expect(input_validator.input_error('')).to eq :not_valid_integer
+      input_validator.input_error('')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return error given a string with alphabet characters' do
-      expect(input_validator.input_error('527ck1129')).to eq :not_valid_integer
+      input_validator.input_error('527ck1129')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return error given a string with special characters' do
-      expect(input_validator.input_error('!')).to eq :not_valid_integer
+      input_validator.input_error('!')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return error given a float' do
-      expect(input_validator.input_error(1.2)).to eq :not_valid_integer
+      input_validator.input_error(1.2)
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return error given a float string' do
-      expect(input_validator.input_error('1.2')).to eq :not_valid_integer
+      input_validator.input_error('1.2')
+      raise 'Expected error to be thrown'
+    rescue IntegerError => e
+      expect(e.message_symbol).to eq :not_valid_integer
     end
 
     it 'should return nil given an integer' do

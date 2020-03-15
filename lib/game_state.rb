@@ -1,10 +1,9 @@
 class GameState
   attr_reader :board
 
-  def initialize(game_messenger:, game_end_evaluator:, input_validator:, board:, players:)
+  def initialize(game_messenger:, game_end_evaluator:, board:, players:)
     @game_messenger = game_messenger
     @game_end_evaluator = game_end_evaluator
-    @input_validator = input_validator
     @board = board
     @players = players
     @current_player_idx = 0
@@ -17,16 +16,12 @@ class GameState
 
   def player_move
     loop do
-      position = current_player.get_move(board: board)
-      error = check_for_error(position)
+      position = current_player.make_move(board: board)
 
-      if error.nil?
-        current_player.make_move(board: board, position: position)
-        @prev_move_position = position
-        break
-      end
-
-      display_board_with_messages_for_move bottom_messages: [[error]]
+      @prev_move_position = position
+      break
+    rescue IntegerError, SquareUnavailableError => e
+      display_board_with_messages_for_move bottom_messages: [[e.message_symbol]]
     end
   end
 
@@ -76,10 +71,6 @@ class GameState
 
   def move_instruction_message
     [:move_instruction, { current_player: current_player.mark }]
-  end
-
-  def check_for_error(position)
-    @input_validator.move_error(@board, position)
   end
 
   def current_player

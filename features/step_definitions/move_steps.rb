@@ -10,8 +10,8 @@ require_relative '../../spec/lib/mock_classes/cli_mock'
 test_cli = nil
 
 When(/^I am prompted to make a move$/) do
-  allow_any_instance_of(GameState).to receive(:check_for_error).and_return(nil)
-  allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, false, true)
+  allow_any_instance_of(InputValidator).to receive(:input_error).and_return(nil)
+  allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, false, true) # ends game early
 
   test_cli = TestCLI.new
   test_cli.fake_user_inputs = ['1', '2', '1'] # first input is for selecting human as opponent
@@ -58,7 +58,7 @@ And(/^they should be able to see the updated board$/) do
 end
 
 When(/^the human player has made a move$/) do
-  allow_any_instance_of(GameState).to receive(:check_for_error).and_return(nil)
+  allow_any_instance_of(InputValidator).to receive(:input_error).and_return(nil)
   allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, false, true)
   allow_any_instance_of(GameConfigurator).to receive(:get_difficulty).and_return(:easy)
 

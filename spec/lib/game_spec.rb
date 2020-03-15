@@ -11,12 +11,11 @@ RSpec.describe Game do
       message_generator: GameMessage.new
     )
   end
-  let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
+  let(:players) { [HumanPlayer.new(ui, 'X', InputValidator.new), HumanPlayer.new(ui, 'O', InputValidator.new)] }
   let(:game_state) do
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      input_validator: InputValidator.new,
       board: Board.new,
       players: players
     )

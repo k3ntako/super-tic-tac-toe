@@ -5,12 +5,11 @@ class ComputerPlayer
     @strategy = strategy
   end
 
-  def make_move(board:, position:)
+  def make_move(board:)
+    position = strategy.get_move(board: board)
     board.update(mark, position)
-  end
 
-  def get_move(board:)
-    strategy.get_move(board: board)
+    position
   end
 
   private

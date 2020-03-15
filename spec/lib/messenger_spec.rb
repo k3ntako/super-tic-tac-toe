@@ -13,7 +13,7 @@ RSpec.describe Messenger do
       message_generator: game_message
     )
   end
-  let(:player) { HumanPlayer.new(user_interface, 'X') }
+  let(:player) { HumanPlayer.new(user_interface, 'X', InputValidator.new) }
 
   describe 'display' do
     it 'should display the associated message given a symbol' do
