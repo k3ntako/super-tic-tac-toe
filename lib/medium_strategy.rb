@@ -14,7 +14,7 @@ class MediumStrategy
     indices = find_position_one_away_from_winning(board: board)
     return convert_to_position(indices: indices, width: board.state.length) unless indices.nil?
 
-    rand(1...9)
+    board.find_available_positions.sample
   end
 
   private
