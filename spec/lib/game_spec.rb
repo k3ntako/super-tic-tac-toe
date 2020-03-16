@@ -16,7 +16,7 @@ RSpec.describe Game do
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      board: Board.new,
+      board: Board.new(width: 3),
       players: players
     )
   end
@@ -54,7 +54,7 @@ RSpec.describe Game do
         ['O', 'O', nil]
       ]
 
-      board = Board.new
+      board = Board.new(width: 3)
       board.instance_variable_set(:@board, board_with_winner)
       game_state.instance_variable_set(:@board, board)
       game_state.instance_variable_set(:@current_player_idx, 1)

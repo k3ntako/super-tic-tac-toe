@@ -7,7 +7,7 @@ RSpec.describe GameState do
   let(:mock_cli) { TestCLI.new }
   let(:ui) { UserInterface.new(mock_cli) }
   let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
   let(:input_validator) { InputValidator.new }
   let(:players) { [HumanPlayer.new(ui, 'X', InputValidator.new), HumanPlayer.new(ui, 'O', InputValidator.new)] }
   let(:game_state) do

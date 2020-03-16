@@ -39,23 +39,40 @@ class CLI
       square_text = get_square_text(square, row_idx, square_idx, width)
 
       row_str += " #{square_text} "
-      row_str += square_idx < 2 ? '|' : "\n"
+      row_str += square_idx < (width - 1) ? '|' : "\n"
     end
 
     # add row divider
-    row_str += "-----------\n" if row_idx < 2
+    row_str += "-----------\n" if row_idx < (width - 1)
 
     row_str
   end
 
   def get_square_text(square, row_idx, square_idx, width)
+    text = square
+
     if square.nil?
       row_base = row_idx * width
 
       # Add one because it's not zero-based numbering for readability
-      return row_base + square_idx + 1
+      text = (row_base + square_idx + 1).to_s
     end
 
-    square
+    text = pad_str(text: text, width: width)
+
+    text
+  end
+
+  def pad_str(text:, width:)
+    length_difference = (width**2).to_s.length - text.length
+    length_difference.times do |idx| # centers text as best as possible
+      if idx.even?
+        text += ' '
+      else
+        text = ' ' + text
+      end
+    end
+
+    text
   end
 end

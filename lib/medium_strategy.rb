@@ -4,20 +4,27 @@ class MediumStrategy
   end
 
   def get_move(board:)
-    @should_try_middle &&= board.position_available?(5)
+    middle = find_middle(board: board)
+    @should_try_middle &&= !middle.nil? && board.position_available?(middle)
 
     if @should_try_middle
       @should_try_middle = false
-      return 5
+      return middle
     end
 
     indices = find_position_one_away_from_winning(board: board)
-    return convert_to_position(indices: indices, width: board.state.length) unless indices.nil?
+    return convert_to_position(indices: indices, width: board.width) unless indices.nil?
 
     board.find_available_positions.sample
   end
 
   private
+
+  def find_middle(board:)
+    return nil if board.width.even?
+
+    (board.width**2 + 1) / 2
+  end
 
   def find_position_one_away_from_winning(board:)
     matrix_idx = nil
@@ -26,7 +33,8 @@ class MediumStrategy
 
     board.rows_cols_diagonals.each_with_index do |matrix, m_idx|
       matrix.each_with_index do |array, a_idx|
-        contains_two_and_a_nil = (array.count('X') == 2 || array.count('O') == 2) && array.include?(nil)
+        one_away = array.length - 1
+        contains_two_and_a_nil = [array.count('X'), array.count('O')].include?(one_away) && array.include?(nil)
         next unless contains_two_and_a_nil
 
         matrix_idx = m_idx

@@ -7,7 +7,7 @@ BOARD_WITH_MARKS = [
 ].freeze
 
 RSpec.describe Board do
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
 
   describe 'state' do
     it 'should return an array of arrays with three nils in each' do
@@ -75,6 +75,19 @@ RSpec.describe Board do
           [nil, 'X', nil]
         ]
       ]
+    end
+  end
+
+  describe 'board_width' do
+    it 'should return width of board' do
+      board = Board.new(width: 3)
+      expect(board.width).to eq 3
+
+      board = Board.new(width: 5)
+      expect(board.width).to eq 5
+
+      board = Board.new(width: 6)
+      expect(board.width).to eq 6
     end
   end
 

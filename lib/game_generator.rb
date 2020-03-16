@@ -9,7 +9,7 @@ require_relative './computer_player'
 require_relative './board'
 
 class GameGenerator
-  def create_a_game(user_interface:, strategy:)
+  def create_a_game(user_interface:, strategy:, width:)
     opponent_player = if strategy.nil?
                         HumanPlayer.new(user_interface, 'O', InputValidator.new)
                       else
@@ -29,7 +29,7 @@ class GameGenerator
     game_state = GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      board: Board.new,
+      board: Board.new(width: width),
       players: players
     )
 

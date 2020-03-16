@@ -7,7 +7,7 @@ RSpec.describe InputValidator do
   end
   let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
   let(:input_validator) { InputValidator.new }
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
 
   describe 'move_error' do
     it 'should return true given an integer as a string' do

@@ -1,5 +1,5 @@
 class Board
-  def initialize(width: 3)
+  def initialize(width:)
     @board = generate_empty_board(width: width)
   end
 

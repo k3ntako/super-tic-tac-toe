@@ -9,22 +9,21 @@ require_relative '../../lib/game_generator'
 require_relative '../../lib/game_configurator'
 require_relative '../../lib/input_validator'
 require_relative '../../lib/game_configurator'
+require_relative '../../spec/lib/mock_classes/cli_mock'
 
-original_stdout = $stdout
-stdout_ouput = []
+test_cli = nil
 
 When(/^I start the program$/) do
-  $stdout = StringIO.new
-
   allow_any_instance_of(GameMessenger).to receive(:clear_output).and_return(nil)
   allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, true)
   allow_any_instance_of(GameState).to receive(:player_move).and_return('1')
 
-  cli = CLI.new
+  test_cli = TestCLI.new
 
-  allow(cli).to receive(:clear_output)
+  allow(test_cli).to receive(:clear_output)
+  test_cli.fake_user_inputs = ['1', '5', '6'] # opponent, board size, and position selections
 
-  ui = UserInterface.new(cli)
+  ui = UserInterface.new(test_cli)
   messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
   game_configurator = GameConfigurator.new(
     user_interface: ui,
@@ -37,15 +36,9 @@ When(/^I start the program$/) do
     game_configurator: game_configurator
   )
 
-  allow(cli).to receive(:get_user_input).and_return('1') # select opponent
-
   tic_tac_toe.start
-
-  stdout_ouput = $stdout.string.split("\n")
 end
 
 Then(/^I should see the welcome message$/) do
-  expect(stdout_ouput[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
-
-  $stdout = original_stdout
+  expect(test_cli.displayed_messages[0]).to eq 'Welcome to a game of Tic-Tac-Toe!'
 end

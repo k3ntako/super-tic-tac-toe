@@ -20,7 +20,7 @@ RSpec.describe GameConfigurator do
 
   describe 'create_a_game' do
     it 'should ask user if they would like to play a computer or a human' do
-      mock_cli.fake_user_inputs = ['2', '1']
+      mock_cli.fake_user_inputs = ['2', '1', '5']
 
       game_configurator.create_a_game
 
@@ -28,7 +28,7 @@ RSpec.describe GameConfigurator do
     end
 
     it 'should create a game with two human if user picks human as the opponent' do
-      mock_cli.fake_user_inputs = ['1']
+      mock_cli.fake_user_inputs = ['1', '5']
 
       game_configurator.create_a_game
 
@@ -39,7 +39,7 @@ RSpec.describe GameConfigurator do
     end
 
     it 'should create a game with computer if user picks computer as the opponent' do
-      mock_cli.fake_user_inputs = ['2', '1']
+      mock_cli.fake_user_inputs = ['2', '1', '5']
 
       game_configurator.create_a_game
 
@@ -50,7 +50,7 @@ RSpec.describe GameConfigurator do
     end
 
     it 'should keep asking for an opponent until the user inputs a valid response' do
-      mock_cli.fake_user_inputs = ['10', 'akj', '!', '', '2', '2'] # last 2 is for difficulty selection
+      mock_cli.fake_user_inputs = ['10', 'akj', '!', '', '2', '2', '5'] # last two values are for difficulty and size
 
       game_configurator.create_a_game
 
@@ -80,7 +80,7 @@ RSpec.describe GameConfigurator do
         messenger: messenger
       )
 
-      mock_cli.fake_user_inputs = ['2', '1'] # opponent and difficulty selection
+      mock_cli.fake_user_inputs = ['2', '1', '5'] # opponent and difficulty selection
       game_configurator.create_a_game
 
       action = mock_game_generator.triggered_actions[0]
@@ -97,7 +97,7 @@ RSpec.describe GameConfigurator do
         messenger: messenger
       )
 
-      mock_cli.fake_user_inputs = ['2', '2'] # opponent and difficulty selection
+      mock_cli.fake_user_inputs = ['2', '2', '5'] # opponent and difficulty selection
       game_configurator.create_a_game
 
       action = mock_game_generator.triggered_actions[0]
@@ -114,13 +114,31 @@ RSpec.describe GameConfigurator do
         messenger: messenger
       )
 
-      mock_cli.fake_user_inputs = ['2', '3'] # opponent and difficulty selection
+      mock_cli.fake_user_inputs = ['2', '3', '5'] # opponent and difficulty selection
       game_configurator.create_a_game
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
       expect(action[:parameters][0][:user_interface]).to eq ui
       expect(action[:parameters][0][:strategy]).to be_an_instance_of MinimaxStrategy
+    end
+
+    it 'should create game with selected width' do
+      game_configurator = GameConfigurator.new(
+        user_interface: ui,
+        input_validator: InputValidator.new,
+        game_generator: mock_game_generator,
+        messenger: messenger
+      )
+
+      mock_cli.fake_user_inputs = ['2', '3', '5'] # opponent, difficulty, and size selections
+      game_configurator.create_a_game
+
+      action = mock_game_generator.triggered_actions[0]
+      expect(action[:method]).to eq 'create_a_game'
+      expect(action[:parameters][0][:user_interface]).to eq ui
+      expect(action[:parameters][0][:strategy]).to be_an_instance_of MinimaxStrategy
+      expect(action[:parameters][0][:width]).to eq 5
     end
   end
 end
