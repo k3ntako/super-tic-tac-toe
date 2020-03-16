@@ -34,7 +34,7 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :human
+      expect(action[:parameters][0][:strategy]).to eq nil
       expect(action[:parameters][0][:user_interface]).to eq ui
     end
 
@@ -45,7 +45,7 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :computer
+      expect(action[:parameters][0][:strategy]).to be_truthy
       expect(action[:parameters][0][:user_interface]).to eq ui
     end
 
@@ -68,7 +68,7 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :computer
+      expect(action[:parameters][0][:strategy]).to be_truthy
       expect(action[:parameters][0][:user_interface]).to eq ui
     end
 
@@ -85,7 +85,6 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :computer
       expect(action[:parameters][0][:user_interface]).to eq ui
       expect(action[:parameters][0][:strategy]).to be_an_instance_of EasyStrategy
     end
@@ -103,7 +102,6 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :computer
       expect(action[:parameters][0][:user_interface]).to eq ui
       expect(action[:parameters][0][:strategy]).to be_an_instance_of MediumStrategy
     end
@@ -121,7 +119,6 @@ RSpec.describe GameConfigurator do
 
       action = mock_game_generator.triggered_actions[0]
       expect(action[:method]).to eq 'create_a_game'
-      expect(action[:parameters][0][:opponent]).to eq :computer
       expect(action[:parameters][0][:user_interface]).to eq ui
       expect(action[:parameters][0][:strategy]).to be_an_instance_of MinimaxStrategy
     end

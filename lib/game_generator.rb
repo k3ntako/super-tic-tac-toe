@@ -9,8 +9,8 @@ require_relative './computer_player'
 require_relative './board'
 
 class GameGenerator
-  def create_a_game(user_interface:, opponent:, strategy:)
-    opponent_player = if opponent == :human
+  def create_a_game(user_interface:, strategy:)
+    opponent_player = if strategy.nil?
                         HumanPlayer.new(user_interface, 'O', InputValidator.new)
                       else
                         ComputerPlayer.new(mark: 'O', strategy: strategy)

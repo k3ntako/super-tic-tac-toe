@@ -15,7 +15,7 @@ class GameConfigurator
 
     strategy = get_selection(message: :ask_for_difficulty, method: resolve_strategy) if opponent == :computer
 
-    game_generator.create_a_game(user_interface: user_interface, opponent: opponent, strategy: strategy)
+    game_generator.create_a_game(user_interface: user_interface, strategy: strategy)
   end
 
   private
