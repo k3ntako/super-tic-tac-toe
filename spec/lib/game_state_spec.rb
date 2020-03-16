@@ -4,16 +4,16 @@ require_relative '../../lib/input_validator'
 require_relative './mock_classes/cli_mock'
 
 RSpec.describe GameState do
-  let(:ui) { UserInterface.new(TestCLI.new) }
+  let(:mock_cli) { TestCLI.new }
+  let(:ui) { UserInterface.new(mock_cli) }
   let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
   let(:board) { Board.new }
   let(:input_validator) { InputValidator.new }
-  let(:players) { [HumanPlayer.new(ui, 'X'), HumanPlayer.new(ui, 'O')] }
+  let(:players) { [HumanPlayer.new(ui, 'X', InputValidator.new), HumanPlayer.new(ui, 'O', InputValidator.new)] }
   let(:game_state) do
     GameState.new(
       game_messenger: game_messenger,
       game_end_evaluator: GameEndEvaluator.new,
-      input_validator: input_validator,
       board: board,
       players: players
     )
@@ -45,9 +45,8 @@ RSpec.describe GameState do
       allow(input_validator).to receive(:input_error).and_return nil
       allow(input_validator).to receive(:position_error).and_return nil
 
-      pos_str = '9'
-      expect(player_one).to receive(:get_move).and_return pos_str
-      expect(board).to receive(:update).with(player_one.mark, pos_str)
+      mock_cli.fake_user_inputs = ['1']
+      expect(board).to receive(:update).with(player_one.mark, '1')
 
       game_state.player_move
     end
@@ -62,10 +61,8 @@ RSpec.describe GameState do
 
       allow(game_state).to receive(:display_board_with_messages)
 
-      invalid_pos_str = 'abc'
-      pos_str = '9'
-      expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
-      expect(board).to receive(:update).with(player_one.mark, pos_str)
+      mock_cli.fake_user_inputs = ['abc', '5']
+      expect(board).to receive(:update).with(player_one.mark, '5')
 
       game_state.player_move
     end
@@ -80,10 +77,14 @@ RSpec.describe GameState do
 
       allow(game_state).to receive(:display_board_with_messages)
 
-      invalid_pos_str = '1'
-      pos_str = '9'
-      expect(player_one).to receive(:get_move).and_return(invalid_pos_str, pos_str)
-      expect(board).to receive(:update).with(player_one.mark, pos_str)
+      board.instance_variable_set(:@board, [
+                                    ['X', nil, nil],
+                                    [nil, nil, nil],
+                                    [nil, nil, nil]
+                                  ])
+
+      mock_cli.fake_user_inputs = ['1', '9']
+      expect(board).to receive(:update).with(player_one.mark, '9')
 
       game_state.player_move
     end

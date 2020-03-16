@@ -3,7 +3,7 @@ class Game
     @game_state = game_state
   end
 
-  def start
+  def play
     one_turn until @game_state.game_over?
 
     exit_game

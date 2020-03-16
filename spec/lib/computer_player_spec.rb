@@ -1,11 +1,18 @@
 require_relative '../../lib/computer_player'
 
 RSpec.describe ComputerPlayer do
-  let(:computer) { ComputerPlayer.new(mark: 'X') }
+  let(:board) { Board.new }
+  let(:easy_strategy) { EasyStrategy.new }
+  let(:computer) { ComputerPlayer.new(mark: 'O', strategy: easy_strategy) }
 
-  describe 'get_move' do
-    it 'should return random number available on the board' do
-      10.times { expect(computer.get_move).to be_between(1, 9) }
+  describe 'make_move' do
+    it 'should update board' do
+      expect(easy_strategy).to receive(:get_move).and_return '2'
+
+      position = computer.make_move(board: board)
+
+      expect(position).to eq '2'
+      expect(board.state[0][1]).to eq 'O'
     end
   end
 end

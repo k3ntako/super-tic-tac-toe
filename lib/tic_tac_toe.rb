@@ -13,7 +13,7 @@ class TicTacToe
     display_welcome
 
     game = create_a_game
-    game.start
+    game.play
   end
 
   private

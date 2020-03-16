@@ -42,6 +42,12 @@ To run the linter:
   $ bundle exec rubocop
 ```
 
+To automatically fix issues:
+- More [here](https://rubocop.readthedocs.io/en/latest/auto_correct/)
+```
+  $ rubocop --safe-auto-correct
+```
+
 ## Built With
 
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/) v2.7.0

@@ -10,11 +10,11 @@ require_relative '../../spec/lib/mock_classes/cli_mock'
 test_cli = nil
 
 When(/^I am setting up the game$/) do
-  allow_any_instance_of(GameState).to receive(:check_for_error).and_return(nil)
-  allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, false, true)
+  allow_any_instance_of(InputValidator).to receive(:input_error).and_return(nil)
+  allow_any_instance_of(GameState).to receive(:game_over?).and_return(true) # ends game early
 
   test_cli = TestCLI.new
-  test_cli.fake_user_inputs = ['1', '2', '1'] # first input is for selecting human as opponent
+  test_cli.fake_user_inputs = ['1'] # selecting human as opponent
 
   ui = UserInterface.new(test_cli)
   messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)

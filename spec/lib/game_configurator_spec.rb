@@ -20,7 +20,8 @@ RSpec.describe GameConfigurator do
 
   describe 'create_a_game' do
     it 'should ask user if they would like to play a computer or a human' do
-      mock_cli.fake_user_inputs = ['2']
+      mock_cli.fake_user_inputs = ['2', '1']
+      allow(game_configurator).to receive(:get_strategy)
 
       game_configurator.create_a_game
 
@@ -40,6 +41,7 @@ RSpec.describe GameConfigurator do
 
     it 'should create a game with computer if user picks computer as the opponent' do
       mock_cli.fake_user_inputs = ['2']
+      allow(game_configurator).to receive(:get_strategy)
 
       game_configurator.create_a_game
 
@@ -51,6 +53,7 @@ RSpec.describe GameConfigurator do
 
     it 'should keep asking for an opponent until the user inputs a valid response' do
       mock_cli.fake_user_inputs = ['10', 'akj', '!', '', '2']
+      allow(game_configurator).to receive(:get_strategy)
 
       game_configurator.create_a_game
 
