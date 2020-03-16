@@ -130,4 +130,48 @@ RSpec.describe GameEndEvaluator do
       expect(is_game_over).to eq true
     end
   end
+
+  describe 'find_winner' do
+    it 'should return horizontal winner' do
+      board.instance_variable_set(
+        :@board,
+        [
+          ['X', 'X', 'X'],
+          ['O', 'O', 'X'],
+          ['O', 'X', 'O']
+        ]
+      )
+
+      winner = game_end_evaluator.find_winner(board: board)
+      expect(winner).to eq 'X'
+    end
+
+    it 'should return horizontal winner' do
+      board.instance_variable_set(
+        :@board,
+        [
+          ['X', 'X', 'O'],
+          ['O', 'X', 'X'],
+          ['O', 'X', 'O']
+        ]
+      )
+
+      winner = game_end_evaluator.find_winner(board: board)
+      expect(winner).to eq 'X'
+    end
+
+    it 'should return horizontal winner' do
+      board.instance_variable_set(
+        :@board,
+        [
+          ['X', 'X', 'O'],
+          ['X', 'O', 'X'],
+          ['O', 'X', 'O']
+        ]
+      )
+
+      winner = game_end_evaluator.find_winner(board: board)
+      expect(winner).to eq 'O'
+    end
+  end
 end

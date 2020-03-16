@@ -7,10 +7,13 @@ class MockGameConfigurator
     @last_game_created = nil
   end
 
-  def create_a_game
-    @triggered_actions.push 'create_a_game'
+  def create_a_game(*args)
+    @triggered_actions.push(
+      method: 'create_a_game',
+      parameters: args
+    )
 
-    @last_game_created = MockGame.new(game_state: nil, players: %i[human human])
+    @last_game_created = MockGame.new
     @last_game_created
   end
 end

@@ -38,7 +38,7 @@ RSpec.describe TicTacToe do
     it 'should create new game' do
       tic_tac_toe.start
 
-      expect(mock_game_configurator.triggered_actions[0]).to eq('create_a_game')
+      expect(mock_game_configurator.triggered_actions[0][:method]).to eq('create_a_game')
     end
 
     it 'should play game' do

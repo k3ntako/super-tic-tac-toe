@@ -1,8 +1,7 @@
 class MockGame
-  attr_reader :triggered_actions, :players
+  attr_reader :triggered_actions
 
-  def initialize(game_state:, players:)
-    @players = players
+  def initialize(game_state: nil)
     @triggered_actions = []
   end
 
