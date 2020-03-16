@@ -46,30 +46,27 @@ class MinimaxStrategy
 
     return 0 if board.find_available_positions.length.zero?
 
-    if is_max
-      best = -1000
-      board.find_available_positions.each do |position|
-        board.update(player, position)
+    continue_minimax(is_max: is_max, board: board, depth: depth)
+  end
 
-        best = [
-          best,
-          minimax(board: board, depth: depth + 1, is_max: false)
-        ].max
+  def continue_minimax(is_max:, board:, depth:)
+    best = nil
+    current_player = is_max ? player : opponent
 
-        board.update(nil, position) # undo move
-      end
-    else
-      best = 1000
-      board.find_available_positions.each do |position|
-        board.update(opponent, position)
+    board.find_available_positions.each do |position|
+      board.update(current_player, position)
 
-        best = [
-          best,
-          minimax(board: board, depth: depth + 1, is_max: false)
-        ].min
+      potential_move = minimax(board: board, depth: depth + 1, is_max: !is_max)
 
-        board.update(nil, position) # undo move
-      end
+      best = if best.nil?
+               potential_move
+             elsif is_max
+               [best, potential_move].max
+             else
+               [best, potential_move].min
+             end
+
+      board.update(nil, position) # undo move
     end
 
     best
