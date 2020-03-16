@@ -1,14 +1,14 @@
 class Board
-  def initialize
-    @board = [
-      [nil, nil, nil],
-      [nil, nil, nil],
-      [nil, nil, nil]
-    ]
+  def initialize(width: 3)
+    @board = generate_empty_board(width: width)
   end
 
   def state
-    @board
+    board
+  end
+
+  def width
+    board.length
   end
 
   def position_available?(position)
@@ -38,6 +38,8 @@ class Board
 
   private
 
+  attr_reader :board
+
   def rows
     @board
   end
@@ -55,12 +57,12 @@ class Board
 
   def position_to_row(position)
     zero_based_position = position.to_i - 1
-    (zero_based_position / 3).ceil # 3 is number of cols
+    (zero_based_position / board.length).ceil
   end
 
   def position_to_col(position)
     zero_based_position = position.to_i - 1
-    zero_based_position % 3 # 3 is number of rows
+    zero_based_position % board.length
   end
 
   def left_to_right_diagonal
@@ -73,5 +75,12 @@ class Board
     (0..@board.length - 1).map do |idx|
       @board[idx][@board.length - 1 - idx]
     end
+  end
+
+  def generate_empty_board(width:)
+    board = []
+    width.times { |_| board.push(Array.new(width, nil)) }
+
+    board
   end
 end

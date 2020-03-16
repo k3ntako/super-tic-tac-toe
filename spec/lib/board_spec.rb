@@ -77,4 +77,18 @@ RSpec.describe Board do
       ]
     end
   end
+
+  describe 'board size' do
+    it 'should create a board with the specified width' do
+      board = Board.new(width: 5)
+
+      expect(board.state.length).to eq 5
+      expect(board.state[0].length).to eq 5
+
+      board = Board.new(width: 9)
+
+      expect(board.state.length).to eq 9
+      expect(board.state[0].length).to eq 9
+    end
+  end
 end

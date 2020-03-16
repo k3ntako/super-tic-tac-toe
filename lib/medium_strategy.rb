@@ -12,7 +12,7 @@ class MediumStrategy
     end
 
     indices = find_position_one_away_from_winning(board: board)
-    return convert_to_position(indices: indices) unless indices.nil?
+    return convert_to_position(indices: indices, width: board.state.length) unless indices.nil?
 
     rand(1...9)
   end
@@ -40,28 +40,33 @@ class MediumStrategy
     nil
   end
 
-  def convert_to_position(indices:)
+  def convert_to_position(indices:, width:)
     matrix_idx, array_idx, position_idx = indices
 
-    return convert_to_position_from_rows(array_idx: array_idx, position_idx: position_idx) if matrix_idx.zero?
-
-    return convert_to_position_from_cols(array_idx: array_idx, position_idx: position_idx) if matrix_idx == 1
-
-    convert_to_position_from_diagnoals(array_idx: array_idx, position_idx: position_idx) if matrix_idx == 2
+    [
+      convert_to_position_from_rows,
+      convert_to_position_from_cols,
+      convert_to_position_from_diagnoals
+    ][matrix_idx].call(array_idx, position_idx, width)
   end
 
-  def convert_to_position_from_rows(array_idx:, position_idx:)
-    array_idx * 3 + position_idx + 1
+  def convert_to_position_from_rows
+    proc do |array_idx, position_idx, width|
+      array_idx * width + position_idx + 1
+    end
   end
 
-  def convert_to_position_from_cols(array_idx:, position_idx:)
-    array_idx + position_idx * 3 + 1
+  def convert_to_position_from_cols
+    proc do |array_idx, position_idx, width|
+      array_idx + position_idx * width + 1
+    end
   end
 
-  def convert_to_position_from_diagnoals(array_idx:, position_idx:)
-    board_width = 3
-    mutlipler = board_width + 1 - (array_idx * 2)
+  def convert_to_position_from_diagnoals
+    proc do |array_idx, position_idx, width|
+      mutlipler = width + 1 - (array_idx * 2)
 
-    position_idx * mutlipler + array_idx * mutlipler + 1
+      position_idx * mutlipler + array_idx * mutlipler + 1
+    end
   end
 end
