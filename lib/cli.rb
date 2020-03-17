@@ -58,12 +58,12 @@ class CLI
       text = (row_base + square_idx + 1).to_s
     end
 
-    text = pad_str(text: text, width: width)
+    text = center_square_text(text: text, width: width)
 
     text
   end
 
-  def pad_str(text:, width:)
+  def center_square_text(text:, width:)
     length_difference = (width**2).to_s.length - text.length
     length_difference.times do |idx| # centers text as best as possible
       if idx.even?

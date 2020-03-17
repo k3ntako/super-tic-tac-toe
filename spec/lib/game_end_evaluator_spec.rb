@@ -16,7 +16,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return false for a board without a winner' do
         board = Board.new(width: 3)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             [nil, 'O', 'X'],
             ['X', 'X', 'O'],
@@ -31,7 +31,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return false for a larger board without a winner' do
         board = Board.new(width: 5)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             [nil, 'O', 'X', 'X', nil],
             ['X', 'X', 'O', nil, nil],
@@ -50,7 +50,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the horizontal winner' do
         board = Board.new(width: 3)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             [nil, 'O', 'O'],
             ['X', 'X', 'X'],
@@ -65,7 +65,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the horizontal winner - larger board' do
         board = Board.new(width: 6)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             [nil, 'O', 'O', nil, nil, nil],
             ['X', 'X', 'X', nil, nil, nil],
@@ -84,7 +84,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the vertical winner' do
         board = Board.new(width: 3)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             ['O', 'X', 'O'],
             ['O', nil, 'X'],
@@ -99,7 +99,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the vertical winner - larger board' do
         board = Board.new(width: 4)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             ['O', 'X', 'X', nil],
             [nil, 'O', 'X', nil],
@@ -115,7 +115,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the diagonal winner from left to right' do
         board = Board.new(width: 3)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             ['X', 'X', 'O'],
             ['O', 'X', 'X'],
@@ -130,7 +130,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the diagonal winner from right to left' do
         board = Board.new(width: 3)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             [nil, 'X', 'O'],
             ['X', 'O', 'X'],
@@ -145,7 +145,7 @@ RSpec.describe GameEndEvaluator do
       it 'should return true for the diagonal winner - larger board' do
         board = Board.new(width: 5)
         board.instance_variable_set(
-          :@board,
+          :@state,
           [
             ['O', 'X', 'O', nil, nil],
             ['X', 'O', 'X', nil, nil],
@@ -165,7 +165,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return false if there are moves left and there is no winner' do
       board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           [nil, 'X', 'O'],
           ['O', 'X', 'X'],
@@ -180,7 +180,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return true if there are moves left but there is a winner' do
       board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           [nil, 'X', 'O'],
           ['O', 'X', 'X'],
@@ -195,7 +195,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return true when there are no moves left' do
       board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['X', 'X', 'O'],
           ['O', 'X', 'X'],
@@ -212,7 +212,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return horizontal winner' do
       board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['X', 'X', 'X'],
           ['O', 'O', 'X'],
@@ -227,7 +227,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return vertical winner' do
       board = Board.new(width: 5)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['X', 'X', 'O', nil, nil],
           ['O', 'X', 'O', 'X', 'X'],
@@ -244,7 +244,7 @@ RSpec.describe GameEndEvaluator do
     it 'should return horizontal winner' do
       board = Board.new(width: 6)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['O', 'O', nil, nil, nil, nil],
           ['O', 'O', 'X', nil, nil, nil],

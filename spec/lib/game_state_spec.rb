@@ -77,7 +77,7 @@ RSpec.describe GameState do
 
       allow(game_state).to receive(:display_board_with_messages)
 
-      board.instance_variable_set(:@board, [
+      board.instance_variable_set(:@state, [
                                     ['X', nil, nil],
                                     [nil, nil, nil],
                                     [nil, nil, nil]

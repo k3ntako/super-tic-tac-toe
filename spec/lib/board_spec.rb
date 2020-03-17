@@ -54,7 +54,7 @@ RSpec.describe Board do
 
   describe 'find_available_positions' do
     it 'should return an array of positions that are nil' do
-      board.instance_variable_set(:@board, BOARD_WITH_MARKS)
+      board.instance_variable_set(:@state, BOARD_WITH_MARKS)
 
       expect(board.find_available_positions).to eq [3, 4, 6, 7]
     end
@@ -62,7 +62,7 @@ RSpec.describe Board do
 
   describe 'rows_cols_diagonals' do
     it 'should return an array of matrices (arrays or arrays)' do
-      board.instance_variable_set(:@board, BOARD_WITH_MARKS)
+      board.instance_variable_set(:@state, BOARD_WITH_MARKS)
 
       expect(board.rows_cols_diagonals).to eq [
         BOARD_WITH_MARKS, # rows
@@ -95,12 +95,12 @@ RSpec.describe Board do
     it 'should create a board with the specified width' do
       board = Board.new(width: 5)
 
-      expect(board.state.length).to eq 5
+      expect(board.width).to eq 5
       expect(board.state[0].length).to eq 5
 
       board = Board.new(width: 9)
 
-      expect(board.state.length).to eq 9
+      expect(board.width).to eq 9
       expect(board.state[0].length).to eq 9
     end
   end

@@ -12,7 +12,7 @@ RSpec.describe EasyStrategy do
 
     it 'should return random number within the bounds of the board' do
       board = Board.new(width: 3)
-      board.instance_variable_set(:@board, [
+      board.instance_variable_set(:@state, [
                                     ['X', 'X', 'O'],
                                     ['O', 'O', 'X'],
                                     ['X', 'O', nil]

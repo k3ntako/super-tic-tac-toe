@@ -86,7 +86,7 @@ RSpec.describe InputValidator do
         [nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_played_at_one)
+      board.instance_variable_set(:@state, board_played_at_one)
 
       input_validator.move_error(board, 1)
       raise 'Expected error to be thrown'

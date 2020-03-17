@@ -55,7 +55,7 @@ RSpec.describe Game do
       ]
 
       board = Board.new(width: 3)
-      board.instance_variable_set(:@board, board_with_winner)
+      board.instance_variable_set(:@state, board_with_winner)
       game_state.instance_variable_set(:@board, board)
       game_state.instance_variable_set(:@current_player_idx, 1)
 

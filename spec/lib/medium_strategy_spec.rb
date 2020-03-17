@@ -22,7 +22,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
 
       10.times do
         position = medium_strategy.get_move(board: board)
@@ -38,7 +38,7 @@ RSpec.describe MediumStrategy do
         [nil, 'O', nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 6
     end
 
@@ -54,7 +54,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil, nil, nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 7
     end
 
@@ -66,7 +66,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 7
     end
 
@@ -81,7 +81,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil, nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 31
     end
 
@@ -93,7 +93,7 @@ RSpec.describe MediumStrategy do
         ['O', nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 9
     end
 
@@ -111,7 +111,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil, nil, nil, nil, nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 81
     end
 
@@ -123,7 +123,7 @@ RSpec.describe MediumStrategy do
         [nil, 'X', nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 3
     end
 
@@ -136,7 +136,7 @@ RSpec.describe MediumStrategy do
         [nil, 'X', nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 4
     end
 
@@ -148,7 +148,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 8
     end
 
@@ -165,7 +165,7 @@ RSpec.describe MediumStrategy do
         [nil, nil, nil, nil, nil, nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 57
     end
 
@@ -177,7 +177,7 @@ RSpec.describe MediumStrategy do
         ['X', nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 9
     end
 
@@ -192,7 +192,7 @@ RSpec.describe MediumStrategy do
         ['O', nil, nil, nil, 'O', nil]
       ]
 
-      board.instance_variable_set(:@board, board_state)
+      board.instance_variable_set(:@state, board_state)
       expect(medium_strategy.get_move(board: board)).to eq 6
     end
   end
