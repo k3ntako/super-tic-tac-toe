@@ -33,8 +33,7 @@ class MediumStrategy
 
     board.rows_cols_diagonals.each_with_index do |matrix, m_idx|
       matrix.each_with_index do |array, a_idx|
-        one_away = array.length - 1
-        contains_two_and_a_nil = [array.count('X'), array.count('O')].include?(one_away) && array.include?(nil)
+        contains_two_and_a_nil = array.uniq.length == 2 && array.count(nil) == 1
         next unless contains_two_and_a_nil
 
         matrix_idx = m_idx
