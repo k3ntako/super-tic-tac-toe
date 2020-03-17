@@ -11,22 +11,24 @@ class GameConfigurator
   end
 
   def create_a_game
-    opponent = get_selection(message: :ask_for_opponent_selection, method: resolve_opponent)
+    opponent = get_selection(message: :ask_for_opponent_selection, resolve: resolve_opponent)
 
-    strategy = get_selection(message: :ask_for_difficulty, method: resolve_strategy) if opponent == :computer
+    strategy = get_selection(message: :ask_for_difficulty, resolve: resolve_strategy) if opponent == :computer
 
-    game_generator.create_a_game(user_interface: user_interface, opponent: opponent, strategy: strategy)
+    width = get_selection(message: :ask_for_board_width, resolve: resolve_width)
+
+    game_generator.create_a_game(user_interface: user_interface, strategy: strategy, width: width)
   end
 
   private
 
   attr_reader :user_interface, :input_validator, :game_generator, :messenger
 
-  def get_selection(message:, method:)
+  def get_selection(message:, resolve:)
     loop do
       begin
         selection = prompt(message: message)
-        selected_output = method.call(Integer(selection))
+        selected_output = resolve.call(Integer(selection))
 
         return selected_output unless selected_output.nil?
       rescue IntegerError # rubocop:disable Lint/SuppressedException
@@ -69,6 +71,14 @@ class GameConfigurator
       output = EasyStrategy.new if selection == 1
       output = MediumStrategy.new if selection == 2
       output = MinimaxStrategy.new(game_end_evaluator: GameEndEvaluator.new) if selection == 3
+
+      output
+    end
+  end
+
+  def resolve_width
+    proc do |selection|
+      output = selection if selection.between?(3, 12) # inclusive
 
       output
     end

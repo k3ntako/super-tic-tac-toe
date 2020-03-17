@@ -8,9 +8,9 @@ RSpec.describe MinimaxStrategy do
 
   describe 'get_move' do
     it 'should choosing winning move' do
-      board = Board.new
+      board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['O', 'O', nil],
           ['X', nil, 'X'],
@@ -23,9 +23,9 @@ RSpec.describe MinimaxStrategy do
     end
 
     it 'should choosing winning move over blocking' do
-      board = Board.new
+      board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['X', 'X', nil],
           ['O', 'O', nil],
@@ -38,9 +38,9 @@ RSpec.describe MinimaxStrategy do
     end
 
     it 'should block given no winning moves' do
-      board = Board.new
+      board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['X', 'X', nil],
           ['O', nil, nil],
@@ -53,9 +53,9 @@ RSpec.describe MinimaxStrategy do
     end
 
     it 'should block given no winning moves' do
-      board = Board.new
+      board = Board.new(width: 3)
       board.instance_variable_set(
-        :@board,
+        :@state,
         [
           ['O', nil, 'X'],
           [nil, 'X', nil],

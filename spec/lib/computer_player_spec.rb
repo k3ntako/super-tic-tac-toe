@@ -1,7 +1,7 @@
 require_relative '../../lib/computer_player'
 
 RSpec.describe ComputerPlayer do
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
   let(:easy_strategy) { EasyStrategy.new }
   let(:computer) { ComputerPlayer.new(mark: 'O', strategy: easy_strategy) }
 

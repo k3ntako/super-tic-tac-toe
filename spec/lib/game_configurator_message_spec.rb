@@ -20,5 +20,13 @@ RSpec.describe GameConfiguratorMessage do
         "Choose the computer's difficulty level.\nEnter 1 for easy, 2 for medium, and 3 for impossible:"
       )
     end
+
+    it 'should return string asking for the size of the board' do
+      output_message = game_configurator_message.generate(key: :ask_for_board_width)
+
+      expect(output_message).to eq(
+        "How wide do you want the baord to be?\nEnter a number from 3 to 12 (3 is standard):"
+      )
+    end
   end
 end

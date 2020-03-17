@@ -14,7 +14,7 @@ When(/^I am setting up the game$/) do
   allow_any_instance_of(GameState).to receive(:game_over?).and_return(true) # ends game early
 
   test_cli = TestCLI.new
-  test_cli.fake_user_inputs = ['1'] # selecting human as opponent
+  test_cli.fake_user_inputs = ['1', '3'] # selecting human as opponent
 
   ui = UserInterface.new(test_cli)
   messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)

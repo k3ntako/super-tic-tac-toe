@@ -5,7 +5,7 @@ RSpec.describe HumanPlayer do
   let(:mock_cli) { TestCLI.new }
   let(:user_interface) { UserInterface.new(mock_cli) }
   let(:input_validator) { InputValidator.new }
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
   let(:player) { HumanPlayer.new(user_interface, 'X', input_validator) }
 
   describe 'make_move' do

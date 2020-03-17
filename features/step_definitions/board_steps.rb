@@ -15,7 +15,7 @@ When(/^I start the game$/) do
   allow_any_instance_of(GameState).to receive(:game_over?).and_return(false, true) # ends game early
 
   test_cli = TestCLI.new
-  test_cli.fake_user_inputs = ['1', '1'] # opponent selection and position selection
+  test_cli.fake_user_inputs = ['1', '3', '6'] # opponent, board size, and position selections
 
   ui = UserInterface.new(test_cli)
   messenger = Messenger.new(user_interface: ui, message_generator: GameConfiguratorMessage.new)
@@ -34,9 +34,9 @@ When(/^I start the game$/) do
 end
 
 Then(/^I should see the empty board$/) do
-  expect(test_cli.displayed_messages[4]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
+  expect(test_cli.displayed_messages[6]).to eq 'nil,nil,nil,nil,nil,nil,nil,nil,nil'
 end
 
 And(/^I should be prompted to make a move$/) do
-  expect(test_cli.displayed_messages[5]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
+  expect(test_cli.displayed_messages[7]).to eq 'Enter a number to make a move in the corresponding square (X\'s turn):'
 end

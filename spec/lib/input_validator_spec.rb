@@ -7,7 +7,7 @@ RSpec.describe InputValidator do
   end
   let(:game_messenger) { GameMessenger.new(user_interface: ui, message_generator: GameMessage.new) }
   let(:input_validator) { InputValidator.new }
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
 
   describe 'move_error' do
     it 'should return true given an integer as a string' do
@@ -86,7 +86,7 @@ RSpec.describe InputValidator do
         [nil, nil, nil]
       ]
 
-      board.instance_variable_set(:@board, board_played_at_one)
+      board.instance_variable_set(:@state, board_played_at_one)
 
       input_validator.move_error(board, 1)
       raise 'Expected error to be thrown'

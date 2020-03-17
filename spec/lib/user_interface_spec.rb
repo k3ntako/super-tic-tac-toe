@@ -27,7 +27,7 @@ RSpec.describe UserInterface do
 
   describe 'display_board' do
     it 'should print the board' do
-      board = Board.new
+      board = Board.new(width: 3)
       user_interface.display_board board.state
 
       test_cli = user_interface.instance_variable_get(:@platform)

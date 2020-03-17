@@ -3,7 +3,7 @@ require_relative '../../lib/messenger'
 require_relative '../../lib/game_message'
 
 RSpec.describe Messenger do
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
   let(:test_cli) { TestCLI.new }
   let(:ui) { UserInterface.new(test_cli) }
   let(:game_message) { GameMessage.new }

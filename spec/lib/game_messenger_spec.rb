@@ -30,7 +30,7 @@ class TestUserInterface
 end
 
 RSpec.describe GameMessenger do
-  let(:board) { Board.new }
+  let(:board) { Board.new(width: 3) }
   let(:test_user_interface) { TestUserInterface.new }
   let(:game_message) { GameMessage.new }
   let(:game_messenger) do
