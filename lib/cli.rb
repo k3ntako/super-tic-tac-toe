@@ -43,7 +43,7 @@ class CLI
     end
 
     # add row divider
-    row_str += "-----------\n" if row_idx < (width - 1)
+    row_str += divider(width: width) if row_idx < (width - 1)
 
     row_str
   end
@@ -74,5 +74,15 @@ class CLI
     end
 
     text
+  end
+
+  def divider(width:)
+    spaces = 2 * width
+    vertical_dividers = width - 1
+    position_name_length = width * (width**2).to_s.length
+
+    char_count = position_name_length + spaces + vertical_dividers
+
+    '-' * char_count + "\n"
   end
 end
